@@ -8,11 +8,17 @@ https://spacy.io
 # NEO4J:
 https://neo4j.com/
 
-# Data:
+# DATA:
 # OS-Climate:
 https://os-climate.org/data-commons/
+-> Github:
+https://github.com/os-climate
 -> Access:
 https://github.com/os-climate/aicoe-osc-demo/blob/master/docs/access-jh.md
+-> Demo:
+https://github.com/os-climate/aicoe-osc-demo
+jupyterhub-odh-jupyterhub.apps.odh-cl1.apps.os-climate.org
+
 
 # Knowledge Graphs:
 https://medium.com/neo4j/turn-a-harry-potter-book-into-a-knowledge-graph-ffc1c45afcc8
