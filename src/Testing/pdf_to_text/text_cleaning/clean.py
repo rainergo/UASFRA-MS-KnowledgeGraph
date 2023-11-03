@@ -128,7 +128,7 @@ class CleanText:
               rem_dt_only_lines: bool = True, rem_address_info: bool = True, rem_uppercase_words: bool = True,
               rem_repeat_chars: bool = True, rem_whitespace: bool = True) -> str:
 
-        text = self.rem_uppercase_words(text=text) if rem_uppercase_words else text
+        # text = self.rem_uppercase_words(text=text) if rem_uppercase_words else text
         text = self.sub_umlaute(text=text) if sub_umlaute else text
         text = self.sub_accent_chars(text=text) if sub_accent_chars else text
         text = self.sub_currency(text=text) if sub_curr else text

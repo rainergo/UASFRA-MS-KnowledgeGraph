@@ -14,17 +14,24 @@ with open(file=pathlib.Path(path_data, f"{company}_text_with_ents_clean.txt"), m
 
 #%%
 # Replacements
-replacements = {" us ": " " + company + " ",
-                " Us ": " " + company + " ",
-                "we are": company + " is",
-                "We are": company + " is",
-                " we ": " " + company + " ",
-                " We ": " " + company + " ",
-                " our ": " " + company + "'s ",
-                " Our ": " " + company + "'s "
+replacements = {"Adidas":
+                    {" us ": " " + company + " ",
+                    " Us ": " " + company + " ",
+                    "we are": company + " is",
+                    "We are": company + " is",
+                    " we ": " " + company + " ",
+                    " We ": " " + company + " ",
+                    " our ": " " + company + "'s ",
+                    " Our ": " " + company + "'s "
+                    },
+                "Airbus":
+                    {"The Company": company,
+                    "the Company": company,
+                     " Company ": " " + company + " "
+                    },
                 }
 
-for old, new in replacements.items():
+for old, new in replacements[company].items():
     text = text.replace(old, new)
 
 pprint(text)
@@ -67,6 +74,6 @@ doc_ents = nlp(text=entity_sents)
 
 #%%
 styles = ["ent", "dep"]
-style = styles[0]
+style = styles[1]
 from spacy import displacy
 displacy_output = displacy.serve(doc_ents, style=style, host="localhost", auto_select_port=True)
