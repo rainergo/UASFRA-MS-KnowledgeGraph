@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tp:taxonomyPackage xml:lang="en" xmlns:tp="http://xbrl.org/2016/taxonomy-package" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xbrl.org/2016/taxonomy-package http://www.xbrl.org/2016/taxonomy-package.xsd">
+  <tp:identifier>http://adidasag.com/xbrl/2022/20221231 (E26F4002)</tp:identifier>
+  <tp:name>2022-12-31_adidasAG_report</tp:name>
+  <tp:description>Draft XBRL Taxonomy prepared for the European Standard Electronic Format</tp:description>
+  <tp:version>2022-12-31</tp:version>
+  <tp:publisher>adidas AG</tp:publisher>
+  <tp:publisherURL>http://adidasag.com/xbrl/2022</tp:publisherURL>
+  <tp:publisherCountry>DE</tp:publisherCountry>
+  <tp:publicationDate>2023-02-22</tp:publicationDate>
+  <tp:entryPoints>
+    <tp:entryPoint>
+      <tp:name>adidas AG XBRL Taxonomy for 2022-12-31</tp:name>
+      <tp:description>adidas AG XBRL report for 2022-12-31</tp:description>
+      <tp:entryPointDocument href="http://adidasag.com/xbrl/2022/adidasag-2022-12-31.xsd" />
+      <tp:entryPointDocument href="http://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor-lab-de.xml" />
+      <tp:entryPointDocument href="http://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor-gen-de.xml" />
+      <tp:languages>
+        <tp:language>de</tp:language>
+      </tp:languages>
+    </tp:entryPoint>
+  </tp:entryPoints>
+</tp:taxonomyPackage>

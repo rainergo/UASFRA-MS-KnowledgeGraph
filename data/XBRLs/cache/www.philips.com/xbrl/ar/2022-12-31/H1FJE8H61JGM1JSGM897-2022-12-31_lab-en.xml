@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Document created by Taxxor Disclosure Manager -->
+<linkbase xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.xbrl.org/2003/linkbase">
+  <labelLink xlink:type="extended" xlink:role="http://www.xbrl.org/2003/role/link">
+    <loc xlink:type="locator" xlink:label="esef_cor_NotesAccountingPoliciesAndMandatoryTags" xlink:href="http://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor.xsd#esef_cor_NotesAccountingPoliciesAndMandatoryTags" />
+    <label xlink:type="resource" xlink:label="esef_cor_NotesAccountingPoliciesAndMandatoryTags_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Notes, Accounting Policies And Mandatory Tags</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="esef_cor_NotesAccountingPoliciesAndMandatoryTags" xlink:to="esef_cor_NotesAccountingPoliciesAndMandatoryTags_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInContinuingOperations" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInContinuingOperations" />
+    <label xlink:type="resource" xlink:label="phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInContinuingOperations_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Reclassification adjustments on exchange differences on translation, net of tax in continuing operations</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInContinuingOperations" xlink:to="phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInContinuingOperations_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInDiscontinuedOperations" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInDiscontinuedOperations" />
+    <label xlink:type="resource" xlink:label="phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInDiscontinuedOperations_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Reclassification adjustments on exchange differences on translation, net of tax in discontinued operations</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInDiscontinuedOperations" xlink:to="phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInDiscontinuedOperations_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_PropertyPlantAndEquipmentAndRightOfUseAssets" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_PropertyPlantAndEquipmentAndRightOfUseAssets" />
+    <label xlink:type="resource" xlink:label="phg_PropertyPlantAndEquipmentAndRightOfUseAssets_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Property, plant and equipment and right-of-use assets</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_PropertyPlantAndEquipmentAndRightOfUseAssets" xlink:to="phg_PropertyPlantAndEquipmentAndRightOfUseAssets_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_EquityOther" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_EquityOther" />
+    <label xlink:type="resource" xlink:label="phg_EquityOther_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Equity, other</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_EquityOther" xlink:to="phg_EquityOther_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_DepreciationAmortizationAndImpairmentOfFixedAssets" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_DepreciationAmortizationAndImpairmentOfFixedAssets" />
+    <label xlink:type="resource" xlink:label="phg_DepreciationAmortizationAndImpairmentOfFixedAssets_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Depreciation, amortization, and impairment of fixed assets</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_DepreciationAmortizationAndImpairmentOfFixedAssets" xlink:to="phg_DepreciationAmortizationAndImpairmentOfFixedAssets_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_DecreaseIncreaseInReceivablesAndOtherCurrentAssets" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_DecreaseIncreaseInReceivablesAndOtherCurrentAssets" />
+    <label xlink:type="resource" xlink:label="phg_DecreaseIncreaseInReceivablesAndOtherCurrentAssets_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Decrease (increase) in receivables and other current assets</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_DecreaseIncreaseInReceivablesAndOtherCurrentAssets" xlink:to="phg_DecreaseIncreaseInReceivablesAndOtherCurrentAssets_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_IncreaseDecreaseInAccountsPayableAccruedAndOtherCurrentLiabilities" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_IncreaseDecreaseInAccountsPayableAccruedAndOtherCurrentLiabilities" />
+    <label xlink:type="resource" xlink:label="phg_IncreaseDecreaseInAccountsPayableAccruedAndOtherCurrentLiabilities_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Increase (decrease) in accounts payable, accrued and other current liabilities</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_IncreaseDecreaseInAccountsPayableAccruedAndOtherCurrentLiabilities" xlink:to="phg_IncreaseDecreaseInAccountsPayableAccruedAndOtherCurrentLiabilities_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_DecreaseIncreaseInNonCurrentReceivablesAndOtherAssets" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_DecreaseIncreaseInNonCurrentReceivablesAndOtherAssets" />
+    <label xlink:type="resource" xlink:label="phg_DecreaseIncreaseInNonCurrentReceivablesAndOtherAssets_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Decrease (increase) in non-current receivables and other assets</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_DecreaseIncreaseInNonCurrentReceivablesAndOtherAssets" xlink:to="phg_DecreaseIncreaseInNonCurrentReceivablesAndOtherAssets_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_NetCapitalExpenditures" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_NetCapitalExpenditures" />
+    <label xlink:type="resource" xlink:label="phg_NetCapitalExpenditures_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Net capital expenditures</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_NetCapitalExpenditures" xlink:to="phg_NetCapitalExpenditures_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_NetProceedsFromCashUsedForDerivativesAndCurrentFinancialAssets" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_NetProceedsFromCashUsedForDerivativesAndCurrentFinancialAssets" />
+    <label xlink:type="resource" xlink:label="phg_NetProceedsFromCashUsedForDerivativesAndCurrentFinancialAssets_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Net proceeds from (cash used for) derivatives and current financial assets</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_NetProceedsFromCashUsedForDerivativesAndCurrentFinancialAssets" xlink:to="phg_NetProceedsFromCashUsedForDerivativesAndCurrentFinancialAssets_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_IncreaseDecreaseInCashAndCashEquivalentsContinuingOperations" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_IncreaseDecreaseInCashAndCashEquivalentsContinuingOperations" />
+    <label xlink:type="resource" xlink:label="phg_IncreaseDecreaseInCashAndCashEquivalentsContinuingOperations_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Increase (decrease) in cash and cash equivalents, continuing operations</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_IncreaseDecreaseInCashAndCashEquivalentsContinuingOperations" xlink:to="phg_IncreaseDecreaseInCashAndCashEquivalentsContinuingOperations_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_MinorityBuyOut" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_MinorityBuyOut" />
+    <label xlink:type="resource" xlink:label="phg_MinorityBuyOut_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Minority buy-out</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_MinorityBuyOut" xlink:to="phg_MinorityBuyOut_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_IncreaseDecreaseForwardContracts" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_IncreaseDecreaseForwardContracts" />
+    <label xlink:type="resource" xlink:label="phg_IncreaseDecreaseForwardContracts_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Increase (decrease) forward contracts</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_IncreaseDecreaseForwardContracts" xlink:to="phg_IncreaseDecreaseForwardContracts_lbl" />
+    <loc xlink:type="locator" xlink:label="phg_EquityOtherMember" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31.xsd#phg_EquityOtherMember" />
+    <label xlink:type="resource" xlink:label="phg_EquityOtherMember_lbl" xml:lang="en" xlink:role="http://www.xbrl.org/2003/role/label">Other equity components [Member]</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="phg_EquityOtherMember" xlink:to="phg_EquityOtherMember_lbl" />
+  </labelLink>
+</linkbase>
