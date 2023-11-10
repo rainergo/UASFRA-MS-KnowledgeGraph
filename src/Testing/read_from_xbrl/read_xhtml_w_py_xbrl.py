@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 from src.settings import path_data
 
 #%%
-name = 'Adidas'
+name = 'Philips'
 
 #%%
 folder_path = pathlib.Path(path_data, 'XBRLs', 'cache').as_posix()
@@ -32,3 +32,4 @@ print(inst.json(override_fact_ids=True))
 # save to file
 json_path = pathlib.Path(folder_path, f'{name}.json').as_posix()
 inst.json(file_path=json_path)
+print(f'{json_path} was saved to file.')

@@ -1,7 +1,7 @@
 import pathlib
 
 # PATHS
-path_base = pathlib.Path("D:/A_STUDIUM/PYTHON/UASFRA-MS-PROJDIGI/")
+path_base = pathlib.Path("C:/Users/rainer/PycharmProjects/UASFRA-MS-PROJDIGI")
 path_data = pathlib.Path(path_base, "data/")
 path_pdfs = pathlib.Path(path_data, "pdfs/")
 
