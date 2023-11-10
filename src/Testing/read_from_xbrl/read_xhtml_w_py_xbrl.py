@@ -3,7 +3,7 @@ import logging
 import pathlib
 from xbrl.cache import HttpCache
 from xbrl.instance import XbrlParser, XbrlInstance
-# just to see which files are downloaded
+# just to see which research are downloaded
 logging.basicConfig(level=logging.INFO)
 
 from src.settings import path_data
