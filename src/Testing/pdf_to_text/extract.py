@@ -3,7 +3,7 @@ import pandas as pd
 from PyPDF2 import PdfReader
 import pathlib
 
-from src.settings import path_data, path_pdfs, reports
+from settings import path_data, path_pdfs, reports
 
 # %%
 data_dict = {"report_name": list(), "report_page": list(), "company": list(), "text": list()}

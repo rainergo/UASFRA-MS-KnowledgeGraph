@@ -1,9 +1,8 @@
-import re
 import spacy
 import pathlib
 from pprint import pprint
 
-from src.settings import path_data, reports
+from settings import path_data, reports
 
 #%%
 company = "Adidas"

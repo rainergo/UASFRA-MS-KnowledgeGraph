@@ -17,6 +17,10 @@ jupyter = "*"
 coreferee = "*"
 requests-html = "*"
 py-xbrl = "*"
+graphdatascience = "*"
+xmlschema = "*"
+xsdata = {extras = ["lxml", "soap", "cli"], version = "*"}
+xmltodict = "*"
 
 [dev-packages]
 

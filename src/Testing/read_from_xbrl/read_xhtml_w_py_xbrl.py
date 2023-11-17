@@ -6,7 +6,7 @@ from xbrl.instance import XbrlParser, XbrlInstance
 # just to see which research are downloaded
 logging.basicConfig(level=logging.INFO)
 
-from src.settings import path_data
+from settings import path_data
 
 #%%
 name = 'Philips'
