@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 from settings import path_data
 
 #%%
-name = 'Philips'
+name = 'BASF'
 
 #%%
 folder_path = pathlib.Path(path_data, 'XBRLs', 'cache').as_posix()

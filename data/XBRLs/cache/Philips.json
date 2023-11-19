@@ -8494,20 +8494,20 @@
   "documentInfo": {
     "documentType": "https://xbrl.org/2021/xbrl-json",
     "taxonomy": [
-      "http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd",
+      "http://www.philips.com/xbrl/ar/2022-12-31/H1FJE8H61JGM1JSGM897-2022-12-31.xsd",
+      "http://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor.xsd",
       "http://www.esma.europa.eu/taxonomy/ext/technical.xsd",
-      "https://www.xbrl.org/taxonomy/int/lei/2020-07-02/lei-required.xsd",
-      "http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd",
+      "https://www.xbrl.org/taxonomy/int/lei/2020-07-02/lei.xsd",
       "http://www.xbrl.org/2005/xbrldt-2005.xsd",
       "https://www.xbrl.org/dtr/type/2020-01-21/types.xsd",
-      "http://www.philips.com/xbrl/ar/2022-12-31/H1FJE8H61JGM1JSGM897-2022-12-31.xsd",
-      "https://www.xbrl.org/taxonomy/int/lei/2020-07-02/lei.xsd",
-      "http://www.xbrl.org/2003/xl-2003-12-31.xsd",
-      "http://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor.xsd",
+      "http://www.xbrl.org/2003/xlink-2003-12-31.xsd",
       "http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd",
+      "http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd",
+      "http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd",
       "http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd",
+      "https://www.xbrl.org/taxonomy/int/lei/2020-07-02/lei-required.xsd",
       "http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd",
-      "http://www.xbrl.org/2003/xlink-2003-12-31.xsd"
+      "http://www.xbrl.org/2003/xl-2003-12-31.xsd"
     ],
     "baseUrl": "C:/Users/rainer/PycharmProjects/UASFRA-MS-PROJDIGI/data/XBRLs/cache/reports/H1FJE8H61JGM1JSGM897-2022-12-31.xhtml"
   }
