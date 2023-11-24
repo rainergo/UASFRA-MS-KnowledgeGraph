@@ -1,0 +1,335 @@
+@prefix : <http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/> .
+
+<http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/publishes
+:publishes rdf:type owl:ObjectProperty ;
+           rdfs:domain :Company ;
+           rdfs:range :Report .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#year
+:year rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdfs:domain :BaselineYear .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/metricTons
+:metricTons rdf:type owl:DatatypeProperty ;
+            rdfs:domain :AbsoluteValueOfLocationBasedScope2GreenhouseGasEmissionsReduction ,
+                        :AbsoluteValueOfMarketBasedScope2GreenhouseGasEmissionsReduction ,
+                        :AbsoluteValueOfScope1GreenhouseGasEmissionsReduction ,
+                        :AbsoluteValueOfScope3GreenhouseGasEmissionsReduction ,
+                        :AbsoluteValueOfTotalGreenhouseGasEmissionsReduction ,
+                        :BaselineValue ,
+                        :GrossLocationBasedScope2GreenhouseGasEmissions ,
+                        :GrossMarketBasedScope2GreenhouseGasEmissions ,
+                        :GrossScope3GreenhouseGasEmissions ,
+                        :TotalGHGEmissions ,
+                        :GrossScope1GreenhouseGasEmissions ;
+            rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/reportingPeriod
+:reportingPeriod rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Report ;
+                 rdfs:range xsd:integer .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#AbsoluteValueOfLocationBasedScope2GreenhouseGasEmissionsReduction
+:AbsoluteValueOfLocationBasedScope2GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                                   rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+                                                                   rdfs:comment "Relative to Baseline Year and Baseline Value" ;
+                                                                   rdfs:isDefinedBy "ESRS E1-4 §34a, b" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#AbsoluteValueOfMarketBasedScope2GreenhouseGasEmissionsReduction
+:AbsoluteValueOfMarketBasedScope2GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                                 rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+                                                                 rdfs:comment "Relative to Baseline Year and Baseline Value" ;
+                                                                 rdfs:isDefinedBy "ESRS E1-4 §34a, b" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#AbsoluteValueOfScope1GreenhouseGasEmissionsReduction
+:AbsoluteValueOfScope1GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+                                                      rdfs:comment "Relative to Baseline Year and Baseline Value" ;
+                                                      rdfs:isDefinedBy "ESRS E1-4 §34a, b" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#AbsoluteValueOfScope3GreenhouseGasEmissionsReduction
+:AbsoluteValueOfScope3GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+                                                      rdfs:comment "Relative to Baseline Year and Baseline Value" ;
+                                                      rdfs:isDefinedBy "ESRS E1-4 §34a + 34 b" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#AbsoluteValueOfTotalGreenhouseGasEmissionsReduction
+:AbsoluteValueOfTotalGreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+                                                     rdfs:comment "Relative to Baseline Year and Baseline Value" ;
+                                                     rdfs:isDefinedBy "ESRS E1-4 §34a, b" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#BaselineValue
+:BaselineValue rdf:type owl:Class ;
+               rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+               rdfs:isDefinedBy "ESRS 2 MDR-T §80 d" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#BaselineYear
+:BaselineYear rdf:type owl:Class ;
+              rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+              rdfs:isDefinedBy "ESRS 2 MDR-T §80 d" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#CurrentFinancialResourcesAllocatedToActionPlanCapex
+:CurrentFinancialResourcesAllocatedToActionPlanCapex rdf:type owl:Class ;
+                                                     rdfs:subClassOf :FinancialResourcesAllocatedToActionPlanCapEx ;
+                                                     rdfs:isDefinedBy "ESRS 2 MDR-A §69 b" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#CurrentFinancialResourcesAllocatedToActionPlanOpex
+:CurrentFinancialResourcesAllocatedToActionPlanOpex rdf:type owl:Class ;
+                                                    rdfs:subClassOf :FinancialResourcesAllocatedToActionPlanOpEx ;
+                                                    rdfs:isDefinedBy "ESRS 2 MDR-A	§69 b" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#FutureFinancialResourcesAllocatedToActionPlanCapex
+:FutureFinancialResourcesAllocatedToActionPlanCapex rdf:type owl:Class ;
+                                                    rdfs:subClassOf :FinancialResourcesAllocatedToActionPlanCapEx ;
+                                                    rdfs:isDefinedBy "ESRS 2 MDR-A §69 c" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#FutureFinancialResourcesAllocatedToActionPlanOpex
+:FutureFinancialResourcesAllocatedToActionPlanOpex rdf:type owl:Class ;
+                                                   rdfs:subClassOf :FinancialResourcesAllocatedToActionPlanOpEx ;
+                                                   rdfs:isDefinedBy "ESRS 2 MDR-A §69 c" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#GrossLocationBasedScope2GreenhouseGasEmissions
+:GrossLocationBasedScope2GreenhouseGasEmissions rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+                                                rdfs:isDefinedBy "ESRS E1-6 §49 a" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#GrossMarketBasedScope2GreenhouseGasEmissions
+:GrossMarketBasedScope2GreenhouseGasEmissions rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+                                              rdfs:isDefinedBy "ESRS E1-6 §49 b" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#GrossScope3GreenhouseGasEmissions
+:GrossScope3GreenhouseGasEmissions rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+                                   rdfs:isDefinedBy "ESRS E1-6 §51" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology#TotalGHGEmissions
+:TotalGHGEmissions rdf:type owl:Class ;
+                   rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+                   rdfs:isDefinedBy "ESRS E1-6 §44, 52" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/Asset
+:Asset rdf:type owl:Class ;
+       rdfs:subClassOf :BalanceSheet .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/BalanceSheet
+:BalanceSheet rdf:type owl:Class ;
+              rdfs:subClassOf :FinancialReport .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/CapitalExpenditures
+:CapitalExpenditures rdf:type owl:Class ;
+                     rdfs:subClassOf :CashFlowStatement .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/CashFlowStatement
+:CashFlowStatement rdf:type owl:Class ;
+                   rdfs:subClassOf :FinancialReport .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/Company
+:Company rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/FinancialReport
+:FinancialReport rdf:type owl:Class ;
+                 rdfs:subClassOf :Report .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/FinancialResourcesAllocatedToActionPlanCapEx
+:FinancialResourcesAllocatedToActionPlanCapEx rdf:type owl:Class ;
+                                              rdfs:subClassOf :CapitalExpenditures ;
+                                              rdfs:isDefinedBy "ESRS E1-1 §16c" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/FinancialResourcesAllocatedToActionPlanOpEx
+:FinancialResourcesAllocatedToActionPlanOpEx rdf:type owl:Class ;
+                                             rdfs:subClassOf :OperatingExpenditures ;
+                                             rdfs:isDefinedBy "ESRS E1-1 §16c" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/GrossScope1GreenhouseGasEmissions
+:GrossScope1GreenhouseGasEmissions rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> ;
+                                   rdfs:isDefinedBy "ESFS E1-6 §48a" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/IncomeStatement
+:IncomeStatement rdf:type owl:Class ;
+                 rdfs:subClassOf :FinancialReport .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/Liabilitiy
+:Liabilitiy rdf:type owl:Class ;
+            rdfs:subClassOf :BalanceSheet .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/NetRevenueFromActivitiesInHighClimateImpactSectors
+:NetRevenueFromActivitiesInHighClimateImpactSectors rdf:type owl:Class ;
+                                                    rdfs:subClassOf :RevenuesOrSales ;
+                                                    rdfs:isDefinedBy "ESRS E1-5 §AR 38b" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/NetRevenueUsedToCalculateGHGIntensity
+:NetRevenueUsedToCalculateGHGIntensity rdf:type owl:Class ;
+                                       rdfs:subClassOf :RevenuesOrSales ;
+                                       rdfs:isDefinedBy "ESRS E1-6 §AR55" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/OperatingExpenditures
+:OperatingExpenditures rdf:type owl:Class ;
+                       rdfs:subClassOf :CashFlowStatement .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/Report
+:Report rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/RevenuesOrSales
+:RevenuesOrSales rdf:type owl:Class ;
+                 rdfs:subClassOf :IncomeStatement .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/SignificantCapExForCoalRelatedEconomicActivities
+:SignificantCapExForCoalRelatedEconomicActivities rdf:type owl:Class ;
+                                                  rdfs:subClassOf :CapitalExpenditures ;
+                                                  rdfs:isDefinedBy "ESRS E1-1 §16f" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/SignificantCapExForGasRelatedEconomicActivities
+:SignificantCapExForGasRelatedEconomicActivities rdf:type owl:Class ;
+                                                 rdfs:subClassOf :CapitalExpenditures ;
+                                                 rdfs:isDefinedBy "ESRS E1-1 §16f" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology/SignificantCapExForOilRelatedEconomicActivities
+:SignificantCapExForOilRelatedEconomicActivities rdf:type owl:Class ;
+                                                 rdfs:subClassOf :CapitalExpenditures ;
+                                                 rdfs:isDefinedBy "ESRS E1-1 §16f" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Air
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Air> rdf:type owl:Class ;
+                                                                                   rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/EnvironmentalFootprint> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Airpollutants
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Airpollutants> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Air> ;
+                                                                                             owl:disjointWith <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Biodiversity
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Biodiversity> rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/EnvironmentalFootprint> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/EnvironmentalFootprint
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/EnvironmentalFootprint> rdf:type owl:Class ;
+                                                                                                      rdfs:subClassOf :Report .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/GHG> rdf:type owl:Class ;
+                                                                                   rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Air> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Microplastics
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Microplastics> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Other> ;
+                                                                                             owl:disjointWith <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/SubstancesOfConcern> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Other
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Other> rdf:type owl:Class ;
+                                                                                     rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/EnvironmentalFootprint> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Soil
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Soil> rdf:type owl:Class ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/EnvironmentalFootprint> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Soilpollutants
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Soilpollutants> rdf:type owl:Class ;
+                                                                                              rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Soil> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/SubstancesOfConcern
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/SubstancesOfConcern> rdf:type owl:Class ;
+                                                                                                   rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Other> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Water
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Water> rdf:type owl:Class ;
+                                                                                     rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/EnvironmentalFootprint> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Waterconsumption
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Waterconsumption> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Water> ;
+                                                                                                owl:disjointWith <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Waterpollutants> .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Waterpollutants
+<http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Waterpollutants> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Water> .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Air>
+                <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Biodiversity>
+                <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Other>
+                <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Soil>
+                <http://www.semanticweb.org/rainer/ontologies/2023/10/environmental-footprint/Water>
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
