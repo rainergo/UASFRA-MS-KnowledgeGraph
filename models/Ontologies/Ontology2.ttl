@@ -1,0 +1,837 @@
+@prefix : <http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix projdigi: <http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/> .
+@base <http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/> .
+
+<http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/hasDenominator
+projdigi:hasDenominator rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf projdigi:isRatio ;
+                        rdfs:label "hasDenominator" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/hasNumerator
+projdigi:hasNumerator rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf projdigi:isRatio ;
+                      rdfs:label "hasNumerator" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/isPublishedBy
+projdigi:isPublishedBy rdf:type owl:ObjectProperty ;
+                       owl:inverseOf projdigi:publishes ;
+                       rdfs:label "isPublishedBy" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/isRatio
+projdigi:isRatio rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/publishes
+projdigi:publishes rdf:type owl:ObjectProperty ;
+                   rdfs:domain projdigi:Company ;
+                   rdfs:range projdigi:Report ;
+                   rdfs:label "publishes" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/BaselineValue
+projdigi:BaselineValue rdf:type owl:DatatypeProperty ;
+                       rdfs:domain projdigi:GHG ;
+                       rdfs:range xsd:integer ;
+                       rdfs:label "BaselineValue" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/BaselineYear
+projdigi:BaselineYear rdf:type owl:DatatypeProperty ;
+                      rdfs:domain projdigi:GHG ;
+                      rdfs:range xsd:dateTime ;
+                      rdfs:label "BaselineYear" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/EUR
+projdigi:EUR rdf:type owl:DatatypeProperty ;
+             rdfs:domain projdigi:FinancialImpact ;
+             rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/LEI
+projdigi:LEI rdf:type owl:DatatypeProperty ;
+             rdfs:domain projdigi:Company ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Legal Entity Identifier" ;
+             rdfs:label "LEI" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/MWh
+projdigi:MWh rdf:type owl:DatatypeProperty ;
+             rdfs:domain projdigi:FromNonRenewableSources ,
+                         projdigi:FromRenewableSources ;
+             rdfs:range xsd:integer ;
+             rdfs:label "MWh" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/companyName
+projdigi:companyName rdf:type owl:DatatypeProperty ;
+                     rdfs:domain projdigi:Company ;
+                     rdfs:range xsd:Name ;
+                     rdfs:comment "Company name" ;
+                     rdfs:label "companyName" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/ratio
+projdigi:ratio rdf:type owl:DatatypeProperty ;
+               rdfs:domain projdigi:EnergyIntensity ,
+                           projdigi:GHGEmissionsIntensity ;
+               rdfs:range xsd:float ;
+               rdfs:label "ratio" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/reportingPeriod
+projdigi:reportingPeriod rdf:type owl:DatatypeProperty ;
+                         rdfs:domain projdigi:Report ;
+                         rdfs:range xsd:dateTime ;
+                         rdfs:label "reportingPeriod" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/tonsCO2Equivalents
+projdigi:tonsCO2Equivalents rdf:type owl:DatatypeProperty ;
+                            rdfs:domain projdigi:GHGReductions ,
+                                        projdigi:Scope1 ,
+                                        projdigi:Scope2 ,
+                                        projdigi:Scope3 ,
+                                        projdigi:Total ;
+                            rdfs:range xsd:integer ;
+                            rdfs:label "tonsCO2Eq" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/AbsoluteValueOfLocationBasedScope2GreenhouseGasEmissionsReduction
+projdigi:AbsoluteValueOfLocationBasedScope2GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                                           rdfs:subClassOf projdigi:Scope2 ;
+                                                                           rdfs:comment "Relative to Baseline Year and Baseline Value" ;
+                                                                           rdfs:isDefinedBy "ESRS E1-4 §34a, b" ;
+                                                                           rdfs:label "AbsoluteValueOfLocationBasedScope2GreenhouseGasEmissionsReduction" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/AbsoluteValueOfMarketBasedScope2GreenhouseGasEmissionsReduction
+projdigi:AbsoluteValueOfMarketBasedScope2GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                                         rdfs:subClassOf projdigi:Scope2 ;
+                                                                         rdfs:comment "Relative to Baseline Year and Baseline Value" ;
+                                                                         rdfs:isDefinedBy "ESRS E1-4 §34a, b" ;
+                                                                         rdfs:label "AbsoluteValueOfMarketBasedScope2GreenhouseGasEmissionsReduction" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/AbsoluteValueOfScope1GreenhouseGasEmissionsReduction
+projdigi:AbsoluteValueOfScope1GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                              rdfs:subClassOf projdigi:Scope1 ;
+                                                              rdfs:comment "Relative to Baseline Year and Baseline Value" ;
+                                                              rdfs:isDefinedBy "ESRS E1-4 §34a, b" ;
+                                                              rdfs:label "AbsoluteValueOfScope1GreenhouseGasEmissionsReduction" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/AbsoluteValueOfScope3GreenhouseGasEmissionsReduction
+projdigi:AbsoluteValueOfScope3GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                              rdfs:subClassOf projdigi:Scope3 ;
+                                                              rdfs:comment "Relative to Baseline Year and Baseline Value" ;
+                                                              rdfs:isDefinedBy "ESRS E1-4 §34a + 34 b" ;
+                                                              rdfs:label "AbsoluteValueOfScope3GreenhouseGasEmissionsReduction" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/AbsoluteValueOfTotalGreenhouseGasEmissionsReduction
+projdigi:AbsoluteValueOfTotalGreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                             rdfs:subClassOf projdigi:Total ;
+                                                             rdfs:comment "Relative to Baseline Year and Baseline Value" ;
+                                                             rdfs:isDefinedBy "ESRS E1-4 §34a, b" ;
+                                                             rdfs:label "AbsoluteValueOfTotalGreenhouseGasEmissionsReduction" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Air
+projdigi:Air rdf:type owl:Class ;
+             rdfs:subClassOf projdigi:EnvironmentalFootprint ;
+             rdfs:label "Air" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Airpollution
+projdigi:Airpollution rdf:type owl:Class ;
+                      rdfs:subClassOf projdigi:Air ;
+                      owl:disjointWith projdigi:GHG ;
+                      rdfs:comment "Airpollution" ;
+                      rdfs:label "Airpollution" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Assets
+projdigi:Assets rdf:type owl:Class ;
+                rdfs:subClassOf projdigi:BalanceSheet ;
+                rdfs:label "Assets"@en .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/AssetsAtAcuteMaterialPhysicalRiskBeforeAdaptationActions
+projdigi:AssetsAtAcuteMaterialPhysicalRiskBeforeAdaptationActions rdf:type owl:Class ;
+                                                                  rdfs:subClassOf projdigi:Assets ;
+                                                                  rdfs:isDefinedBy "ESRS E1-9 §66a" ;
+                                                                  rdfs:label "AssetsAtAcuteMaterialPhysicalRiskBeforeAdaptationActions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/AssetsAtChronicMaterialPhysicalRiskBeforeAdaptationActions
+projdigi:AssetsAtChronicMaterialPhysicalRiskBeforeAdaptationActions rdf:type owl:Class ;
+                                                                    rdfs:subClassOf projdigi:Assets ;
+                                                                    rdfs:isDefinedBy "ESRS E1-9 §66a" ;
+                                                                    rdfs:label "AssetsAtChronicMaterialPhysicalRiskBeforeAdaptationActions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/AssetsAtMaterialPhysicalRiskBeforeAdaptationActions
+projdigi:AssetsAtMaterialPhysicalRiskBeforeAdaptationActions rdf:type owl:Class ;
+                                                             rdfs:subClassOf projdigi:Assets ;
+                                                             rdfs:comment "Assets at material physical risk before considering climate change adaptation actions." ;
+                                                             rdfs:isDefinedBy "ESRS E1-9 §66a" ;
+                                                             rdfs:label "AssetsAtMaterialPhysicalRiskBeforeAdaptationActions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/AssetsAtMaterialTransitionRiskBeforeMitigationActions
+projdigi:AssetsAtMaterialTransitionRiskBeforeMitigationActions rdf:type owl:Class ;
+                                                               rdfs:subClassOf projdigi:Assets ;
+                                                               rdfs:isDefinedBy "ESRS E1-9 §67a" ;
+                                                               rdfs:label "AssetsAtMaterialTransitionRiskBeforeMitigationActions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/BalanceSheet
+projdigi:BalanceSheet rdf:type owl:Class ;
+                      rdfs:subClassOf projdigi:FinancialImpact ;
+                      rdfs:label "BalanceSheet" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Biodiversity
+projdigi:Biodiversity rdf:type owl:Class ;
+                      rdfs:subClassOf projdigi:EnvironmentalFootprint ;
+                      rdfs:label "Biodiversity" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/CapitalExpenditures
+projdigi:CapitalExpenditures rdf:type owl:Class ;
+                             rdfs:subClassOf projdigi:CashFlowStatement ;
+                             rdfs:label "CapitalExpenditures" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/CarbonPriceAppliedForEachMetricTonneOfGHG
+projdigi:CarbonPriceAppliedForEachMetricTonneOfGHG rdf:type owl:Class ;
+                                                   rdfs:subClassOf projdigi:GHGReductions ;
+                                                   rdfs:isDefinedBy "ESRS E1-8 §63c" ;
+                                                   rdfs:label "CarbonPriceAppliedForEachMetricTonneOfGHG" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/CashFlowStatement
+projdigi:CashFlowStatement rdf:type owl:Class ;
+                           rdfs:subClassOf projdigi:FinancialImpact ;
+                           rdfs:label "CashFlowStatement" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Company
+projdigi:Company rdf:type owl:Class ;
+                 rdfs:label "Company" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/ConsumptionOfPurchasedOrAcquiredElectricityHeatSteamAndCoolingFromRenewableSources
+projdigi:ConsumptionOfPurchasedOrAcquiredElectricityHeatSteamAndCoolingFromRenewableSources rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf projdigi:TotalEnergyConsumptionFromRenewableSources ;
+                                                                                            rdfs:isDefinedBy "ESRS E1-5 §37cii" ;
+                                                                                            rdfs:label "ConsumptionOfPurchasedOrAcquiredElectricityHeatSteamAndCoolingFromRenewableSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/ConsumptionOfPurchasedOrAcquiredElectricityHeatSteamOrCoolingFromFossilSources
+projdigi:ConsumptionOfPurchasedOrAcquiredElectricityHeatSteamOrCoolingFromFossilSources rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf projdigi:TotalEnergyConsumptionFromFossilSources ;
+                                                                                        rdfs:isDefinedBy "ESRS E1-5 §38e" ;
+                                                                                        rdfs:label "ConsumptionOfPurchasedOrAcquiredElectricityHeatSteamOrCoolingFromFossilSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/ConsumptionOfSelfGeneratedNonFuelRenewableEnergy
+projdigi:ConsumptionOfSelfGeneratedNonFuelRenewableEnergy rdf:type owl:Class ;
+                                                          rdfs:subClassOf projdigi:TotalEnergyConsumptionFromRenewableSources ;
+                                                          rdfs:isDefinedBy "ESRS E1-5 §37ciii" ;
+                                                          rdfs:label "ConsumptionOfSelfGeneratedNonFuelRenewableEnergy" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/CurrentFinancialResourcesAllocatedToActionPlanCapex
+projdigi:CurrentFinancialResourcesAllocatedToActionPlanCapex rdf:type owl:Class ;
+                                                             rdfs:subClassOf projdigi:FinancialResourcesAllocatedToActionPlanCapEx ;
+                                                             rdfs:isDefinedBy "ESRS 2 MDR-A §69 b" ;
+                                                             rdfs:label "CurrentFinancialResourcesAllocatedToActionPlanCapex" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/CurrentFinancialResourcesAllocatedToActionPlanOpex
+projdigi:CurrentFinancialResourcesAllocatedToActionPlanOpex rdf:type owl:Class ;
+                                                            rdfs:subClassOf projdigi:FinancialResourcesAllocatedToActionPlanOpEx ;
+                                                            rdfs:isDefinedBy "ESRS 2 MDR-A	§69 b" ;
+                                                            rdfs:label "CurrentFinancialResourcesAllocatedToActionPlanOpex" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Energy
+projdigi:Energy rdf:type owl:Class ;
+                rdfs:subClassOf projdigi:EnvironmentalFootprint ;
+                rdfs:comment """High Climate Impact Sectors (according to NACE Sections A to H and Section L):
+                        A: Agriculture, forestry and fishing
+                        B: Mining and quarrying
+                        C: Manufacturing
+                        D: Electricity, gas, steam and air conditioning supply
+                        E: Water supply; sewerage, waste management and remediation activities
+                        F: Construction
+                        G: Wholesale and retail trade; repair of motor vehicles and motorcycles
+                        H: Transportation and storage
+                        L: Real estate activities
+                        """ ;
+                rdfs:label "Energy" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/EnergyIntensity
+projdigi:EnergyIntensity rdf:type owl:Class ;
+                         rdfs:subClassOf projdigi:Energy ;
+                         rdfs:comment """Energy intensity: total energy consumption per net revenue
+Formula: 𝑇𝑜𝑡𝑎𝑙 𝑒𝑛𝑒𝑟𝑔𝑦 𝑐𝑜𝑛𝑠𝑢𝑚𝑝𝑡𝑖𝑜𝑛 𝑓𝑟𝑜𝑚 𝑎𝑐𝑡𝑖𝑣𝑖𝑡𝑖𝑒𝑠 𝑖𝑛 ℎ𝑖𝑔ℎ 𝑐𝑙𝑖𝑚𝑎𝑡𝑒 𝑖𝑚𝑝𝑎𝑐𝑡 𝑠𝑒𝑐𝑡𝑜𝑟𝑠 (𝑀𝑊ℎ) / 𝑁𝑒𝑡 𝑟𝑒𝑣𝑒𝑛𝑢𝑒 𝑓𝑟𝑜𝑚 𝑎𝑐𝑡𝑖𝑣𝑖𝑡𝑖𝑒𝑠 𝑖𝑛 ℎ𝑖𝑔ℎ 𝑐𝑙𝑖𝑚𝑎𝑡𝑒 𝑖𝑚𝑝𝑎𝑐𝑡 𝑠𝑒𝑐𝑡𝑜𝑟𝑠 (𝑀𝑜𝑛𝑒𝑡𝑎𝑟𝑦 𝑢𝑛𝑖𝑡)""" ;
+                         rdfs:label "EnergyIntensity" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/EnergyIntensityFromActivitiesInHighClimateImpactSectors
+projdigi:EnergyIntensityFromActivitiesInHighClimateImpactSectors rdf:type owl:Class ;
+                                                                 rdfs:subClassOf projdigi:EnergyIntensity ,
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty projdigi:hasDenominator ;
+                                                                                   owl:someValuesFrom projdigi:NetRevenueFromActivitiesInHighClimateImpactSectors
+                                                                                 ] ,
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty projdigi:hasNumerator ;
+                                                                                   owl:someValuesFrom projdigi:TotalEnergyConsumptionFromActivitiesInHighClimateImpactSectors
+                                                                                 ] ;
+                                                                 rdfs:isDefinedBy "ESRS E1-5 §40" ;
+                                                                 rdfs:label "EnergyIntensityFromActivitiesInHighClimateImpactSectors" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/EnvironmentalFootprint
+projdigi:EnvironmentalFootprint rdf:type owl:Class ;
+                                rdfs:subClassOf projdigi:Report ;
+                                owl:disjointWith projdigi:FinancialImpact ;
+                                rdfs:label "EnvironmentalFootprint"@en .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/ExpectedChangesToNetRevenueFromLowCarbonProductsAndServices
+projdigi:ExpectedChangesToNetRevenueFromLowCarbonProductsAndServices rdf:type owl:Class ;
+                                                                     rdfs:subClassOf projdigi:NetRevenue ;
+                                                                     rdfs:comment "Expected changes to net revenue from low-carbon products and services or adaptation solutions to which undertaking has or may have access." ;
+                                                                     rdfs:isDefinedBy "ESRS E1-9 §69b" ;
+                                                                     rdfs:label "ExpectedChangesToNetRevenueFromLowCarbonProductsAndServices" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/ExpectedCostSavingsFromClimateChangeAdaptationActions
+projdigi:ExpectedCostSavingsFromClimateChangeAdaptationActions rdf:type owl:Class ;
+                                                               rdfs:subClassOf projdigi:Expenses ;
+                                                               rdfs:isDefinedBy "ESRS E1-9 §69a" ;
+                                                               rdfs:label "ExpectedCostSavingsFromClimateChangeAdaptationActions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/ExpectedCostSavingsFromClimateChangeMitigationActions
+projdigi:ExpectedCostSavingsFromClimateChangeMitigationActions rdf:type owl:Class ;
+                                                               rdfs:subClassOf projdigi:Expenses ;
+                                                               rdfs:isDefinedBy "ESRS E1-9 §69a" ;
+                                                               rdfs:label "ExpectedCostSavingsFromClimateChangeMitigationActions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Expenses
+projdigi:Expenses rdf:type owl:Class ;
+                  rdfs:subClassOf projdigi:IncomeStatement ;
+                  rdfs:label "Expenses" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FinancialImpact
+projdigi:FinancialImpact rdf:type owl:Class ;
+                         rdfs:subClassOf projdigi:Report ;
+                         rdfs:label "FinancialImpact" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FinancialResourcesAllocatedToActionPlanCapEx
+projdigi:FinancialResourcesAllocatedToActionPlanCapEx rdf:type owl:Class ;
+                                                      rdfs:subClassOf projdigi:CapitalExpenditures ;
+                                                      rdfs:isDefinedBy "ESRS E1-1 §16c" ;
+                                                      rdfs:label "FinancialResourcesAllocatedToActionPlanCapEx" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FinancialResourcesAllocatedToActionPlanOpEx
+projdigi:FinancialResourcesAllocatedToActionPlanOpEx rdf:type owl:Class ;
+                                                     rdfs:subClassOf projdigi:OperatingExpenditures ;
+                                                     rdfs:isDefinedBy "ESRS E1-1 §16c" ;
+                                                     rdfs:label "FinancialResourcesAllocatedToActionPlanOpEx" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FromNonRenewableSources
+projdigi:FromNonRenewableSources rdf:type owl:Class ;
+                                 rdfs:subClassOf projdigi:Energy ;
+                                 rdfs:label "FromNonRenewableSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FromRenewableSources
+projdigi:FromRenewableSources rdf:type owl:Class ;
+                              rdfs:subClassOf projdigi:Energy ;
+                              rdfs:label "FromRenewableSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FuelConsumptionFromCoalAndCoalProducts
+projdigi:FuelConsumptionFromCoalAndCoalProducts rdf:type owl:Class ;
+                                                rdfs:subClassOf projdigi:TotalEnergyConsumptionFromFossilSources ;
+                                                rdfs:isDefinedBy "ESRS E1-5 §38a" ;
+                                                rdfs:label "FuelConsumptionFromCoalAndCoalProducts" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FuelConsumptionFromCrudeOilAndPetroleumProducts
+projdigi:FuelConsumptionFromCrudeOilAndPetroleumProducts rdf:type owl:Class ;
+                                                         rdfs:subClassOf projdigi:TotalEnergyConsumptionFromFossilSources ;
+                                                         rdfs:isDefinedBy "ESRS E1-5 §38b" ;
+                                                         rdfs:label "FuelConsumptionFromCrudeOilAndPetroleumProducts" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FuelConsumptionFromNaturalGas
+projdigi:FuelConsumptionFromNaturalGas rdf:type owl:Class ;
+                                       rdfs:subClassOf projdigi:TotalEnergyConsumptionFromFossilSources ;
+                                       rdfs:isDefinedBy "ESRS E1-5 §38c" ;
+                                       rdfs:label "FuelConsumptionFromNaturalGas" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FuelConsumptionFromOtherFossilSources
+projdigi:FuelConsumptionFromOtherFossilSources rdf:type owl:Class ;
+                                               rdfs:subClassOf projdigi:TotalEnergyConsumptionFromFossilSources ;
+                                               rdfs:isDefinedBy "ESRS E1-5 §38d" ;
+                                               rdfs:label "FuelConsumptionFromOtherFossilSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FuelConsumptionFromRenewableSources
+projdigi:FuelConsumptionFromRenewableSources rdf:type owl:Class ;
+                                             rdfs:subClassOf projdigi:TotalEnergyConsumptionFromRenewableSources ;
+                                             rdfs:comment "Includes biomass, biogas, non-fossil fuel waste, hydrogen from renewable sources, etc." ;
+                                             rdfs:isDefinedBy "ESRS E1-5 §37ci" ;
+                                             rdfs:label "FuelConsumptionFromRenewableSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FutureFinancialResourcesAllocatedToActionPlanCapex
+projdigi:FutureFinancialResourcesAllocatedToActionPlanCapex rdf:type owl:Class ;
+                                                            rdfs:subClassOf projdigi:FinancialResourcesAllocatedToActionPlanCapEx ;
+                                                            rdfs:isDefinedBy "ESRS 2 MDR-A §69 c" ;
+                                                            rdfs:label "FutureFinancialResourcesAllocatedToActionPlanCapex" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/FutureFinancialResourcesAllocatedToActionPlanOpex
+projdigi:FutureFinancialResourcesAllocatedToActionPlanOpex rdf:type owl:Class ;
+                                                           rdfs:subClassOf projdigi:FinancialResourcesAllocatedToActionPlanOpEx ;
+                                                           rdfs:isDefinedBy "ESRS 2 MDR-A §69 c" ;
+                                                           rdfs:label "FutureFinancialResourcesAllocatedToActionPlanOpex" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/GHG
+projdigi:GHG rdf:type owl:Class ;
+             rdfs:subClassOf projdigi:Air ;
+             rdfs:comment "GHG" ;
+             rdfs:label "GHG" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/GHGEmissionsAssociatedWithRemovalActivity
+projdigi:GHGEmissionsAssociatedWithRemovalActivity rdf:type owl:Class ;
+                                                   rdfs:subClassOf projdigi:GHGReductions ;
+                                                   rdfs:isDefinedBy "ESRS E1-7 §AR 58f" ;
+                                                   rdfs:label "GHGEmissionsAssociatedWithRemovalActivity" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/GHGEmissionsIntensity
+projdigi:GHGEmissionsIntensity rdf:type owl:Class ;
+                               rdfs:subClassOf projdigi:GHG ;
+                               rdfs:comment """GHG emissions intensity: total GHG emissions per net revenue
+Formula: 𝑇𝑜𝑡𝑎𝑙 𝐺𝐻𝐺 𝑒𝑚𝑖𝑠𝑠𝑖𝑜𝑛𝑠 (𝑡 𝐶𝑂2𝑒𝑞) / 𝑁𝑒𝑡 𝑟𝑒𝑣𝑒𝑛𝑢𝑒 (𝑀𝑜𝑛𝑒𝑡𝑎𝑟𝑦 𝑢𝑛𝑖𝑡)""" ;
+                               rdfs:label "GHGEmissionsIntensity" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/GHGReductions
+projdigi:GHGReductions rdf:type owl:Class ;
+                       rdfs:subClassOf projdigi:GHG ;
+                       rdfs:comment """GHG reductions possible through:
+- GHG Removal or GHG Storage projects
+- Buying carbon credits""" ;
+                       rdfs:label "GHGReductions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/GrossLocationBasedScope2GreenhouseGasEmissions
+projdigi:GrossLocationBasedScope2GreenhouseGasEmissions rdf:type owl:Class ;
+                                                        rdfs:subClassOf projdigi:Scope2 ;
+                                                        rdfs:isDefinedBy "ESRS E1-6 §49 a" ;
+                                                        rdfs:label "GrossLocationBasedScope2GreenhouseGasEmissions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/GrossMarketBasedScope2GreenhouseGasEmissions
+projdigi:GrossMarketBasedScope2GreenhouseGasEmissions rdf:type owl:Class ;
+                                                      rdfs:subClassOf projdigi:Scope2 ;
+                                                      rdfs:isDefinedBy "ESRS E1-6 §49 b" ;
+                                                      rdfs:label "GrossMarketBasedScope2GreenhouseGasEmissions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/GrossScope1GreenhouseGasEmissions
+projdigi:GrossScope1GreenhouseGasEmissions rdf:type owl:Class ;
+                                           rdfs:subClassOf projdigi:Scope1 ;
+                                           rdfs:isDefinedBy "ESFS E1-6 §48a" ;
+                                           rdfs:label "GrossScope1GreenhouseGasEmissions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/GrossScope3GreenhouseGasEmissions
+projdigi:GrossScope3GreenhouseGasEmissions rdf:type owl:Class ;
+                                           rdfs:subClassOf projdigi:Scope3 ;
+                                           rdfs:isDefinedBy "ESRS E1-6 §51" ;
+                                           rdfs:label "GrossScope3GreenhouseGasEmissions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/IncomeStatement
+projdigi:IncomeStatement rdf:type owl:Class ;
+                         rdfs:subClassOf projdigi:FinancialImpact ;
+                         rdfs:label "IncomeStatement" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/IntensityValueOfLocationBasedScope2GreenhouseGasEmissionsReduction
+projdigi:IntensityValueOfLocationBasedScope2GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                                            rdfs:subClassOf projdigi:GHGEmissionsIntensity ,
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty projdigi:hasDenominator ;
+                                                                                              owl:someValuesFrom projdigi:NetRevenue
+                                                                                            ] ,
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty projdigi:hasNumerator ;
+                                                                                              owl:someValuesFrom projdigi:GrossLocationBasedScope2GreenhouseGasEmissions
+                                                                                            ] ;
+                                                                            rdfs:isDefinedBy "ESRS E1-4 §34a, b" ;
+                                                                            rdfs:label "IntensityValueOfLocationBasedScope2GreenhouseGasEmissionsReduction" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/IntensityValueOfMarketBasedScope2GreenhouseGasEmissionsReduction
+projdigi:IntensityValueOfMarketBasedScope2GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                                          rdfs:subClassOf projdigi:GHGEmissionsIntensity ,
+                                                                                          [ rdf:type owl:Restriction ;
+                                                                                            owl:onProperty projdigi:hasDenominator ;
+                                                                                            owl:someValuesFrom projdigi:NetRevenue
+                                                                                          ] ,
+                                                                                          [ rdf:type owl:Restriction ;
+                                                                                            owl:onProperty projdigi:hasNumerator ;
+                                                                                            owl:someValuesFrom projdigi:GrossMarketBasedScope2GreenhouseGasEmissions
+                                                                                          ] ;
+                                                                          rdfs:isDefinedBy "ESRS E1-4 §34a, b" ;
+                                                                          rdfs:label "IntensityValueOfMarketBasedScope2GreenhouseGasEmissionsReduction" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/IntensityValueOfScope1GreenhouseGasEmissionsReduction
+projdigi:IntensityValueOfScope1GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                               rdfs:subClassOf projdigi:GHGEmissionsIntensity ,
+                                                                               [ rdf:type owl:Restriction ;
+                                                                                 owl:onProperty projdigi:hasDenominator ;
+                                                                                 owl:someValuesFrom projdigi:NetRevenue
+                                                                               ] ,
+                                                                               [ rdf:type owl:Restriction ;
+                                                                                 owl:onProperty projdigi:hasNumerator ;
+                                                                                 owl:someValuesFrom projdigi:GrossScope1GreenhouseGasEmissions
+                                                                               ] ;
+                                                               rdfs:isDefinedBy "ESRS E1-4 §34a, b" ;
+                                                               rdfs:label "IntensityValueOfScope1GreenhouseGasEmissionsReduction" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/IntensityValueOfScope3GreenhouseGasEmissionsReduction
+projdigi:IntensityValueOfScope3GreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                               rdfs:subClassOf projdigi:GHGEmissionsIntensity ,
+                                                                               [ rdf:type owl:Restriction ;
+                                                                                 owl:onProperty projdigi:hasDenominator ;
+                                                                                 owl:someValuesFrom projdigi:NetRevenue
+                                                                               ] ,
+                                                                               [ rdf:type owl:Restriction ;
+                                                                                 owl:onProperty projdigi:hasNumerator ;
+                                                                                 owl:someValuesFrom projdigi:GrossScope3GreenhouseGasEmissions
+                                                                               ] ;
+                                                               rdfs:isDefinedBy "ESRS E1-4 §34a, b" ;
+                                                               rdfs:label "IntensityValueOfScope3GreenhouseGasEmissionsReduction" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/IntensityValueOfTotalGreenhouseGasEmissionsReduction
+projdigi:IntensityValueOfTotalGreenhouseGasEmissionsReduction rdf:type owl:Class ;
+                                                              rdfs:subClassOf projdigi:GHGEmissionsIntensity ,
+                                                                              [ rdf:type owl:Restriction ;
+                                                                                owl:onProperty projdigi:hasDenominator ;
+                                                                                owl:someValuesFrom projdigi:NetRevenue
+                                                                              ] ,
+                                                                              [ rdf:type owl:Restriction ;
+                                                                                owl:onProperty projdigi:hasNumerator ;
+                                                                                owl:someValuesFrom projdigi:TotalGHGEmissions
+                                                                              ] ;
+                                                              rdfs:isDefinedBy "ESRS E1-4 §34a, b" ;
+                                                              rdfs:label "IntensityValueOfTotalGreenhouseGasEmissionsReduction" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Liabilities
+projdigi:Liabilities rdf:type owl:Class ;
+                     rdfs:subClassOf projdigi:BalanceSheet ;
+                     rdfs:label "Liabilities"@en .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Microplastics
+projdigi:Microplastics rdf:type owl:Class ;
+                       rdfs:subClassOf projdigi:Other ;
+                       owl:disjointWith projdigi:SubstancesOfConcern ;
+                       rdfs:label "Microplastics" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/NetRevenue
+projdigi:NetRevenue rdf:type owl:Class ;
+                    rdfs:subClassOf projdigi:Revenues ;
+                    rdfs:label "NetRevenue" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/NetRevenueFromActivitiesInHighClimateImpactSectors
+projdigi:NetRevenueFromActivitiesInHighClimateImpactSectors rdf:type owl:Class ;
+                                                            rdfs:subClassOf projdigi:NetRevenue ;
+                                                            rdfs:isDefinedBy "ESRS E1-5 §AR 38b" ;
+                                                            rdfs:label "NetRevenueFromActivitiesInHighClimateImpactSectors" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/NetRevenueFromBusinessActivitiesAtMaterialPhysicalRisk
+projdigi:NetRevenueFromBusinessActivitiesAtMaterialPhysicalRisk rdf:type owl:Class ;
+                                                                rdfs:subClassOf projdigi:NetRevenue ;
+                                                                rdfs:isDefinedBy "ESRS E1-9 §66d" ;
+                                                                rdfs:label "NetRevenueFromBusinessActivitiesAtMaterialPhysicalRisk" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/NetRevenueFromBusinessActivitiesAtMaterialTransitionRisk
+projdigi:NetRevenueFromBusinessActivitiesAtMaterialTransitionRisk rdf:type owl:Class ;
+                                                                  rdfs:subClassOf projdigi:NetRevenue ;
+                                                                  rdfs:isDefinedBy "ESRS E1-9 §67e" ;
+                                                                  rdfs:label "NetRevenueFromBusinessActivitiesAtMaterialTransitionRisk" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/NetRevenueUsedToCalculateGHGIntensity
+projdigi:NetRevenueUsedToCalculateGHGIntensity rdf:type owl:Class ;
+                                               rdfs:subClassOf projdigi:NetRevenue ;
+                                               rdfs:isDefinedBy "ESRS E1-6 §AR55" ;
+                                               rdfs:label "NetRevenueUsedToCalculateGHGIntensity" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/OperatingExpenditures
+projdigi:OperatingExpenditures rdf:type owl:Class ;
+                               rdfs:subClassOf projdigi:CashFlowStatement ;
+                               rdfs:label "OperatingExpenditures" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Other
+projdigi:Other rdf:type owl:Class ;
+               rdfs:subClassOf projdigi:EnvironmentalFootprint ;
+               rdfs:label "Other" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Report
+projdigi:Report rdf:type owl:Class ;
+                rdfs:label "Report" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Revenues
+projdigi:Revenues rdf:type owl:Class ;
+                  rdfs:subClassOf projdigi:IncomeStatement ;
+                  rdfs:label "Revenues" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Scope1
+projdigi:Scope1 rdf:type owl:Class ;
+                rdfs:subClassOf projdigi:GHG ;
+                rdfs:label "Scope1" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Scope2
+projdigi:Scope2 rdf:type owl:Class ;
+                rdfs:subClassOf projdigi:GHG ;
+                rdfs:label "Scope2" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Scope3
+projdigi:Scope3 rdf:type owl:Class ;
+                rdfs:subClassOf projdigi:GHG ;
+                rdfs:label "Scope3" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/SignificantCapExForCoalRelatedEconomicActivities
+projdigi:SignificantCapExForCoalRelatedEconomicActivities rdf:type owl:Class ;
+                                                          rdfs:subClassOf projdigi:CapitalExpenditures ;
+                                                          rdfs:isDefinedBy "ESRS E1-1 §16f" ;
+                                                          rdfs:label "SignificantCapExForCoalRelatedEconomicActivities" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/SignificantCapExForGasRelatedEconomicActivities
+projdigi:SignificantCapExForGasRelatedEconomicActivities rdf:type owl:Class ;
+                                                         rdfs:subClassOf projdigi:CapitalExpenditures ;
+                                                         rdfs:isDefinedBy "ESRS E1-1 §16f" ;
+                                                         rdfs:label "SignificantCapExForGasRelatedEconomicActivities" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/SignificantCapExForOilRelatedEconomicActivities
+projdigi:SignificantCapExForOilRelatedEconomicActivities rdf:type owl:Class ;
+                                                         rdfs:subClassOf projdigi:CapitalExpenditures ;
+                                                         rdfs:isDefinedBy "ESRS E1-1 §16f" ;
+                                                         rdfs:label "SignificantCapExForOilRelatedEconomicActivities" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Soil
+projdigi:Soil rdf:type owl:Class ;
+              rdfs:subClassOf projdigi:EnvironmentalFootprint ;
+              rdfs:label "Soil" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Soilpollution
+projdigi:Soilpollution rdf:type owl:Class ;
+                       rdfs:subClassOf projdigi:Soil ;
+                       rdfs:label "Soilpollution" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/SubstancesOfConcern
+projdigi:SubstancesOfConcern rdf:type owl:Class ;
+                             rdfs:subClassOf projdigi:Other ;
+                             rdfs:label "SubstancesOfConcern" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Total
+projdigi:Total rdf:type owl:Class ;
+               rdfs:subClassOf projdigi:GHG ;
+               rdfs:label "Total" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/TotalAmountOfCarbonCreditsOutsideValueChainCancelled
+projdigi:TotalAmountOfCarbonCreditsOutsideValueChainCancelled rdf:type owl:Class ;
+                                                              rdfs:subClassOf projdigi:GHGReductions ;
+                                                              rdfs:comment "Total amount of carbon credits outside value chain that are verified against recognised quality standards and cancelled." ;
+                                                              rdfs:isDefinedBy "ESRS E1-7 §59a" ;
+                                                              rdfs:label "TotalAmountOfCarbonCreditsOutsideValueChainCancelled" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/TotalAmountOfCarbonCreditsOutsideValueChainCancelledInFuture
+projdigi:TotalAmountOfCarbonCreditsOutsideValueChainCancelledInFuture rdf:type owl:Class ;
+                                                                      rdfs:subClassOf projdigi:GHGReductions ;
+                                                                      rdfs:isDefinedBy "ESRS E1-7 §59b" ;
+                                                                      rdfs:label "TotalAmountOfCarbonCreditsOutsideValueChainCancelledInFuture" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/TotalEnergyConsumptionFromActivitiesInHighClimateImpactSectors
+projdigi:TotalEnergyConsumptionFromActivitiesInHighClimateImpactSectors rdf:type owl:Class ;
+                                                                        rdfs:subClassOf projdigi:TotalEnergyConsumptionFromFossilSources ;
+                                                                        rdfs:isDefinedBy "ESRS E1-5 §41" ;
+                                                                        rdfs:label "TotalEnergyConsumptionFromActivitiesInHighClimateImpactSectors" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/TotalEnergyConsumptionFromFossilSources
+projdigi:TotalEnergyConsumptionFromFossilSources rdf:type owl:Class ;
+                                                 rdfs:subClassOf projdigi:FromNonRenewableSources ;
+                                                 rdfs:isDefinedBy "ESRS E1-5 §37a" ;
+                                                 rdfs:label "TotalEnergyConsumptionFromFossilSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/TotalEnergyConsumptionFromNuclearSources
+projdigi:TotalEnergyConsumptionFromNuclearSources rdf:type owl:Class ;
+                                                  rdfs:subClassOf projdigi:FromNonRenewableSources ;
+                                                  rdfs:isDefinedBy "ESRS E1-5 §37b" ;
+                                                  rdfs:label "TotalEnergyConsumptionFromNuclearSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/TotalEnergyConsumptionFromRenewableSources
+projdigi:TotalEnergyConsumptionFromRenewableSources rdf:type owl:Class ;
+                                                    rdfs:subClassOf projdigi:FromRenewableSources ;
+                                                    rdfs:isDefinedBy "ESRS E1-5 §37c" ;
+                                                    rdfs:label "TotalEnergyConsumptionFromRenewableSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/TotalGHGEmissions
+projdigi:TotalGHGEmissions rdf:type owl:Class ;
+                           rdfs:subClassOf projdigi:Total ;
+                           rdfs:comment """Total GHG emissions𝑙𝑜𝑐𝑎𝑡𝑖𝑜𝑛−𝑏𝑎𝑠𝑒𝑑 (t CO2eq)=Gross Scope 1+Gross Scope 2𝑙𝑜𝑐𝑎𝑡𝑖𝑜𝑛−𝑏𝑎𝑠𝑒𝑑+Gross Scope 3 
+
+Total GHG emissions𝑚𝑎𝑟𝑘𝑒𝑡−𝑏𝑎𝑠𝑒𝑑 (t CO2eq)=Gross Scope 1+Gross Scope 2𝑚𝑎𝑟𝑘𝑒𝑡−𝑏𝑎𝑠𝑒𝑑+Gross Scope 3""" ;
+                           rdfs:isDefinedBy "ESRS E1-6 §44, 52" ;
+                           rdfs:label "TotalGHGEmissions" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/TotalGHGRemovalsAndStorage
+projdigi:TotalGHGRemovalsAndStorage rdf:type owl:Class ;
+                                    rdfs:subClassOf projdigi:GHGReductions ;
+                                    rdfs:isDefinedBy "ESRS E1-7 §58a" ;
+                                    rdfs:label "TotalGHGRemovalsAndStorage" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Water
+projdigi:Water rdf:type owl:Class ;
+               rdfs:subClassOf projdigi:EnvironmentalFootprint ;
+               rdfs:label "Water" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Waterconsumption
+projdigi:Waterconsumption rdf:type owl:Class ;
+                          rdfs:subClassOf projdigi:Water ;
+                          owl:disjointWith projdigi:Waterpollution ;
+                          rdfs:label "Waterconsumption" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/Waterpollution
+projdigi:Waterpollution rdf:type owl:Class ;
+                        rdfs:subClassOf projdigi:Water ;
+                        rdfs:label "Waterpollution" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/EUR
+projdigi:EUR rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology2/USD
+projdigi:USD rdf:type owl:NamedIndividual .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+projdigi:EUR rdfs:label "EUR" .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( projdigi:Air
+                projdigi:Biodiversity
+                projdigi:Energy
+                projdigi:Other
+                projdigi:Soil
+                projdigi:Water
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( projdigi:GHGEmissionsIntensity
+                projdigi:GHGReductions
+                projdigi:Scope1
+                projdigi:Scope2
+                projdigi:Scope3
+                projdigi:Total
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

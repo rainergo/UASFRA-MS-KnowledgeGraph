@@ -21,6 +21,7 @@ graphdatascience = "*"
 xmlschema = "*"
 xsdata = {extras = ["lxml", "soap", "cli"], version = "*"}
 xmltodict = "*"
+rdflib = "*"
 
 [dev-packages]
 

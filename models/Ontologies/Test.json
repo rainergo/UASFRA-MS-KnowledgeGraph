@@ -1,0 +1,391 @@
+[ {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#BaselineValue",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHG"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "BaselineValue"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#integer"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#BaselineYear",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHG"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "BaselineYear"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#dateTime"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Company",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Company"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#EUR",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#FinancialImpact"
+  }, {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#NetRevenue"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "EUR"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#integer"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#EnvironmentalFootprint",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "EnvironmentalFootprint"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Report"
+  } ],
+  "http://www.w3.org/2002/07/owl#disjointWith" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#FinancialImpact"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#FinancialImpact",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "FinancialImpact"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Report"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHG",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@value" : "GHG"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "GHG"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#EnvironmentalFootprint"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHGEmissionsIntensity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@value" : "GHG emissions intensity: total GHG emissions per net revenue\nFormula: 𝑇𝑜𝑡𝑎𝑙 𝐺𝐻𝐺 𝑒𝑚𝑖𝑠𝑠𝑖𝑜𝑛𝑠 (𝑡 𝐶𝑂2𝑒𝑞) / 𝑁𝑒𝑡 𝑟𝑒𝑣𝑒𝑛𝑢𝑒 (𝑀𝑜𝑛𝑒𝑡𝑎𝑟𝑦 𝑢𝑛𝑖𝑡)"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "GHGEmissionsIntensity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHG"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GrossLocationBasedScope2GreenhouseGasEmissions",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
+    "@value" : "ESRS E1-6 §49 a"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "GrossLocationBasedScope2GreenhouseGasEmissions"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Scope2"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GrossMarketBasedScope2GreenhouseGasEmissions",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
+    "@value" : "ESRS E1-6 §49 b"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "GrossMarketBasedScope2GreenhouseGasEmissions"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Scope2"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GrossScope1GreenhouseGasEmissions",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
+    "@value" : "ESFS E1-6 §48a"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "GrossScope1GreenhouseGasEmissions"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Scope1"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GrossScope3GreenhouseGasEmissions",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
+    "@value" : "ESRS E1-6 §51"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "GrossScope3GreenhouseGasEmissions"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Scope3"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IncomeStatement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "IncomeStatement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#FinancialImpact"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IntensityValueOfLocationBasedScope2GreenhouseGasEmissionsReduction",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
+    "@value" : "ESRS E1-4 §34a, b"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "IntensityValueOfLocationBasedScope2GreenhouseGasEmissionsReduction"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHGEmissionsIntensity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IntensityValueOfMarketBasedScope2GreenhouseGasEmissionsReduction",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
+    "@value" : "ESRS E1-4 §34a, b"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "IntensityValueOfMarketBasedScope2GreenhouseGasEmissionsReduction"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHGEmissionsIntensity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IntensityValueOfScope1GreenhouseGasEmissionsReduction",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
+    "@value" : "ESRS E1-4 §34a, b"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "IntensityValueOfScope1GreenhouseGasEmissionsReduction"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHGEmissionsIntensity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IntensityValueOfScope3GreenhouseGasEmissionsReduction",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
+    "@value" : "ESRS E1-4 §34a, b"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "IntensityValueOfScope3GreenhouseGasEmissionsReduction"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHGEmissionsIntensity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IntensityValueOfTotalGreenhouseGasEmissionsReduction",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
+    "@value" : "ESRS E1-4 §34a, b"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "IntensityValueOfTotalGreenhouseGasEmissionsReduction"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHGEmissionsIntensity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#LEI",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@value" : "Legal Entity Identifier"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Company"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "LEI"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#NetRevenue",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "NetRevenue"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IncomeStatement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Report",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Report"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Scope1",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Scope1"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHG"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Scope2",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Scope2"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHG"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Scope3",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Scope3"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHG"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Total",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "Total"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GHG"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#TotalGHGEmissions",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@value" : "Total GHG emissions𝑙𝑜𝑐𝑎𝑡𝑖𝑜𝑛−𝑏𝑎𝑠𝑒𝑑 (t CO2eq)=Gross Scope 1+Gross Scope 2𝑙𝑜𝑐𝑎𝑡𝑖𝑜𝑛−𝑏𝑎𝑠𝑒𝑑+Gross Scope 3 \n\nTotal GHG emissions𝑚𝑎𝑟𝑘𝑒𝑡−𝑏𝑎𝑠𝑒𝑑 (t CO2eq)=Gross Scope 1+Gross Scope 2𝑚𝑎𝑟𝑘𝑒𝑡−𝑏𝑎𝑠𝑒𝑑+Gross Scope 3"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#isDefinedBy" : [ {
+    "@value" : "ESRS E1-6 §44, 52"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "TotalGHGEmissions"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Total"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#USD",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#companyName",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@value" : "Company name"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Company"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "companyName"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#Name"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#hasDenominator",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IntensityValueOfScope1GreenhouseGasEmissionsReduction"
+  }, {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IntensityValueOfScope3GreenhouseGasEmissionsReduction"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "hasDenominator"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#NetRevenue"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#hasNumerator",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IntensityValueOfScope1GreenhouseGasEmissionsReduction"
+  }, {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#IntensityValueOfScope3GreenhouseGasEmissionsReduction"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "hasNumerator"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GrossScope1GreenhouseGasEmissions"
+  }, {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#GrossScope3GreenhouseGasEmissions"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#isPublishedBy",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Report"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "isPublishedBy"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Company"
+  } ],
+  "http://www.w3.org/2002/07/owl#inverseOf" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#publishes"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#publishes",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "publishes"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#reportingPeriod",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Report"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "reportingPeriod"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#dateTime"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#tonsCO2Equivalents",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Scope1"
+  }, {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Scope2"
+  }, {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Scope3"
+  }, {
+    "@id" : "http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology_Simple#Total"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@value" : "tonsCO2Eq"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#integer"
+  } ]
+} ]
