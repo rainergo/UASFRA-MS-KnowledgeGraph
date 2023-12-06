@@ -1,0 +1,277 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rainer: <http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#> .
+@base <http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#> .
+
+rainer: rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#consumes
+rainer:consumes rdf:type owl:ObjectProperty ;
+                rdfs:domain rainer:Asset ;
+                rdfs:range rainer:Energy .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#disposes
+rainer:disposes rdf:type owl:ObjectProperty ;
+                rdfs:domain rainer:FromNuclearSources ;
+                rdfs:range rainer:NuclearWaste .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#emits
+rainer:emits rdf:type owl:ObjectProperty ;
+             rdfs:domain rainer:Asset ;
+             rdfs:range rainer:Scope1 .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#impacts
+rainer:impacts rdf:type owl:ObjectProperty ;
+               rdfs:domain rainer:Company ;
+               rdfs:range rainer:EnvironmentalFootprint .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#indirectlyEmits
+rainer:indirectlyEmits rdf:type owl:ObjectProperty ;
+                       rdfs:domain rainer:FromFossileSources ;
+                       rdfs:range rainer:Scope2 .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#isIn
+rainer:isIn rdf:type owl:ObjectProperty ;
+            rdfs:domain rainer:Company ;
+            rdfs:range rainer:FinancialReport .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#BaselineValue
+rainer:BaselineValue rdf:type owl:DatatypeProperty ;
+                     rdfs:domain rainer:Emission ;
+                     rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#BaselineYear
+rainer:BaselineYear rdf:type owl:DatatypeProperty ;
+                    rdfs:domain rainer:Emission ;
+                    rdfs:range xsd:dateTime .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#LEI
+rainer:LEI rdf:type owl:DatatypeProperty ;
+           rdfs:domain rainer:Company ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Legal Entity Identifier" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#companyName
+rainer:companyName rdf:type owl:DatatypeProperty ;
+                   rdfs:domain rainer:Company ;
+                   rdfs:range xsd:Name ;
+                   rdfs:comment "Company name" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#reportingPeriod
+rainer:reportingPeriod rdf:type owl:DatatypeProperty ;
+                       rdfs:domain rainer:Company ;
+                       rdfs:range xsd:dateTime .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Airpollution
+rainer:Airpollution rdf:type owl:Class ;
+                    rdfs:subClassOf rainer:Pollution ;
+                    rdfs:comment "Direct emissions of sulphur dioxides (SO2), nitrogen oxides (NOx), non-methane volatile organic compounds (NMVOC), and fine particulate matter (PM2,5) as defined in Article 3, points (5) to (8), of Directive (EU) 2016/2284 of the European Parliament and of the Council (15), ammonia (NH3) as referred to in that Directive and heavy metals (HM) as referred to in Annex I to that Directive." .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Asset
+rainer:Asset rdf:type owl:Class ;
+             rdfs:subClassOf rainer:BalanceSheet ;
+             rdfs:label "Asset" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#BalanceSheet
+rainer:BalanceSheet rdf:type owl:Class ;
+                    rdfs:subClassOf rainer:FinancialReport .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Biodiversity
+rainer:Biodiversity rdf:type owl:Class ;
+                    rdfs:subClassOf rainer:EnvironmentalFootprint ;
+                    rdfs:label "Biodiversity" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#CapitalExpenditures
+rainer:CapitalExpenditures rdf:type owl:Class ;
+                           rdfs:subClassOf rainer:CashFlowStatement .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#CashFlowStatement
+rainer:CashFlowStatement rdf:type owl:Class ;
+                         rdfs:subClassOf rainer:FinancialReport .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Company
+rainer:Company rdf:type owl:Class ;
+               rdfs:label "Company" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Emission
+rainer:Emission rdf:type owl:Class ;
+                rdfs:subClassOf rainer:EnvironmentalFootprint .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Energy
+rainer:Energy rdf:type owl:Class ;
+              rdfs:comment """High Climate Impact Sectors (according to NACE Sections A to H and Section L):
+                        A: Agriculture, forestry and fishing
+                        B: Mining and quarrying
+                        C: Manufacturing
+                        D: Electricity, gas, steam and air conditioning supply
+                        E: Water supply; sewerage, waste management and remediation activities
+                        F: Construction
+                        G: Wholesale and retail trade; repair of motor vehicles and motorcycles
+                        H: Transportation and storage
+                        L: Real estate activities
+                        """ ;
+              rdfs:label "Energy" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#EnvironmentalFootprint
+rainer:EnvironmentalFootprint rdf:type owl:Class ;
+                              rdfs:label "EnvironmentalFootprint"@en .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Expense
+rainer:Expense rdf:type owl:Class ;
+               rdfs:subClassOf rainer:IncomeStatement ;
+               rdfs:label "Expense" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#FinancialReport
+rainer:FinancialReport rdf:type owl:Class ;
+                       rdfs:label "FinancialState" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#FromFossileSources
+rainer:FromFossileSources rdf:type owl:Class ;
+                          rdfs:subClassOf rainer:Energy ;
+                          rdfs:label "FromFossileSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#FromNuclearSources
+rainer:FromNuclearSources rdf:type owl:Class ;
+                          rdfs:subClassOf rainer:Energy ;
+                          rdfs:label "FromNuclearSources" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#FromRenewableSources
+rainer:FromRenewableSources rdf:type owl:Class ;
+                            rdfs:subClassOf rainer:Energy .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#GHGReductions
+rainer:GHGReductions rdf:type owl:Class ;
+                     rdfs:subClassOf rainer:Emission ;
+                     rdfs:comment """GHG reductions possible through:
+- GHG Removal or GHG Storage projects
+- Buying carbon credits""" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#IncomeStatement
+rainer:IncomeStatement rdf:type owl:Class ;
+                       rdfs:subClassOf rainer:FinancialReport .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Liability
+rainer:Liability rdf:type owl:Class ;
+                 rdfs:subClassOf rainer:BalanceSheet ;
+                 rdfs:label "Liability" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Microplastics
+rainer:Microplastics rdf:type owl:Class ;
+                     rdfs:subClassOf rainer:Pollution .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#NuclearWaste
+rainer:NuclearWaste rdf:type owl:Class ;
+                    rdfs:subClassOf rainer:Pollution .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#OperatingExpenditures
+rainer:OperatingExpenditures rdf:type owl:Class ;
+                             rdfs:subClassOf rainer:CashFlowStatement .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Pollution
+rainer:Pollution rdf:type owl:Class ;
+                 rdfs:subClassOf rainer:EnvironmentalFootprint .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Revenue
+rainer:Revenue rdf:type owl:Class ;
+               rdfs:subClassOf rainer:IncomeStatement ;
+               rdfs:label "Revenue" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Scope1
+rainer:Scope1 rdf:type owl:Class ;
+              rdfs:subClassOf rainer:Emission .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Scope2
+rainer:Scope2 rdf:type owl:Class ;
+              rdfs:subClassOf rainer:Emission .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Scope3
+rainer:Scope3 rdf:type owl:Class ;
+              rdfs:subClassOf rainer:Emission .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Soilpollution
+rainer:Soilpollution rdf:type owl:Class ;
+                     rdfs:subClassOf rainer:Pollution ;
+                     rdfs:comment "The introduction into soil - independent of whether that introduction occurs at the production site of an undertaking or outside or through the use of the undertaking’s products and/or services - as a result of human activity, of substances, vibrations, heat or noise which may be harmful to human health or the environment, result in damage to material property, or impair or interfere with amenities and other legitimate uses of the environment11. Soil pollutants include inorganic pollutants, persistent organic pollutants (POPs), pesticides, nitrogen and phosphorus compounds, etc." .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#SubstancesOfConcern
+rainer:SubstancesOfConcern rdf:type owl:Class ;
+                           rdfs:subClassOf rainer:Pollution ;
+                           rdfs:comment """Substances of concern means a substance that:
+a. meets the criteria laid down in Article 57 and is identified in accordance with Article 59(1) of Regulation (EC) No 1907/2006;
+b. is classified in Part 3 of Annex VI to Regulation (EC) in one of the following hazard classes or hazard categories:
+– No 1272/2008 – carcinogenicity categories 1 and 2,
+– germ cell mutagenicity categories 1 and 2,
+– reproductive toxicity categories 1 and 2, [to be added in the course of the legislative procedure once Regulation (EC) No 1272/2008 contains these hazard classes: Persistent, Bioacumulative, Toxic (PBTs), very Persistent very Bioaccumulative (vPvBs); Persistent, Mobile and Toxic (PMT), very Persistent very Mobile (vPvM); Endocrine disruption],
+– respiratory sensitisation category 1,
+– skin sensitisation category 1,
+– chronic hazard to the aquatic environment categories 1 to 4,
+– hazardous to the ozone layer,
+– specific target organ toxicity
+– repeated exposure categories 1 and 2,
+– specific target organ toxicity – single exposure categories 1 and 2; or
+c. any other substance that are set out in applicable EU legislation15..
+
+Substances of very high concern means:
+Substances that meet the criteria laid down in Article 57 of Regulation (EC) 1907/2006 (REACH) and were identified in accordance with Article 59(1) of that Regulation.""" .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology3#Waterpollution
+rainer:Waterpollution rdf:type owl:Class ;
+                      rdfs:subClassOf rainer:Pollution ;
+                      rdfs:comment "Direct emissions of priority substances, as defined by Annex I to Directive 2013/39/EU, that replaces Annex X of the Directive 2000/60/EC of the European Parliament and of the Council, and direct emissions of nitrates, phosphates and pesticides (plant protection products and biocides)." .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

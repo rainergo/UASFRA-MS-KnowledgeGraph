@@ -1,0 +1,3 @@
+[
+  {"eventId": 1, "eventDescription": "Event 1", "eventType": "type1", "timestamp": "timestamp","stationCode": 11, "lat": 123, "long": 321, "stationAddress": "Penny Lane 12", "stationName": "Main Station"}
+]
