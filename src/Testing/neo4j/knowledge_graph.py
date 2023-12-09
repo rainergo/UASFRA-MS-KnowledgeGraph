@@ -132,7 +132,7 @@ class RDFGraph:
         """ Create three types of queries: classes_and_their_props, class_relationships and namespace_queries.
         :param: unique_node_keys: unique_node_keys are comparable to primary keys in relational databases and are the
         class attributes that must be unique. They must be provided for each class as a dictionary in the form:
-        {"class_label":"class_property_name"}. Example: {"Person":"name"}
+        {"class_label":["class_property_name"]}. Example: {"Person":["name"]}
         """
 
         nodes_data_needed = dict()
