@@ -78,8 +78,7 @@ rail:stationName rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.neo4j.com/rail#timestamp
 rail:timestamp rdf:type owl:DatatypeProperty ;
-               rdfs:domain rail:Event ;
-               rdfs:range xsd:string .
+               rdfs:domain rail:Event .
 
 
 #################################################################
