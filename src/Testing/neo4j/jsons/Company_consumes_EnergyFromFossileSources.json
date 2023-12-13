@@ -1,0 +1,1 @@
+{"Company_consumes_EnergyFromFossileSources": {"source": {"Company": {"LEI": "<HERE_LEI_VALUE>"}}, "target": {"EnergyFromFossileSources": {"period": "<HERE_period_VALUE>", "label": "<HERE_label_VALUE>", "MWh": "<HERE_MWh_VALUE>"}}}}

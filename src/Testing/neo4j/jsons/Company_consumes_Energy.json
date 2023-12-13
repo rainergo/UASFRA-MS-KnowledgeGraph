@@ -1,0 +1,1 @@
+{"Company_consumes_Energy": {"source": {"Company": {"LEI": "<HERE_LEI_VALUE>"}}, "target": {"Energy": {"period": "<HERE_period_VALUE>", "label": "<HERE_label_VALUE>", "MWh": "<HERE_MWh_VALUE>"}}}}

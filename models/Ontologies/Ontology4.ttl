@@ -16,26 +16,33 @@
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#consumes
 rainer:consumes rdf:type owl:ObjectProperty ;
                 rdfs:domain rainer:Company ;
-                rdfs:range rainer:Energy .
+                rdfs:range rainer:Energy ,
+                           rainer:EnergyFromFossileSources ,
+                           rainer:EnergyFromNuclearSources .
 
 
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#disposes
 rainer:disposes rdf:type owl:ObjectProperty ;
-                rdfs:domain rainer:Company ,
-                            rainer:FromNuclearSources ;
-                rdfs:range rainer:Pollution .
+                rdfs:domain rainer:Company ;
+                rdfs:range rainer:Pollution ,
+                           rainer:Waste .
 
 
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#emits
 rainer:emits rdf:type owl:ObjectProperty ;
              rdfs:domain rainer:Company ;
-             rdfs:range rainer:GHGEmission .
+             rdfs:range rainer:GHGEmission ,
+                        rainer:Scope1 ,
+                        rainer:Scope2 ,
+                        rainer:Scope3 .
 
 
-###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#indirectlyEmits
-rainer:indirectlyEmits rdf:type owl:ObjectProperty ;
-                       rdfs:domain rainer:FromFossileSources ;
-                       rdfs:range rainer:GHGEmission .
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#exhausts
+rainer:exhausts rdf:type owl:ObjectProperty ;
+                rdfs:domain rainer:Company ;
+                rdfs:range rainer:Land ,
+                           rainer:NaturalResource ,
+                           rainer:Water .
 
 
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#owns
@@ -44,15 +51,21 @@ rainer:owns rdf:type owl:ObjectProperty ;
             rdfs:range rainer:Asset .
 
 
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#receives
+rainer:receives rdf:type owl:ObjectProperty ;
+                rdfs:domain rainer:Company ;
+                rdfs:range rainer:Revenue .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#spends
+rainer:spends rdf:type owl:ObjectProperty ;
+              rdfs:domain rainer:Company ;
+              rdfs:range rainer:Expenditure .
+
+
 #################################################################
 #    Data properties
 #################################################################
-
-###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#EUR
-rainer:EUR rdf:type owl:DatatypeProperty ;
-           rdfs:domain rainer:Asset ;
-           rdfs:range xsd:string .
-
 
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#LEI
 rainer:LEI rdf:type owl:DatatypeProperty ;
@@ -62,39 +75,65 @@ rainer:LEI rdf:type owl:DatatypeProperty ;
 
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#MWh
 rainer:MWh rdf:type owl:DatatypeProperty ;
-           rdfs:domain rainer:Energy ;
+           rdfs:domain rainer:Energy ,
+                       rainer:EnergyFromFossileSources ,
+                       rainer:EnergyFromNuclearSources ,
+                       rainer:EnergyFromRenewableSources ;
            rdfs:range xsd:string .
 
 
-###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#name
-rainer:name rdf:type owl:DatatypeProperty ;
-            rdfs:domain rainer:Asset ,
-                        rainer:Company ,
-                        rainer:Energy ,
-                        rainer:Environment ,
-                        rainer:FromFossileSources ,
-                        rainer:FromNuclearSources ,
-                        rainer:GHGEmission ,
-                        rainer:Pollution ;
-            rdfs:range xsd:string .
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#label
+rainer:label rdf:type owl:DatatypeProperty ;
+             rdfs:domain rainer:Asset ,
+                         rainer:Company ,
+                         rainer:Energy ,
+                         rainer:EnergyFromFossileSources ,
+                         rainer:EnergyFromNuclearSources ,
+                         rainer:EnergyFromRenewableSources ,
+                         rainer:Expenditure ,
+                         rainer:GHGEmission ,
+                         rainer:Land ,
+                         rainer:NaturalResource ,
+                         rainer:Pollution ,
+                         rainer:Reduction ,
+                         rainer:Revenue ,
+                         rainer:Scope1 ,
+                         rainer:Scope2 ,
+                         rainer:Scope3 ,
+                         rainer:Substance ,
+                         rainer:Waste ,
+                         rainer:Water ;
+             rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#period
+rainer:period rdf:type owl:DatatypeProperty ;
+              rdfs:domain rainer:Energy ,
+                          rainer:EnergyFromFossileSources ,
+                          rainer:EnergyFromNuclearSources ,
+                          rainer:GHGEmission ,
+                          rainer:Pollution ,
+                          rainer:Scope1 ,
+                          rainer:Scope2 ,
+                          rainer:Scope3 ,
+                          rainer:Waste .
 
 
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#tons
 rainer:tons rdf:type owl:DatatypeProperty ;
-            rdfs:domain rainer:Pollution ;
+            rdfs:domain rainer:Pollution ,
+                        rainer:Waste ;
             rdfs:range xsd:string .
 
 
-###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#tonsCO2eq
-rainer:tonsCO2eq rdf:type owl:DatatypeProperty ;
-                 rdfs:domain rainer:GHGEmission ;
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#tonsCO2Eq
+rainer:tonsCO2Eq rdf:type owl:DatatypeProperty ;
+                 rdfs:domain rainer:GHGEmission ,
+                             rainer:Reduction ,
+                             rainer:Scope1 ,
+                             rainer:Scope2 ,
+                             rainer:Scope3 ;
                  rdfs:range xsd:string .
-
-
-###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#year
-rainer:year rdf:type owl:DatatypeProperty ;
-            rdfs:domain rainer:Company ;
-            rdfs:range xsd:string .
 
 
 #################################################################
@@ -102,7 +141,8 @@ rainer:year rdf:type owl:DatatypeProperty ;
 #################################################################
 
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Asset
-rainer:Asset rdf:type owl:Class .
+rainer:Asset rdf:type owl:Class ;
+             rdfs:subClassOf rainer:Financials .
 
 
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Company
@@ -113,18 +153,32 @@ rainer:Company rdf:type owl:Class .
 rainer:Energy rdf:type owl:Class .
 
 
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#EnergyFromFossileSources
+rainer:EnergyFromFossileSources rdf:type owl:Class ;
+                                rdfs:subClassOf rainer:Energy .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#EnergyFromNuclearSources
+rainer:EnergyFromNuclearSources rdf:type owl:Class ;
+                                rdfs:subClassOf rainer:Energy .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#EnergyFromRenewableSources
+rainer:EnergyFromRenewableSources rdf:type owl:Class ;
+                                  rdfs:subClassOf rainer:Energy .
+
+
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Environment
 rainer:Environment rdf:type owl:Class .
 
 
-###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#FromFossileSources
-rainer:FromFossileSources rdf:type owl:Class ;
-                          rdfs:subClassOf rainer:Energy .
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Expenditure
+rainer:Expenditure rdf:type owl:Class ;
+                   rdfs:subClassOf rainer:Financials .
 
 
-###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#FromNuclearSources
-rainer:FromNuclearSources rdf:type owl:Class ;
-                          rdfs:subClassOf rainer:Energy .
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Financials
+rainer:Financials rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#GHGEmission
@@ -132,9 +186,59 @@ rainer:GHGEmission rdf:type owl:Class ;
                    rdfs:subClassOf rainer:Environment .
 
 
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Land
+rainer:Land rdf:type owl:Class ;
+            rdfs:subClassOf rainer:NaturalResource .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#NaturalResource
+rainer:NaturalResource rdf:type owl:Class ;
+                       rdfs:subClassOf rainer:Environment .
+
+
 ###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Pollution
 rainer:Pollution rdf:type owl:Class ;
                  rdfs:subClassOf rainer:Environment .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Reduction
+rainer:Reduction rdf:type owl:Class ;
+                 rdfs:subClassOf rainer:GHGEmission .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Revenue
+rainer:Revenue rdf:type owl:Class ;
+               rdfs:subClassOf rainer:Financials .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Scope1
+rainer:Scope1 rdf:type owl:Class ;
+              rdfs:subClassOf rainer:GHGEmission .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Scope2
+rainer:Scope2 rdf:type owl:Class ;
+              rdfs:subClassOf rainer:GHGEmission .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Scope3
+rainer:Scope3 rdf:type owl:Class ;
+              rdfs:subClassOf rainer:GHGEmission .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Substance
+rainer:Substance rdf:type owl:Class ;
+                 rdfs:subClassOf rainer:Pollution .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Waste
+rainer:Waste rdf:type owl:Class ;
+             rdfs:subClassOf rainer:Pollution .
+
+
+###  http://www.semanticweb.org/rainer/ontologies/2023/10/Ontology4#Water
+rainer:Water rdf:type owl:Class ;
+             rdfs:subClassOf rainer:NaturalResource .
 
 
 ###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
