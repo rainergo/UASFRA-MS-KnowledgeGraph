@@ -1,1 +1,0 @@
-{"Company_disposes_Pollution": {"source": {"Company": {"LEI": "<HERE_LEI_VALUE>"}}, "target": {"Pollution": {"period": "<HERE_period_VALUE>", "label": "<HERE_label_VALUE>", "tons": "<HERE_tons_VALUE>"}}}}

@@ -1,0 +1,1 @@
+{"Company_disposes_Waste": {"source": {"Company": {"LEI": "<HERE_LEI_VALUE>"}}, "target": {"Waste": {"period": "<HERE_period_VALUE>", "label": "<HERE_label_VALUE>", "tons": "<HERE_tons_VALUE>"}}}}
