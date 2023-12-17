@@ -72,14 +72,14 @@ class RDFGraph:
             namespaces.add(subj11)
         return namespaces
 
-    def create_queries(self, unique_node_keys: dict[str: list[str]] = None, node_value_props: dict[str:str] = None):
+    def create_query_templates(self, unique_node_keys: dict[str: list[str]] = None, node_value_props: dict[str:str] = None):
         """ Creates four types of queries: constraint queries, nodes_and_props queries, node_relationship queries and
         namespace_queries.
         :param: unique_node_keys: unique_node_keys are comparable to primary keys in relational databases and are the
         node properties that must be unique. They must be provided for each node as a dictionary in the form:
         {"node_label":["node_property_name"]}. Example: {"Person":["name"]}
         :param: node_value_props: Of the datatype properties of target nodes (i.e. Nodes that have an incoming relationship
-        to a source node), one such property is used for the property of the relationship. Example in cypher:
+        from a source node), one such property is used for the property of the relationship. Example in cypher:
         MATCH (s:SourceNode)-[r:Relationship]->[t:TargetNode]. If the TargetNode 't' has a quantity property 'EUR' to
         express the value of the TargetNode 't', then this property is the quantity property of the Relationship 'r'. In
         the example here, 'EUR' would be the quantity property of the Relationship 'r', if 'EUR' would be set in the
@@ -170,7 +170,7 @@ class RDFGraph:
                 node_queries[node] = str(query_part_1 + query_part_2)
             return node_queries
 
-        def create_query_template_for_class_relationships():
+        def create_query_template_for_class_relationships() -> dict[str:str]:
             # Get ObjectProperties (Relationships) for each Class:
             relationships = self.get_relationships()
             # Build the queries:
@@ -228,7 +228,7 @@ class RDFGraph:
                 relationship_queries[relation] = query
             return relationship_queries
 
-        def create_namespace_queries(namespaces: set):
+        def create_namespace_queries(namespaces: set) -> list:
             queries = list()
             namespace_prefixes = {self.get_namespace_part(uri=uri) for uri in namespaces}
             counter = 0
@@ -244,16 +244,16 @@ class RDFGraph:
         check_if_class_keys_are_set()
         check_if_node_value_props_are_set()
         constraint_queries: list = create_node_property_constraint_queries()
-        node_queries = create_query_template_for_classes_and_their_props()
-        relationship_queries = create_query_template_for_class_relationships()
-        namespaces = self.get_namespaces()
-        namespace_queries = create_namespace_queries(namespaces=namespaces)
+        node_queries: dict[str:str] = create_query_template_for_classes_and_their_props()
+        relationship_queries: dict[str:str] = create_query_template_for_class_relationships()
+        namespaces: set = self.get_namespaces()
+        namespace_queries: list = create_namespace_queries(namespaces=namespaces)
 
         return constraint_queries, node_queries, relationship_queries, namespace_queries
 
     def create_json_files_for_data_needed(self):
         # if len(self.nodes_data_needed) == 0 or len(self.rels_data_needed):
-        #     raise ValueError("Please run 'create_queries()'-method first !")
+        #     raise ValueError("Please run 'create_query_templates()'-method first !")
         for k1, v1 in self.nodes_data_needed.items():
             with open(f'./jsons/{k1}.json', 'w') as file:
                 d1 = {k1: v1}
@@ -305,8 +305,8 @@ if __name__ == '__main__':
     ###############################  Show all the queries  ###########################################
     path_to_onto: str = path_base.as_posix() + "/models/Ontologies/Ontology4.ttl"
     g = RDFGraph(path_to_onto=path_to_onto)
-    constr_queries, c_queries, rel_queries, ns_queries, = g.create_queries(unique_node_keys=unique_node_keys,
-                                                                           node_value_props=node_value_props)
+    constr_queries, c_queries, rel_queries, ns_queries, = g.create_query_templates(unique_node_keys=unique_node_keys,
+                                                                                   node_value_props=node_value_props)
     print('CONSTRAINT_QUERIES:')
     for item000 in constr_queries:
         print(item000)

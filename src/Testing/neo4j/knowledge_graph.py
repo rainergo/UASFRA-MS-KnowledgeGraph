@@ -22,11 +22,12 @@ class KnowledgeGraph:
         self.path_to_onto: str = path_to_onto
 
     def init_graph(self, handle_vocab_uris: str = "MAP", handle_mult_vals: str = "ARRAY",
-                   handle_rdf_types: str = "LABELS",
+                   multi_val_prop_list: list = None, handle_rdf_types: str = "LABELS",
                    keep_lang_tag: bool = False, keep_cust_dtypes: bool = False, apply_neo4j_naming: bool = False):
         query_init = f"""CALL n10s.graphconfig.init(
             {{  handleVocabUris: '{handle_vocab_uris}',
                 handleMultival: '{handle_mult_vals}',
+                multivalPropList: {list() if multi_val_prop_list is None else multi_val_prop_list},
                 handleRDFTypes: '{handle_rdf_types}',
                 keepLangTag: {str(keep_lang_tag).lower()},
                 keepCustomDataTypes: {str(keep_cust_dtypes).lower()}, 
@@ -58,8 +59,32 @@ class KnowledgeGraph:
         """
         self.driver.execute_query(query_=query_load)
 
-    def import_data_from_wikidata(self):
-        pass
+    def import_data_from_wikidata(self, node_label: str, prop_name: str, prop_wiki_id: str,
+                                  new_prop_name: str, new_prop_wiki_id: str,
+                                  use_new_prop_label: bool, new_prop_is_list: bool):
+        query = rf"""
+        MATCH (node:{node_label})
+        WITH 
+            "SELECT ?{prop_name} ?{new_prop_name}{"Label" if use_new_prop_label else ""}
+                WHERE {{
+                    FILTER contains(?{prop_name}, \"" + node.{prop_name} + "\")
+                    ?company wdt:{prop_wiki_id}     ?{prop_name} ;
+                             wdt:{new_prop_wiki_id} ?{new_prop_name} .
+                SERVICE wikibase:label {{ bd:serviceParam wikibase:language \"en\". }}
+              }}"     
+        AS sparql
+        CALL apoc.load.jsonParams(
+            "https://query.wikidata.org/sparql?query=" + 
+              apoc.text.urlencode(sparql),
+            {{ Accept: "application/sparql-results+json"}}, null)
+        YIELD value
+        UNWIND value['results']['bindings'] as row
+        WITH row['{prop_name}']['value'] as prop_val, 
+             {'collect(' if new_prop_is_list else ''}row['{new_prop_name}{"Label" if use_new_prop_label else ""}']['value']{')' if new_prop_is_list else ''} as new_prop_val
+        MERGE (n:{node_label} {{ {prop_name}: prop_val }})
+        SET n.{new_prop_name} = new_prop_val;
+        """
+        self.driver.execute_query(query_=query)
 
     def load_data_into_knowledge_graph(self, unique_node_keys: dict[str:str] = None, node_value_props: dict[str:str] = None,
                                        nodes_data: list[dict] = None, rels_data: list[dict] = None):
@@ -69,7 +94,7 @@ class KnowledgeGraph:
         #     rels_data = {}
 
         g = RDFGraph(path_to_onto=self.path_to_onto)
-        constraint_queries, node_queries, rel_queries, ns_queries = g.create_queries(
+        constraint_queries, node_queries, rel_queries, ns_queries = g.create_query_templates(
             unique_node_keys=unique_node_keys, node_value_props=node_value_props)
 
         session = self.driver.session()
@@ -96,6 +121,8 @@ class KnowledgeGraph:
             rel_query = rel_queries[rel]
             print('Rels_Query: ', rel_query)
             res2 = session.run(rel_query, parameters={'rel_data': rel_data})
+
+        session.close()
 
 
 if __name__ == '__main__':
@@ -136,25 +163,43 @@ if __name__ == '__main__':
                         "Expenditure": "EUR"
                         }
 
+
+
     ########################### Load ontology and show schema of knowledge graph  ####################################
-    # path_to_onto: str = "https://raw.githubusercontent.com/jbarrasa/goingmeta/main/session4/ontos/movies-onto.ttl"
-    # path_to_onto: str = path_base.as_posix() + "/models/Ontologies/rail.ttl"
-    path_to_onto: str = path_base.as_posix() + "/models/Ontologies/Ontology4.ttl"
-    kg = KnowledgeGraph(path_to_onto=path_to_onto)
-    kg.delete_graph()
-    kg.init_graph(handle_vocab_uris="IGNORE", handle_mult_vals="OVERWRITE")
-    kg.load_onto_or_rdf(path=path_to_onto, path_is_url=False, load_onto_only=True)
-    print('Done!')
+    # # path_to_onto: str = "https://raw.githubusercontent.com/jbarrasa/goingmeta/main/session4/ontos/movies-onto.ttl"
+    # # path_to_onto: str = path_base.as_posix() + "/models/Ontologies/rail.ttl"
+    # path_to_onto: str = path_base.as_posix() + "/models/Ontologies/Ontology4.ttl"
+    # kg = KnowledgeGraph(path_to_onto=path_to_onto)
+    # kg.delete_graph()
+    # kg.init_graph(handle_vocab_uris="IGNORE", handle_mult_vals="OVERWRITE")
+    # kg.load_onto_or_rdf(path=path_to_onto, path_is_url=False, load_onto_only=True)
+    # print('Done!')
     #################################### Load data into Konwledge Graph ###############################################
     # from data.read_data import get_data_dicts
-    # # all_jsons = ['data/Adidas_2022.json', "data/BASF_2022.json", 'data/Adidas_2023.json', "data/BASF_2023.json"]
-    # all_jsons = ["data/BASF_2022.json", 'data/Adidas_2022.json']
+    # all_jsons = ['data/Adidas_2022.json', "data/BASF_2022.json", 'data/Adidas_2023.json', "data/BASF_2023.json"]
+    # # all_jsons = ["data/BASF_2022.json", 'data/Adidas_2022.json']
     # n_data, r_data = get_data_dicts(all_json_paths=all_jsons)
     # path_to_onto: str = path_base.as_posix() + "/models/Ontologies/Ontology4.ttl"
     # kg = KnowledgeGraph(path_to_onto=path_to_onto)
     # kg.delete_graph()
-    # kg.init_graph(handle_vocab_uris="MAP", handle_mult_vals="OVERWRITE")
+    # kg.init_graph(handle_vocab_uris="MAP", handle_mult_vals="ARRAY", multi_val_prop_list=["industries"])
     # kg.load_data_into_knowledge_graph(unique_node_keys=unique_node_keys, node_value_props=node_value_props, nodes_data=n_data, rels_data=r_data)
     # print("Done!")
-    ########################################
+    #################################### Load additional data from wikidata ###########################################
+    """IMPORTANT: This must be run ONLY AFTER a knowledge graph has been created and filled with data !!! """
+    node_label = "Company"
+    prop_name = "LEI"
+    prop_wiki_id = "P1278"
+    new_prop_name = "industries"
+    new_prop_wiki_id = "P452"
+    use_new_prop_label: bool = True
+    new_prop_is_list: bool = True
+    # Load KG
+    path_to_onto: str = path_base.as_posix() + "/models/Ontologies/Ontology4.ttl"
+    kg = KnowledgeGraph(path_to_onto=path_to_onto)
+    # Get data from wikidata
+    kg.import_data_from_wikidata(node_label=node_label, prop_name=prop_name, prop_wiki_id=prop_wiki_id,
+                                 new_prop_name=new_prop_name, new_prop_wiki_id=new_prop_wiki_id,
+                                 use_new_prop_label=use_new_prop_label, new_prop_is_list=new_prop_is_list)
+    print("Done!")
 

@@ -22,6 +22,7 @@ xmlschema = "*"
 xsdata = {extras = ["lxml", "soap", "cli"], version = "*"}
 xmltodict = "*"
 rdflib = "*"
+requests = "*"
 
 [dev-packages]
 
