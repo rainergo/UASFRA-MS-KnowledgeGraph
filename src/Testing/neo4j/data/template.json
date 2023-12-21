@@ -22,5 +22,5 @@
   "TotalAmountOfSubstancesOfConcernGenerated": "<tons_decimal_value_here>",
   "EmissionsToAirByPollutant": "<tons_decimal_value_here>",
   "EmissionsToSoilByPollutant": "<tons_decimal_value_here>",
-  "EmissionsToWaterByPolllutant": "<tons_decimal_value_here>"
+  "EmissionsToWaterByPollutant": "<tons_decimal_value_here>"
 }

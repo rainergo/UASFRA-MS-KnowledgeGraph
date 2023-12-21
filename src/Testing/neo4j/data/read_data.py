@@ -41,7 +41,7 @@ def get_data_dicts(all_json_paths: list[str]) -> tuple[list, list]:
                 {"Substance": {"label": "TotalAmountOfSubstancesOfConcernGenerated", "period": company['period']}},
                 {"Waste": {"label": "EmissionsToAirByPollutant", "period": company['period']}},
                 {"Waste": {"label": "EmissionsToSoilByPollutant", "period": company['period']}},
-                {"Waste": {"label": "EmissionsToWaterByPolllutant", "period": company['period']}}
+                {"Waste": {"label": "EmissionsToWaterByPollutant", "period": company['period']}}
             ]
 
             node_data += node_template
@@ -68,7 +68,7 @@ def get_data_dicts(all_json_paths: list[str]) -> tuple[list, list]:
             {"Company_disposes_Substance": {"source": {"Company": {"LEI": company['LEI']}}, "target": {"Substance": {"period": company['period'], "label": "TotalAmountOfSubstancesOfConcernGenerated", "tons": company["TotalAmountOfSubstancesOfConcernGenerated"]}}}},
             {"Company_disposes_Waste": {"source": {"Company": {"LEI": company['LEI']}}, "target": {"Waste": {"period": company['period'], "label": "EmissionsToAirByPollutant", "tons": company["EmissionsToAirByPollutant"]}}}},
             {"Company_disposes_Waste": {"source": {"Company": {"LEI": company['LEI']}}, "target": {"Waste": {"period": company['period'], "label": "EmissionsToSoilByPollutant", "tons": company["EmissionsToSoilByPollutant"]}}}},
-            {"Company_disposes_Waste": {"source": {"Company": {"LEI": company['LEI']}}, "target": {"Waste": {"period": company['period'], "label": "EmissionsToWaterByPolllutant", "tons": company["EmissionsToWaterByPolllutant"]}}}}
+            {"Company_disposes_Waste": {"source": {"Company": {"LEI": company['LEI']}}, "target": {"Waste": {"period": company['period'], "label": "EmissionsToWaterByPollutant", "tons": company["EmissionsToWaterByPollutant"]}}}}
         ]
         relationship_data += relationship_template
 

@@ -59,6 +59,33 @@ class KnowledgeGraph:
         """
         self.driver.execute_query(query_=query_load)
 
+    def import_wikidata_id(self, label_wikidata_id: str = "wikidataID"):
+
+        raus = """BIND(STRAFTER(STR(?company), STR(wd:)) AS ?{label_wikidata_id}) ."""
+
+        query = rf"""
+                MATCH (node:Company)
+                WITH 
+                    "SELECT ?LEI ?{label_wikidata_id}
+                        WHERE {{
+                            FILTER contains(?LEI, \"" + node.LEI + "\")
+                            ?{label_wikidata_id}   wdt:P1278   ?LEI .
+                      }}"     
+                AS sparql
+                CALL apoc.load.jsonParams(
+                    "https://query.wikidata.org/sparql?query=" + 
+                      apoc.text.urlencode(sparql),
+                    {{ Accept: "application/sparql-results+json"}}, null)
+                YIELD value
+                UNWIND value['results']['bindings'] as row
+                WITH row['LEI']['value'] as prop_val, 
+                     row['{label_wikidata_id}']['value'] as new_prop_val
+                MERGE (n:Company {{ LEI: prop_val }})
+                SET n.{label_wikidata_id} = new_prop_val;
+                """
+        # print(query)
+        self.driver.execute_query(query_=query)
+
     def import_data_from_wikidata(self, node_label: str, prop_name: str, prop_wiki_id: str,
                                   new_prop_name: str, new_prop_wiki_id: str,
                                   use_new_prop_label: bool, new_prop_is_list: bool):
@@ -86,7 +113,36 @@ class KnowledgeGraph:
         """
         self.driver.execute_query(query_=query)
 
-    def load_data_into_knowledge_graph(self, unique_node_keys: dict[str:str] = None, node_value_props: dict[str:str] = None,
+    def import_data_from_dbpedia(self, node_label: str, prop_name: str, prop_dbp_id: str,
+                                 new_prop_name: str, new_prop_dbp_id: str,
+                                 new_prop_is_list: bool):
+        query = rf"""
+        MATCH (node:{node_label})
+        WITH
+            "PREFIX wd: <http://www.wikidata.org/entity/>
+             SELECT ?{prop_name} ?{new_prop_name}
+                    WHERE {{
+                        BIND(<"+node.{prop_name}+"> AS ?wikidataID)
+                        ?dbpcomp   {prop_dbp_id}   ?wikidataID ;
+                                   {new_prop_dbp_id} ?{new_prop_name} .
+                    FILTER langMatches( lang(?{new_prop_name}), \"en\" )
+                  }}"   
+        AS sparql
+        CALL apoc.load.jsonParams(
+            "https://dbpedia.org/sparql?query=" + 
+              apoc.text.urlencode(sparql),
+            {{ Accept: "application/sparql-results+json"}}, null)
+        YIELD value
+        UNWIND value['results']['bindings'] as row
+        WITH row['{prop_name}']['value'] as prop_val, 
+             {'collect(' if new_prop_is_list else ''}row['{new_prop_name}']['value']{')' if new_prop_is_list else ''} as new_prop_val
+        MERGE (n:{node_label} {{ {prop_name}: prop_val }})
+        SET n.{new_prop_name} = new_prop_val;
+        """
+        self.driver.execute_query(query_=query)
+
+    def load_data_into_knowledge_graph(self, unique_node_keys: dict[str:str] = None,
+                                       node_value_props: dict[str:str] = None,
                                        nodes_data: list[dict] = None, rels_data: list[dict] = None):
         # if nodes_data is None:
         #     nodes_data = {}
@@ -126,7 +182,6 @@ class KnowledgeGraph:
 
 
 if __name__ == '__main__':
-
     ## Ontology4.ttl:
     unique_node_keys = {"Company": ["LEI"],
                         "Waste": ["period", "label"],
@@ -163,8 +218,6 @@ if __name__ == '__main__':
                         "Expenditure": "EUR"
                         }
 
-
-
     ########################### Load ontology and show schema of knowledge graph  ####################################
     # # path_to_onto: str = "https://raw.githubusercontent.com/jbarrasa/goingmeta/main/session4/ontos/movies-onto.ttl"
     # # path_to_onto: str = path_base.as_posix() + "/models/Ontologies/rail.ttl"
@@ -187,19 +240,47 @@ if __name__ == '__main__':
     # print("Done!")
     #################################### Load additional data from wikidata ###########################################
     """IMPORTANT: This must be run ONLY AFTER a knowledge graph has been created and filled with data !!! """
+    ################ SET industries #######################
+    # node_label = "Company"
+    # prop_name = "LEI"
+    # prop_wiki_id = "P1278"
+    # new_prop_name = "industries"
+    # new_prop_wiki_id = "P452"
+    # use_new_prop_label: bool = True     # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
+    # new_prop_is_list: bool = True
+    ################ SET country ############################
+    # node_label = "Company"
+    # prop_name = "LEI"
+    # prop_wiki_id = "P1278"
+    # new_prop_name = "country"
+    # new_prop_wiki_id = "P17"
+    # use_new_prop_label: bool = True  # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
+    # new_prop_is_list: bool = False
+    ################ Set ISIN  #################################
+    # node_label = "Company"
+    # prop_name = "LEI"
+    # prop_wiki_id = "P1278"
+    # new_prop_name = "ISIN"
+    # new_prop_wiki_id = "P946"
+    # use_new_prop_label: bool = True  # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
+    # new_prop_is_list: bool = False
+    #################  Load DBPedia data #########################
     node_label = "Company"
-    prop_name = "LEI"
-    prop_wiki_id = "P1278"
-    new_prop_name = "industries"
-    new_prop_wiki_id = "P452"
-    use_new_prop_label: bool = True
-    new_prop_is_list: bool = True
-    # Load KG
+    prop_name = "wikidataID"
+    prop_dbp_id = "owl:sameAs"
+    new_prop_name = "abstract"
+    new_prop_dbp_id = "dbo:abstract"
+    new_prop_is_list: bool = False
+    # ################ Load KG  ##################################
     path_to_onto: str = path_base.as_posix() + "/models/Ontologies/Ontology4.ttl"
     kg = KnowledgeGraph(path_to_onto=path_to_onto)
     # Get data from wikidata
-    kg.import_data_from_wikidata(node_label=node_label, prop_name=prop_name, prop_wiki_id=prop_wiki_id,
-                                 new_prop_name=new_prop_name, new_prop_wiki_id=new_prop_wiki_id,
-                                 use_new_prop_label=use_new_prop_label, new_prop_is_list=new_prop_is_list)
+    # kg.import_wikidata_id()
+    # kg.import_data_from_wikidata(node_label=node_label, prop_name=prop_name, prop_wiki_id=prop_wiki_id,
+    #                              new_prop_name=new_prop_name, new_prop_wiki_id=new_prop_wiki_id,
+    #                              use_new_prop_label=use_new_prop_label, new_prop_is_list=new_prop_is_list)
+    kg.import_data_from_dbpedia(node_label=node_label, prop_name=prop_name, prop_dbp_id=prop_dbp_id,
+                                new_prop_name=new_prop_name, new_prop_dbp_id=new_prop_dbp_id,
+                                new_prop_is_list=new_prop_is_list)
     print("Done!")
-
+    ######################

@@ -23,6 +23,8 @@ xsdata = {extras = ["lxml", "soap", "cli"], version = "*"}
 xmltodict = "*"
 rdflib = "*"
 requests = "*"
+langchain = "*"
+openai = "*"
 
 [dev-packages]
 
