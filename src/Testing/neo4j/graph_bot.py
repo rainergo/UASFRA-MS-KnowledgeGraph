@@ -10,7 +10,7 @@ from langchain.graphs import Neo4jGraph
 from settings import path_base, path_data
 
 
-class LangchainQA:
+class GraphBot:
     rels_explanation = """
     # Relationship 1: (:Company)-[consumes:MWh]->(:EnergyFromFossilSources)
     # Relationship 1 explanation: A Company consumed EnergyFromFossilSources which is measured in MWh.
@@ -79,13 +79,6 @@ class LangchainQA:
     RETURN rel1.tons - rel2.tons AS waterChange
     """
 
-    bla = """
-     # Example question 3: How much did TotalUseOfLandArea for Adidas increase or decrease from the year 2022 to the year 2023?
-    MATCH (comp:Company {label:"Adidas"})-[rel1:exhausts]->(land1:Land {label: "TotalUseOfLandArea", period:"2022"})
-    MATCH (comp:Company {label:"Adidas"})-[rel2:exhausts]->(land2:Land {label: "TotalUseOfLandArea", period:"2023"})
-    RETURN rel1.hectares - rel2.hectares AS landChange
-    """
-
     def __init__(self):
         path_to_secrets: pathlib.Path = pathlib.Path(path_base, 'secrets.env')
         try:
@@ -94,7 +87,7 @@ class LangchainQA:
             print('secrets could not be loaded!')
         uri = "neo4j://localhost:7687"
         neo4j_pw = os.getenv('NEO4J_PW')
-        """ We need an OpenAI access key that is available for free on: 
+        """ We need an OpenAI access key that is available for free (3 months) on: 
         website: https://platform.openai.com/docs/quickstart?context=python """
         openai_key = os.getenv("OPENAI_API_KEY")
         self.graph = Neo4jGraph(url=uri, username="neo4j", password=neo4j_pw)
@@ -155,7 +148,7 @@ class LangchainQA:
 
 
 if __name__ == '__main__':
-    qa = LangchainQA()
+    qa = GraphBot()
     # question = "How much of TotalUseOfLandArea did Adidas have in the year 2022?"
     question = "How much did EmissionsToSoilByPolllutant for Adidas increase or decrease from the year 2022 to the year 2023?"
     print('Question:\n', question)

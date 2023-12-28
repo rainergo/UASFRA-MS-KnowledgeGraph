@@ -6,6 +6,7 @@ from neo4j import GraphDatabase
 
 from settings import path_base, path_data
 from rdf_graph import RDFGraph
+from embeddings import Embedder
 
 
 class KnowledgeGraph:
@@ -141,6 +142,33 @@ class KnowledgeGraph:
         """
         self.driver.execute_query(query_=query)
 
+    def create_text_embedding(self, node_label: str, node_primary_prop_name: str, prop_to_embed: str,
+                              vector_size: int = 768,
+                              similarity_method: str = "cosine"):
+        name_embedded_prop = prop_to_embed + "_embedding"
+        query_index = f"""CALL db.index.vector.createNodeIndex('{"NodeIndex" + "_" + node_label + "_" + prop_to_embed}',
+                          '{node_label}', '{name_embedded_prop}', {vector_size}, '{similarity_method}' ) ; """
+        query_prop_to_embed = f"""
+        MATCH (n:{node_label})     
+        RETURN n.{node_primary_prop_name} AS {node_primary_prop_name}, n.{prop_to_embed} AS {prop_to_embed}
+        """
+        session = self.driver.session()
+        try:
+            res = self.driver.execute_query(query_=query_index)
+        except Exception as e:
+            print(f'INFO: Index already exists: {e}')
+        embed_nodes_and_props: list[dict] = session.run(query=query_prop_to_embed).data()
+
+        embedder = Embedder()
+        for item in embed_nodes_and_props:
+            embedding = embedder.get_embedding(text=item[f'{prop_to_embed}'])
+            query_set_embed_prop = f"""
+            MATCH (n:{node_label})
+            WHERE n.{node_primary_prop_name} = '{item[f'{node_primary_prop_name}']}'
+            SET n.{name_embedded_prop} = {embedding} ;
+            """
+            session.run(query=query_set_embed_prop)
+
     def load_data_into_knowledge_graph(self, unique_node_keys: dict[str:str] = None,
                                        node_value_props: dict[str:str] = None,
                                        nodes_data: list[dict] = None, rels_data: list[dict] = None):
@@ -240,47 +268,51 @@ if __name__ == '__main__':
     # print("Done!")
     #################################### Load additional data from wikidata ###########################################
     """IMPORTANT: This must be run ONLY AFTER a knowledge graph has been created and filled with data !!! """
-    ################ SET industries #######################
-    # node_label = "Company"
-    # prop_name = "LEI"
-    # prop_wiki_id = "P1278"
-    # new_prop_name = "industries"
-    # new_prop_wiki_id = "P452"
-    # use_new_prop_label: bool = True     # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
-    # new_prop_is_list: bool = True
-    ################ SET country ############################
-    # node_label = "Company"
-    # prop_name = "LEI"
-    # prop_wiki_id = "P1278"
-    # new_prop_name = "country"
-    # new_prop_wiki_id = "P17"
-    # use_new_prop_label: bool = True  # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
-    # new_prop_is_list: bool = False
-    ################ Set ISIN  #################################
-    # node_label = "Company"
-    # prop_name = "LEI"
-    # prop_wiki_id = "P1278"
-    # new_prop_name = "ISIN"
-    # new_prop_wiki_id = "P946"
-    # use_new_prop_label: bool = True  # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
-    # new_prop_is_list: bool = False
-    #################  Load DBPedia data #########################
-    node_label = "Company"
-    prop_name = "wikidataID"
-    prop_dbp_id = "owl:sameAs"
-    new_prop_name = "abstract"
-    new_prop_dbp_id = "dbo:abstract"
-    new_prop_is_list: bool = False
-    # ################ Load KG  ##################################
     path_to_onto: str = path_base.as_posix() + "/models/Ontologies/Ontology4.ttl"
     kg = KnowledgeGraph(path_to_onto=path_to_onto)
-    # Get data from wikidata
+    ## Get data from wikidata:
     # kg.import_wikidata_id()
-    # kg.import_data_from_wikidata(node_label=node_label, prop_name=prop_name, prop_wiki_id=prop_wiki_id,
-    #                              new_prop_name=new_prop_name, new_prop_wiki_id=new_prop_wiki_id,
-    #                              use_new_prop_label=use_new_prop_label, new_prop_is_list=new_prop_is_list)
-    kg.import_data_from_dbpedia(node_label=node_label, prop_name=prop_name, prop_dbp_id=prop_dbp_id,
-                                new_prop_name=new_prop_name, new_prop_dbp_id=new_prop_dbp_id,
-                                new_prop_is_list=new_prop_is_list)
+    ################ SET industries #######################
+    # industry = {"node_label": "Company",
+    #             "prop_name": "LEI",
+    #             "prop_wiki_id": "P1278",
+    #             "new_prop_name": "industries",
+    #             "new_prop_wiki_id": "P452",
+    #             "use_new_prop_label": True,
+    #             # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
+    #             "new_prop_is_list": True}
+    # ################ SET country ############################
+    # country = {"node_label": "Company",
+    #            "prop_name": "LEI",
+    #            "prop_wiki_id": "P1278",
+    #            "new_prop_name": "country",
+    #            "new_prop_wiki_id": "P17",
+    #            "use_new_prop_label": True,
+    #            # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
+    #            "new_prop_is_list": False}
+    # ################ Set ISIN  #################################
+    # isin = {"node_label": "Company",
+    #         "prop_name": "LEI",
+    #         "prop_wiki_id": "P1278",
+    #         "new_prop_name": "ISIN",
+    #         "new_prop_wiki_id": "P946",
+    #         "use_new_prop_label": True,  # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
+    #         "new_prop_is_list": False}
+    ##############################################################
+    # wiki_data = [industry, country, isin]
+    # for d in wiki_data:
+    #     kg.import_data_from_wikidata(**d)
+    #################  Load DBPedia data #########################
+    # node_label = "Company"
+    # prop_name = "wikidataID"
+    # prop_dbp_id = "owl:sameAs"
+    # new_prop_name = "abstract"
+    # new_prop_dbp_id = "dbo:abstract"
+    # new_prop_is_list: bool = False
+    # kg.import_data_from_dbpedia(node_label=node_label, prop_name=prop_name, prop_dbp_id=prop_dbp_id,
+    #                             new_prop_name=new_prop_name, new_prop_dbp_id=new_prop_dbp_id,
+    #                             new_prop_is_list=new_prop_is_list)
+    # print("Done!")
+    ################# Create text embedding  ####################
+    kg.create_text_embedding(node_label="Company", node_primary_prop_name="LEI", prop_to_embed="abstract")
     print("Done!")
-    ######################

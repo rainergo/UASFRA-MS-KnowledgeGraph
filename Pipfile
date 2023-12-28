@@ -25,6 +25,8 @@ rdflib = "*"
 requests = "*"
 langchain = "*"
 openai = "*"
+transformers = "*"
+torch = "*"
 
 [dev-packages]
 
