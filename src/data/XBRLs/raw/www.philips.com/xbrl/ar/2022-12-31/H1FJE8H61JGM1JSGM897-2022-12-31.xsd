@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Document created by Taxxor Disclosure Manager -->
+<xs:schema xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:num="http://www.xbrl.org/dtr/type/numeric" xmlns:nonnum="http://www.xbrl.org/dtr/type/non-numeric" xmlns:phg="http://www.philips.com/20221231" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.philips.com/20221231" version="1.0">
+  <import schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" namespace="http://www.xbrl.org/2003/instance" />
+  <import schemaLocation="http://www.xbrl.org/2005/xbrldt-2005.xsd" namespace="http://xbrl.org/2005/xbrldt" />
+  <import schemaLocation="http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd" namespace="http://www.xbrl.org/dtr/type/numeric" />
+  <import schemaLocation="http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd" namespace="http://www.xbrl.org/dtr/type/non-numeric" />
+  <import schemaLocation="http://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor.xsd" namespace="http://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor" />
+  <annotation>
+    <appinfo>
+      <link:roleType roleURI="http://www.philips.com/role/DocumentAndEntityInformation" id="DocumentAndEntityInformation">
+        <link:definition>00000 - Document - Document And Entity Information</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+      </link:roleType>
+      <link:roleType roleURI="http://www.philips.com/role/ConsolidatedStatementsOfIncome" id="ConsolidatedStatementsOfIncome">
+        <link:definition>01000 - Statement - Consolidated statements of income</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+      </link:roleType>
+      <link:roleType roleURI="http://www.philips.com/role/ConsolidatedStatementsOfIncome2" id="ConsolidatedStatementsOfIncome2">
+        <link:definition>01000 - Statement - Consolidated statements of income 2</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+      </link:roleType>
+      <link:roleType roleURI="http://www.philips.com/role/ConsolidatedStatementsOfComprehensiveIncome" id="ConsolidatedStatementsOfComprehensiveIncome">
+        <link:definition>01100 - Statement - Consolidated statements of comprehensive income</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+      </link:roleType>
+      <link:roleType roleURI="http://www.philips.com/role/ConsolidatedStatementsOfComprehensiveIncome2" id="ConsolidatedStatementsOfComprehensiveIncome2">
+        <link:definition>01100 - Statement - Consolidated statements of comprehensive income 2</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+      </link:roleType>
+      <link:roleType roleURI="http://www.philips.com/role/ConsolidatedBalanceSheets" id="ConsolidatedBalanceSheets">
+        <link:definition>01200 - Statement - Consolidated balance sheets</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+      </link:roleType>
+      <link:roleType roleURI="http://www.philips.com/role/ConsolidatedStatementsOfCashFlows" id="ConsolidatedStatementsOfCashFlows">
+        <link:definition>01300 - Statement - Consolidated statements of cash flows</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+      </link:roleType>
+      <link:roleType roleURI="http://www.philips.com/role/ConsolidatedStatementsOfChangesInEquity" id="ConsolidatedStatementsOfChangesInEquity">
+        <link:definition>01400 - Statement - Consolidated statements of changes in equity</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType roleURI="http://www.philips.com/role/NotesAccountingPoliciesAndMandatoryTags" id="NotesAccountingPoliciesAndMandatoryTags">
+        <link:definition>20000 - Disclosure - Notes, Accounting Policies And Mandatory Tags</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+      </link:roleType>
+      <link:roleType roleURI="http://www.philips.com/role/Anchoring" id="Anchoring">
+        <link:definition>Anchoring</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:linkbaseRef xlink:type="simple" xlink:role="http://www.xbrl.org/2003/role/definitionLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31_def.xml" xlink:title="Definition Links" />
+      <link:linkbaseRef xlink:type="simple" xlink:role="http://www.xbrl.org/2003/role/presentationLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31_pre.xml" xlink:title="Presentation Links" />
+      <link:linkbaseRef xlink:type="simple" xlink:role="http://www.xbrl.org/2003/role/calculationLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31_cal.xml" xlink:title="Calculation Links" />
+      <link:linkbaseRef xlink:type="simple" xlink:role="http://www.xbrl.org/2003/role/labelLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="H1FJE8H61JGM1JSGM897-2022-12-31_lab-en.xml" xlink:title="Label Links" />
+    </appinfo>
+  </annotation>
+  <element id="phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInContinuingOperations" xbrli:periodType="duration" xbrli:balance="debit" name="ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInContinuingOperations" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInDiscontinuedOperations" xbrli:periodType="duration" xbrli:balance="debit" name="ReclassificationAdjustmentsOnExchangeDifferencesOnTranslationNetOfTaxInDiscontinuedOperations" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_PropertyPlantAndEquipmentAndRightOfUseAssets" xbrli:periodType="instant" xbrli:balance="debit" name="PropertyPlantAndEquipmentAndRightOfUseAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_EquityOther" xbrli:periodType="instant" xbrli:balance="credit" name="EquityOther" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_DepreciationAmortizationAndImpairmentOfFixedAssets" xbrli:periodType="duration" xbrli:balance="debit" name="DepreciationAmortizationAndImpairmentOfFixedAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_DecreaseIncreaseInReceivablesAndOtherCurrentAssets" xbrli:periodType="duration" xbrli:balance="debit" name="DecreaseIncreaseInReceivablesAndOtherCurrentAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_IncreaseDecreaseInAccountsPayableAccruedAndOtherCurrentLiabilities" xbrli:periodType="duration" xbrli:balance="debit" name="IncreaseDecreaseInAccountsPayableAccruedAndOtherCurrentLiabilities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_DecreaseIncreaseInNonCurrentReceivablesAndOtherAssets" xbrli:periodType="duration" xbrli:balance="debit" name="DecreaseIncreaseInNonCurrentReceivablesAndOtherAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_NetCapitalExpenditures" xbrli:periodType="duration" xbrli:balance="credit" name="NetCapitalExpenditures" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_NetProceedsFromCashUsedForDerivativesAndCurrentFinancialAssets" xbrli:periodType="duration" xbrli:balance="debit" name="NetProceedsFromCashUsedForDerivativesAndCurrentFinancialAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_IncreaseDecreaseInCashAndCashEquivalentsContinuingOperations" xbrli:periodType="duration" xbrli:balance="debit" name="IncreaseDecreaseInCashAndCashEquivalentsContinuingOperations" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_MinorityBuyOut" xbrli:periodType="duration" xbrli:balance="credit" name="MinorityBuyOut" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_IncreaseDecreaseForwardContracts" xbrli:periodType="duration" xbrli:balance="credit" name="IncreaseDecreaseForwardContracts" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <element id="phg_EquityOtherMember" xbrli:periodType="duration" abstract="true" name="EquityOtherMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" />
+</xs:schema>

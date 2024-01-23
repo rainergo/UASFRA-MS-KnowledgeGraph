@@ -3,7 +3,7 @@ import pathlib
 # PATHS
 
 path_base = pathlib.Path("D:/A_STUDIUM/PYTHON/UASFRA-MS-PROJDIGI/")
-path_data = pathlib.Path(path_base, "data/")
+path_data = pathlib.Path(path_base, "src/data/")
 path_pdfs = pathlib.Path(path_data, "pdfs/")
 
 # PDFs

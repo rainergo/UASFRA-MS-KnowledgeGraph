@@ -1,1 +1,0 @@
-{"Company_receives_Revenue": {"source": {"Company": {"LEI": "<HERE_LEI_VALUE>"}}, "target": {"Revenue": {"period": "<HERE_period_VALUE>", "label": "<HERE_label_VALUE>", "EUR": "<HERE_EUR_VALUE>"}}}}

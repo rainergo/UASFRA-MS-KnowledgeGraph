@@ -1,1 +1,0 @@
-{"Company_spends_Expenditure": {"source": {"Company": {"LEI": "<HERE_LEI_VALUE>"}}, "target": {"Expenditure": {"period": "<HERE_period_VALUE>", "label": "<HERE_label_VALUE>", "EUR": "<HERE_EUR_VALUE>"}}}}

@@ -1,0 +1,1 @@
+{"Company_owns_Asset": {"source": {"Company": {"LEI": "<HERE_LEI_VALUE>"}}, "target": {"Asset": {"period": "<HERE_period_VALUE>", "label": "<HERE_label_VALUE>", "EUR": "<HERE_EUR_VALUE>"}}}}

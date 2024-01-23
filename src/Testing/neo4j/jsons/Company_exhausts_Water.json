@@ -1,1 +1,0 @@
-{"Company_exhausts_Water": {"source": {"Company": {"LEI": "<HERE_LEI_VALUE>"}}, "target": {"Water": {"period": "<HERE_period_VALUE>", "label": "<HERE_label_VALUE>", "cubicmetres": "<HERE_cubicmetres_VALUE>"}}}}
