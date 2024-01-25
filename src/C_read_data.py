@@ -1,7 +1,12 @@
 import json
+import pathlib
 
 
 def get_data_dicts(all_json_paths: list[str]) -> tuple[list, list]:
+    """ This method deserializes a JSON-file and reads the data into a Python dictionary named "company".
+    The "company" dictionary is then read into the "node_template"-list and "relationship_template"-list.
+    These lists are later used by the module "D_knowledge_graph" to read this data into the NEO4J Knowledge-Graph.
+    """
     
     node_data: list = list()
     relationship_data: list = list()
@@ -9,10 +14,14 @@ def get_data_dicts(all_json_paths: list[str]) -> tuple[list, list]:
     companies_processed: list = list()
     
     for json_path in all_json_paths:
+        # Check if path exists:
+        if not pathlib.Path(json_path).is_file():
+            raise ValueError(f"Path to json '{json_path}' does not exist!")
     
         with open(file=json_path, mode="r", encoding="utf-8") as file:
             company: dict = json.load(file)
 
+        # Check if Node already exists:
         if (company['LEI'], company['label']) not in companies_processed:
             company_template = [{"Company": {"LEI": company['LEI'], "label": company['label']}}]
             node_data += company_template
@@ -77,8 +86,15 @@ def get_data_dicts(all_json_paths: list[str]) -> tuple[list, list]:
 
 if __name__ == '__main__':
     from pprint import pprint
-    json_paths = ['Adidas_2022.json', 'BASF_2022.json']
-    n_data, rel_data = get_data_dicts(all_json_paths=json_paths)
-    pprint(n_data)
+    # Check how the "node_template"-list and "relationship_template"-list look like:
+    json_paths = ['./data/JSONs/Adidas_2022.json', './data/JSONs/BASF_2022.json']
+    node_data, rel_data = get_data_dicts(all_json_paths=json_paths)
+    print('################################################')
+    print('###########        NODE data:       ############')
+    print('################################################')
+    pprint(node_data)
     print('------------------------------------------------')
+    print('################################################')
+    print('##########     RELATIONSHIP data:     ##########')
+    print('################################################')
     pprint(rel_data)

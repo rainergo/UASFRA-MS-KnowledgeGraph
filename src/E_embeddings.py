@@ -1,13 +1,14 @@
 import torch
-from transformers import AutoConfig, AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModel
 
 
 class Embedder:
 
-    def __init__(self, model_name: str = "bert-base-uncased"):
+    def __init__(self, model_name: str = "bert-base-uncased", return_tensor: bool = False):
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path=model_name)
         self.model = AutoModel.from_pretrained(pretrained_model_name_or_path="bert-base-uncased",
                                                output_hidden_states=True)
+        self.return_tensor: bool = return_tensor
 
     def tokenize_text(self, text: str, add_special_tokens: bool, padding: bool,
                       truncation: bool, return_tensors: str):
@@ -15,7 +16,7 @@ class Embedder:
                                      max_length=512, truncation=truncation, padding=padding)
 
     def get_embedding(self, text: str, num_last_layers: int = 12, add_special_tokens: bool = True, padding: bool = True,
-                      truncation: bool = True, return_tensors: str = "pt") -> list:
+                      truncation: bool = True, return_tensors: str = "pt") -> list or torch.Tensor:
         tokenized_text = self.tokenize_text(text=text, add_special_tokens=add_special_tokens,
                                             truncation=truncation, padding=padding, return_tensors=return_tensors)
         with torch.no_grad():
@@ -25,26 +26,29 @@ class Embedder:
         """ The 'pooler_ouput' is a [1, 768]-dimensional vector (in 'bert-base-uncased') of the [CLS]-token 
             further processed by a Linear layer and a Tanh activation function representing the context of 
             the whole text. 'The 'last_hidden_state' is the [1, num_token_in_text, 768]-dimensional vector of the
-            hidden state of the last layer and thus must be averaged to get to a dimension of [1, 768]. """
+            hidden state of the last layer and thus must be averaged to get to a dimension of [1, 768]: """
         # print('Dimension of stack is:', hidden_states_sum.shape)
         if num_last_layers > 0:
             # embedding = output.last_hidden_state.mean(dim=1)
             layers = [no for no in range(-num_last_layers, 0, 1)]
             embedding = torch.stack([output.hidden_states[i] for i in layers]).mean(dim=0).mean(dim=1)
-            print('Dimension of embedding is:', embedding.shape)
-
+            # print('Dimension of embedding is:', embedding.shape)
         else:
             embedding = output.pooler_output
-            print('Dimension of embedding is:', embedding.shape)
+            # print('Dimension of embedding is:', embedding.shape)
 
+        if self.return_tensor:
+            # Only for debugging and calculating cosine-similarity (see below):
+            embedding_list: torch.Tensor = embedding
+        else:
+            # For calculating Graph-Embeddings:
+            embedding_list: list = embedding.flatten().tolist()
 
-        # embedding_list: list = embedding.flatten().tolist()
-        embedding_list: list = embedding
         return embedding_list
 
 
 if __name__ == '__main__':
-    emb = Embedder()
+    emb = Embedder(return_tensor=True)
     num_last_layers = 4
     pad = True
     dim = 1
@@ -63,10 +67,10 @@ if __name__ == '__main__':
     cos13 = torch.cosine_similarity(res1, res4)
     cos24 = torch.cosine_similarity(res2, res4)
     cos15 = torch.cosine_similarity(res1, res5)
-    print('Adidas and Puma:', cos12)
-    print('Adidas and BASF:', cos15)
-    print('Adidas and RWE', cos13)
-    print('EON and RWE', cos34)
-    print('Puma and EON', cos24)
+    print('COS-SIM: Adidas and Puma:', cos12)
+    print('COS-SIM: Adidas and BASF:', cos15)
+    print('COS-SIM: Adidas and RWE', cos13)
+    print('COS-SIM: EON and RWE', cos34)
+    print('COS-SIM: Puma and EON', cos24)
     # print('length of embedding list', len(res1))
     # print('list:\n', res1)

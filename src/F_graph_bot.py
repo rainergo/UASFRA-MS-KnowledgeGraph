@@ -11,56 +11,56 @@ from settings import path_base, path_data
 
 
 class GraphBot:
-    # rels_explanation = """
-    # # Relationship 1: (:Company)-[consumes:MWh]->(:EnergyFromFossilSources)
-    # # Relationship 1 explanation: A Company consumed EnergyFromFossilSources which is measured in MWh.
-    # # Relationship 2: (:Company)-[consumes:MWh]->(:EnergyFromNuclearSources)
-    # # Relationship 2 explanation: A Company consumed EnergyFromNuclearSources which is measured in MWh.
-    # # Relationship 3: (:Company)-[consumes:MWh]->(:EnergyFromRenewableSources)
-    # # Relationship 3 explanation: A Company consumed EnergyFromRenewableSources which is measured in MWh.
-    # # Relationship 4: (:Company)-[contributesTo:tonsCO2Eq]->(:GHGReduction)
-    # # Relationship 4 explanation: A Company contributed to a GHGReduction which is measured in tonsCO2Eq.
-    # # Relationship 5: (:Company)-[disposes:tons]->(:Substance)
-    # # Relationship 5 explanation: A Company disposed a Substance which is measured in tons.
-    # # Relationship 6: (:Company)-[disposes:tons]->(:Waste)
-    # # Relationship 6 explanation: A Company disposed Waste which is measured in tons.
-    # # Relationship 7: (:Company)-[emits:tonsCO2Eq]->(:GHGEmission)
-    # # Relationship 7 explanation: A Company emitted GHGEmission which is measured in tonsCO2Eq.
-    # # Relationship 8: (:Company)-[emits:tonsCO2Eq]->(:Scope1)
-    # # Relationship 8 explanation: A Company emitted Scope1 which is measured in tonsCO2Eq.
-    # # Relationship 9: (:Company)-[exhausts:hectares]->(:Land)
-    # # Relationship 9 explanation: A Company exhausted Land which is measured in hectares.
-    # # Relationship 10: (:Company)-[exhausts:cubicmetres]->(:Water)
-    # # Relationship 10 explanation: A Company exhausted Water which is measured in cubicmetres.
-    # # Relationship 11: (:Company)-[indirectlyEmits:tonsCO2Eq]->(:Scope2)
-    # # Relationship 11 explanation: A Company emitted Scope2 which is measured in tonsCO2Eq.
-    # # Relationship 12: (:Company)-[indirectlyEmits:tonsCO2Eq]->(:Scope3)
-    # # Relationship 12 explanation: A Company emitted Scope3 which is measured in tonsCO2Eq.
-    # # Relationship 13: (:Company)-[owns:EUR]->(:Asset)
-    # # Relationship 13 explanation: A Company owns an Asset which is measured in EUR.
-    # # Relationship 14: (:Company)-[receives:EUR]->(:Revenue)
-    # # Relationship 14 explanation: A Company receives a Revenue which is measured in EUR.
-    # # Relationship 15: (:Company)-[spends:EUR]->(:Expenditure)
-    # # Relationship 15 explanation: A Company spends Expenditure which is measured in EUR.
-    # """
+    rels_explanation = """
+    # Relationship 1: (:Company)-[consumes:MWh]->(:EnergyFromFossilSources)
+    # Relationship 1 explanation: A Company consumed EnergyFromFossilSources which is measured in unit "MWh".
+    # Relationship 2: (:Company)-[consumes:MWh]->(:EnergyFromNuclearSources)
+    # Relationship 2 explanation: A Company consumed EnergyFromNuclearSources which is measured in unit "MWh".
+    # Relationship 3: (:Company)-[consumes:MWh]->(:EnergyFromRenewableSources)
+    # Relationship 3 explanation: A Company consumed EnergyFromRenewableSources which is measured in unit "MWh".
+    # Relationship 4: (:Company)-[contributesTo:tonsCO2Eq]->(:GHGReduction)
+    # Relationship 4 explanation: A Company contributed to a GHGReduction which is measured in unit "tonsCO2Eq".
+    # Relationship 5: (:Company)-[disposes:tons]->(:Substance)
+    # Relationship 5 explanation: A Company disposed a Substance which is measured in unit "tons".
+    # Relationship 6: (:Company)-[disposes:tons]->(:Waste)
+    # Relationship 6 explanation: A Company disposed Waste which is measured in unit "tons".
+    # Relationship 7: (:Company)-[emits:tonsCO2Eq]->(:GHGEmission)
+    # Relationship 7 explanation: A Company emitted GHGEmission which is measured in unit "tonsCO2Eq".
+    # Relationship 8: (:Company)-[emits:tonsCO2Eq]->(:Scope1)
+    # Relationship 8 explanation: A Company emitted Scope1 which is measured in unit "tonsCO2Eq".
+    # Relationship 9: (:Company)-[exhausts:hectares]->(:Land)
+    # Relationship 9 explanation: A Company exhausted Land which is measured in unit "hectares".
+    # Relationship 10: (:Company)-[exhausts:cubicmetres]->(:Water)
+    # Relationship 10 explanation: A Company exhausted Water which is measured in unit "cubicmetres".
+    # Relationship 11: (:Company)-[indirectlyEmits:tonsCO2Eq]->(:Scope2)
+    # Relationship 11 explanation: A Company emitted Scope2 which is measured in unit "tonsCO2Eq".
+    # Relationship 12: (:Company)-[indirectlyEmits:tonsCO2Eq]->(:Scope3)
+    # Relationship 12 explanation: A Company emitted Scope3 which is measured in "tonsCO2Eq".
+    # Relationship 13: (:Company)-[owns:EUR]->(:Asset)
+    # Relationship 13 explanation: A Company owns an Asset which is measured in unit "EUR".
+    # Relationship 14: (:Company)-[receives:EUR]->(:Revenue)
+    # Relationship 14 explanation: A Company receives a Revenue which is measured in unit "EUR".
+    # Relationship 15: (:Company)-[spends:EUR]->(:Expenditure)
+    # Relationship 15 explanation: A Company spends Expenditure which is measured in unit "EUR".
+    """
 
-    # nodes_and_labels = """
-    # Node "EnergyFromFossilSources": "TotalEnergyConsumptionFromFossilSources"
-    # Node "EnergyFromNuclearSources": "TotalEnergyConsumptionFromNuclearSources"
-    # Node "EnergyFromRenewableSources": "TotalEnergyConsumptionFromRenewableSources"
-    # Node "Asset": "AssetsAtMaterialPhysicalRiskBeforeClimateChangeAdaptationActions", "AssetsAtMaterialTransitionRiskBeforeClimateMitigationActions"
-    # Node "Expenditure": "FinancialResourcesAllocatedToActionPlanOpEx", "FinancialResourcesAllocatedToActionPlanCapEx"
-    # Node "Revenue": "NetRevenueUsedToCalculateGHGIntensity", "NetRevenue"
-    # Node "GHGEmission": "TotalGHGEmissions"
-    # Node "GHGReduction": "AbsoluteValueOfTotalGHGEmissionsReduction"
-    # Node "Scope1": "GrossScope1GHGEmissions"
-    # Node "Scope2": "GrossLocationBasedScope2GHGEmissions", "GrossMarketBasedScope2GHGEmissions"
-    # Node "Scope3": "GrossScope3GHGEmissions"
-    # Node "Land": "TotalUseOfLandArea"
-    # Node "Water": "TotalWaterConsumption"
-    # Node "Substance": "TotalAmountOfSubstancesOfConcernGenerated"
-    # Node "Waste": "EmissionsToAirByPollutant", "EmissionsToSoilByPollutant", "EmissionsToWaterByPollutant"
-    # """
+    nodes_and_labels = """
+    Node "EnergyFromFossilSources": "TotalEnergyConsumptionFromFossilSources"
+    Node "EnergyFromNuclearSources": "TotalEnergyConsumptionFromNuclearSources"
+    Node "EnergyFromRenewableSources": "TotalEnergyConsumptionFromRenewableSources"
+    Node "Asset": "AssetsAtMaterialPhysicalRiskBeforeClimateChangeAdaptationActions", "AssetsAtMaterialTransitionRiskBeforeClimateMitigationActions"
+    Node "Expenditure": "FinancialResourcesAllocatedToActionPlanOpEx", "FinancialResourcesAllocatedToActionPlanCapEx"
+    Node "Revenue": "NetRevenueUsedToCalculateGHGIntensity", "NetRevenue"
+    Node "GHGEmission": "TotalGHGEmissions"
+    Node "GHGReduction": "AbsoluteValueOfTotalGHGEmissionsReduction"
+    Node "Scope1": "GrossScope1GHGEmissions"
+    Node "Scope2": "GrossLocationBasedScope2GHGEmissions", "GrossMarketBasedScope2GHGEmissions"
+    Node "Scope3": "GrossScope3GHGEmissions"
+    Node "Land": "TotalUseOfLandArea"
+    Node "Water": "TotalWaterConsumption"
+    Node "Substance": "TotalAmountOfSubstancesOfConcernGenerated"
+    Node "Waste": "EmissionsToAirByPollutant", "EmissionsToSoilByPollutant", "EmissionsToWaterByPollutant"
+    """
 
     examples = """
     # Example question 1: How much of GrossScope1GHGEmissions in tonsCO2Eq did the Company BASF emit in the period 2022?
@@ -73,14 +73,14 @@ class GraphBot:
     RETURN rel.tonsCO2Eq
     # Example question 3: How much did TotalUseOfLandArea for Adidas increase or decrease from 2022 to 2023?
     # Cypher statement to question 3:
-    MATCH (source:Company {{label:"Adidas"}})-[rel1:exhausts]->(target:Land {{label: "TotalUseOfLandArea", period:"2022"}})
-    MATCH (source:Company {{label:"Adidas"}})-[rel2:exhausts]->(target:Land {{label: "TotalUseOfLandArea", period:"2023"}})
-    RETURN rel1.hectares - rel2.hectares AS landChange
+    MATCH (source:Company {{label:"Adidas"}})-[rel1:exhausts]->(target1:Land {{label: "TotalUseOfLandArea", period:"2022"}})
+    MATCH (source:Company {{label:"Adidas"}})-[rel2:exhausts]->(target2:Land {{label: "TotalUseOfLandArea", period:"2023"}})
+    RETURN rel2.hectares - rel1.hectares AS landChange
     # Example question 4: How much did EmissionsToWaterByPolllutant for Adidas increase or decrease from the year 2022 to the year 2023?
     # Cypher statement to question 4:
-    MATCH (source:Company {{label:"Adidas"}})-[rel1:disposes]->(target:Waste {{label: "EmissionsToWaterByPollutant", period:"2022"}})
-    MATCH (source:Company {{label:"Adidas"}})-[rel2:disposes]->(target:Waste {{label: "EmissionsToWaterByPollutant", period:"2023"}})
-    RETURN rel1.tons - rel2.tons AS waterChange
+    MATCH (source:Company {{label:"Adidas"}})-[rel1:disposes]->(target1:Waste {{label: "EmissionsToWaterByPollutant", period:"2022"}})
+    MATCH (source:Company {{label:"Adidas"}})-[rel2:disposes]->(target2:Waste {{label: "EmissionsToWaterByPollutant", period:"2023"}})
+    RETURN rel2.tons - rel1.tons AS waterChange
     # Example question 5: Which company had the highest AbsoluteValueOfTotalGHGEmissionsReduction in 2023?
     # Cypher statement to question 5:
     MATCH (source:Company)-[rel:contributesTo]->(target:GHGReduction {{label: "AbsoluteValueOfTotalGHGEmissionsReduction", period: "2023"}})
@@ -139,11 +139,12 @@ class GraphBot:
         except:
             print('secrets could not be loaded!')
         uri = "neo4j://localhost:7687"
+        neo4j_user = os.getenv('NEO4J_USER')
         neo4j_pw = os.getenv('NEO4J_PW')
         """ We need an OpenAI access key that is available for free (3 months) on: 
         website: https://platform.openai.com/docs/quickstart?context=python """
         openai_key = os.getenv("OPENAI_API_KEY")
-        self.graph = Neo4jGraph(url=uri, username="neo4j", password=neo4j_pw)
+        self.graph = Neo4jGraph(url=uri, username=neo4j_user, password=neo4j_pw)
         self.graph.refresh_schema()
         """ In order to use 'ChatOpenAI' as the LLM, we need to install OpenAI first: 'pip install openai' """
         self.chat_llm = ChatOpenAI(temperature=0, openai_api_key=openai_key)
@@ -155,22 +156,22 @@ class GraphBot:
         """ IMPORTANT: The PromptTemplate is optimized for graphs and only accepts TWO input_variables (schema, question).
         Additional variables need to be inserted via f-string variables, such as 'self.rels_explanation' and
         'self.examples' in this prompt.
-
-        The following are all the relationships with their property being a quantity of the target Node:
-        {self.rels_explanation}
-        Do also take into consideration that Nodes can only have the following labels respectively:
-        {self.nodes_and_labels}
-        Other labels for Nodes are not allowed.
-        Do take into account that quantities or values of target Nodes are often stored as the property values of the
-        relationship. For instance, given the Relationship pattern "(:source Node)-[Relationship:property]->(:target Node):",
-        the quantity or property value of the target Node is given as the property of the Relationship.
-
         """
         cypher_prompt = f"""
         Task: Generate Cypher statement to query a Neo4j graph database.
         Instructions:
         Use only the provided relationship types and properties in the schema.
         Do not use any other relationship types or properties that are not provided.
+        The following are all the relationships with their property being a quantity of the target Node:
+        {self.rels_explanation}
+        Do also take into consideration that Nodes can only have the following labels respectively:
+        {self.nodes_and_labels}
+        Other labels for Nodes are not allowed.
+        Do take into account that quantities or values of target Nodes are always stored as the property values of the
+        relationship. For instance, given the Relationship pattern "(:source Node)-[Relationship:property]->(:target Node):",
+        the quantity or property value of the target Node is given as the property of the Relationship.
+        Please always provide the appropriate measurement unit in you answer. Particularly pay attention if monetary units are involved
+        as they are mostly reported in the unit "EUR" or Euros and not in US dollars.
         Schema:
         {{schema}}
         Note: Do not include any explanations or apologies in your responses.

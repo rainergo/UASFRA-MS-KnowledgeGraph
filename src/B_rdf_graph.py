@@ -7,7 +7,12 @@ from settings import path_base
 
 
 class RDFGraph:
-    """ This class creates cypher queries based on a given Ontology. """
+    """ This class creates cypher query templates based on a given ontology and based on Node properties as described by
+    two Python dictionaries:
+        - unique_node_keys
+        - node_value_props
+    Please see README-models.md for further details.
+    """
 
     def __init__(self, path_to_onto: str, rdf_format: str = "ttl"):
         self.rdf_graph: Graph = Graph()
@@ -199,9 +204,9 @@ class RDFGraph:
                 """
                 IMPORTANT:
                 Data for relationship: Please note, that the values for the target will be stored in the relationship.
-                For instance: (source:Company)-[r:emits]->(target:Scope1 {name:Scop1TotalGHGEmissions}), then the value
-                for Scop1TotalGHGEmissions will be stored in the relationship: r:emits {value: <Value for Scop1TotalGHGEmissions>}, i.e. 
-                the query will be: (source:Company)-[r:emits {value: <Value for Scop1TotalGHGEmissions>}]->(target:Scope1 {name:Scop1TotalGHGEmissions})
+                For instance: (source:Company)-[r:emits]->(target:Scope1 {name:Scope1TotalGHGEmissions}), then the value
+                for Scope1TotalGHGEmissions will be stored in the relationship: r:emits {value: <Value for Scope1TotalGHGEmissions>}, i.e. 
+                the query will be: (source:Company)-[r:emits {value: <Value for Scope1TotalGHGEmissions>}]->(target:Scope1 {name:Scope1TotalGHGEmissions})
                 """
                 # Data for relationship:
                 if target in node_value_props:
@@ -259,8 +264,8 @@ if __name__ == '__main__':
     from src.models.Ontologies.onto4.params import unique_node_keys, node_value_props
     path_to_onto: str = path_base.as_posix() + "/src/models/Ontologies/onto4/Ontology4.ttl"
     g = RDFGraph(path_to_onto=path_to_onto)
-    constr_queries, c_queries, rel_queries, ns_queries, = g.create_query_templates(unique_node_keys=unique_node_keys,
-                                                                                   node_value_props=node_value_props)
+    constr_queries, node_queries, rel_queries, ns_queries, = g.create_query_templates(unique_node_keys=unique_node_keys,
+                                                                                      node_value_props=node_value_props)
     #  Show all the queries:
     print('CONSTRAINT_QUERIES:')
     for item000 in constr_queries:
@@ -271,7 +276,7 @@ if __name__ == '__main__':
         print(item00)
     print('-----')
     print('NODE_QUERIES:')
-    for key, val in c_queries.items():
+    for key, val in node_queries.items():
         print(key, val)
         print('-----')
     print('RELATIONSHIP_QUERIES:')

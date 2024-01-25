@@ -1,7 +1,7 @@
 ## README.md for data
-### This data-folder contains two sub-folders:
-    1) 'XBRLs': XBRL-files of company's annual or quarterly reports. Currently, these files do NOT contain ESG-data.
-    2) 'JSONs': JSON-files of company's sample ESG-data that later will be used to populate a NEO4J-Knowledge-Graph
+### This "data" folder contains two sub-folders:
+    1) "XBRLs": XBRL-files of company's annual or quarterly reports. Currently, these files do NOT contain ESG-data.
+    2) "JSONs": JSON-files of company's sample ESG-data that later will be used to populate a NEO4J-Knowledge-Graph
     
 
 ### 1) XBRLs:
@@ -56,7 +56,7 @@
 
 <img src="Knowledge-Graph-Sample-Data.png" width="1000" alt="">
 
-###### The "JSONs"-sub-folder contains the following exemplary JSON-files containing these data points: 
+###### The "JSONs"-sub-folder contains the following exemplary JSON-files containing these data points for three companies ("Adidas", "BASF", "Puma") and two years (2022, 2023), altogether 6 JSON-files: 
     - Adidas_2022.json
     - Adidas_2023.json
     - BASF_2022.json
