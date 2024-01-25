@@ -1,7 +1,7 @@
 import pathlib
 from src.A_read_xbrl import XBRL, XHTMLName
 from src.C_read_data import get_data_dicts
-from src.D_knowledge_graph import KnowledgeGraph
+from src.D_graph_construction import KnowledgeGraph
 from src.F_graph_bot import GraphBot
 
 from src.models.Ontologies.onto4.params import unique_node_keys, node_value_props

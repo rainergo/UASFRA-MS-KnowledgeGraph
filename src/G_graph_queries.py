@@ -5,12 +5,12 @@ from dotenv import load_dotenv
 import pandas as pd
 from neo4j import GraphDatabase, Result, Record, ResultSummary
 
-from settings import path_base, path_data, path_ontos
+from settings import path_base, path_ontos
 
 
 class GraphQueries:
 
-    def __init__(self, path_to_onto: str, neo4j_db_name: str='neo4j'):
+    def __init__(self, neo4j_db_name: str='neo4j'):
         path_to_secrets: pathlib.Path = pathlib.Path(path_base, 'secrets.env')
         try:
             load_dotenv(dotenv_path=path_to_secrets)  # Load secrets/env variables
@@ -20,9 +20,6 @@ class GraphQueries:
         self.neo4j_db_name: str = neo4j_db_name
         auth = (os.getenv('NEO4J_USER'), os.getenv('NEO4J_PW'))
         self.driver = GraphDatabase.driver(uri, auth=auth)
-        if not pathlib.Path(path_to_onto).is_file():
-            raise ValueError(f"Provided path to Ontology '{path_to_onto}' does not exist!")
-        self.path_to_onto: str = path_to_onto
 
     def _query_return_df(self, query: str) -> pd.DataFrame:
         df: pd.DataFrame = self.driver.execute_query(query_=query,
@@ -37,7 +34,7 @@ class GraphQueries:
 
 if __name__ == '__main__':
     onto_file_path_or_url: str = path_ontos.as_posix() + "/onto4/Ontology4.ttl"
-    gq = GraphQueries(path_to_onto=onto_file_path_or_url)
+    gq = GraphQueries()
 
     query = f"""
         MATCH (source:Company)-[rel:emits]->(target:Scope1 {{label: "GrossScope1GHGEmissions"}}) 
