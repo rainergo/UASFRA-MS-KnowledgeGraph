@@ -3,9 +3,9 @@ import pathlib
 
 
 def get_data_dicts(all_json_paths: list[str]) -> tuple[list, list]:
-    """ This method deserializes a JSON-file and reads the data into a Python dictionary named "company".
+    """ This method deserializes JSON-files and reads the data into a Python dictionary named "company".
     The "company" dictionary is then read into the "node_template"-list and "relationship_template"-list.
-    These lists are later used by the module "D_knowledge_graph" to read this data into the NEO4J Knowledge-Graph.
+    These lists are later used by the module "D_graph_construction" to read this data into the NEO4J Knowledge-Graph.
     """
     
     node_data: list = list()

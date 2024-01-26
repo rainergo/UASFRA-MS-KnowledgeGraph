@@ -1,8 +1,9 @@
 import pathlib
 from src.A_read_xbrl import XBRL, XHTMLName
 from src.C_read_data import get_data_dicts
-from src.D_graph_construction import KnowledgeGraph
+from src.D_graph_construction import GraphConstruction
 from src.F_graph_bot import GraphBot
+from src.G_graph_queries import GraphQueries, ESRS, Stats, Company
 
 from src.models.Ontologies.onto4.params import unique_node_keys, node_value_props
 from settings import path_base, path_ontos, path_data
@@ -19,7 +20,7 @@ def load_onto_and_show_schema(onto_file_path_or_url: str, path_is_url: bool = Fa
     Attention: All existing data in the Knowledge-Graph will be deleted !
     """
     print('Loading Ontology ... . This might take a few seconds, please be patient!')
-    kg = KnowledgeGraph(path_to_onto=onto_file_path_or_url)
+    kg = GraphConstruction(path_to_onto=onto_file_path_or_url)
     kg.delete_graph()
     kg.init_graph(handle_vocab_uris="IGNORE", handle_mult_vals="OVERWRITE")
     kg.load_onto_or_rdf(path=onto_file_path_or_url, path_is_url=path_is_url, load_onto_only=True)
@@ -37,7 +38,7 @@ def load_data_into_knowledge_graph(onto_file_path_or_url: str,
     (see: 'README-data.md-file'). The path to these JSON-files and the names of the JSON-files must be provided in
     'path_to_jsons' and 'list_of_json_names'. Cypher queries can be shown if 'show_queries' is set to 'True' """
     print('Loading data into NEO4J ... . This might take a few seconds, please be patient!')
-    kg = KnowledgeGraph(path_to_onto=onto_file_path_or_url)
+    kg = GraphConstruction(path_to_onto=onto_file_path_or_url)
     all_json_paths: list = [pathlib.Path(path_to_jsons, item).as_posix() for item in list_of_json_names]
     node_data, relation_data = get_data_dicts(all_json_paths=all_json_paths)
     if delete_and_init_graph:
@@ -52,7 +53,7 @@ def load_wikidata_data(onto_file_path_or_url: str):
     """ Loads external data from wikidata for Company Nodes: Industries, Countries and ISINs """
     """IMPORTANT: This must be run ONLY AFTER a knowledge graph has been created and filled with data !!! """
     print('Enriching NEO4J-Graph with wikidata data ... . This might take a few seconds, please be patient!')
-    kg = KnowledgeGraph(path_to_onto=onto_file_path_or_url)
+    kg = GraphConstruction(path_to_onto=onto_file_path_or_url)
     kg.import_wikidata_id()
     industry = {"node_label": "Company", "prop_name": "LEI", "prop_wiki_id": "P1278", "new_prop_name": "industries",
                 "new_prop_wiki_id": "P452", "use_new_prop_label": True, "new_prop_is_list": True}
@@ -70,7 +71,7 @@ def load_dbpedia_data(onto_file_path_or_url: str):
     """ Loads external data from dbpedia for Company Nodes: abstract ("Company description") """
     """IMPORTANT: This must be run ONLY AFTER a knowledge graph has been created and filled with data !!! """
     print('Enriching NEO4J-Graph with dbpedia data ... . This might take a few seconds, please be patient!')
-    kg = KnowledgeGraph(path_to_onto=onto_file_path_or_url)
+    kg = GraphConstruction(path_to_onto=onto_file_path_or_url)
     kg.import_wikidata_id()
     company_abstract = {
         "node_label": "Company",
@@ -91,7 +92,7 @@ def create_text_embedding(onto_file_path_or_url: str, node_label: str,
     has a string/text property ('prop_to_embed') !!! """
     print(f'Creating text embedding for property "{prop_to_embed}" of Node "{node_label}" ... . '
           f'This might take a few seconds, please be patient!')
-    kg = KnowledgeGraph(path_to_onto=onto_file_path_or_url)
+    kg = GraphConstruction(path_to_onto=onto_file_path_or_url)
     kg.create_text_embedding(node_label=node_label, node_primary_prop_name=node_primary_prop_name,
                              prop_to_embed=prop_to_embed)
     print(f'Done! Text embedding for property "{prop_to_embed}" of Node "{node_label}" was created.')
@@ -102,6 +103,27 @@ def ask_graph_bot(question: str):
     print('QUESTION:\n', question)
     ans = bot.ask_question(question=question)
     print('ANSWER:\n', ans)
+
+
+def execute_graph_queries(esrs_1: ESRS, company: Company, periods: list, return_df: bool,
+                          stat: Stats = None, by_period: bool = True, esrs_2: ESRS = ESRS.NetRevenue):
+    q = GraphQueries()
+    esrs_data = q.get_esrs_data(esrs=ESRS.EmissionsToAirByPollutant, company=Company.Adidas,
+                          periods=['2022', '2023'], return_df=return_df)
+    print(f'ESRS data for "{esrs_1.name}", company "{company.name}" and {periods} is: \n{esrs_data}')
+
+    print('-------------------------------------------------------------------------------')
+    stat_by_comp = q.get_statistics_by_company(esrs=esrs_1, stat=stat,
+                                        periods=periods, return_df=return_df)
+    print(f'Statistics "{stat}" by company for "{esrs_1.name}" and {periods} is: \n{stat_by_comp}')
+    print('-------------------------------------------------------------------------------')
+    stat_by_label = q.get_statistics_by_esrs_data(esrs=esrs_1, stat=stat,
+                                        periods=periods, by_period=by_period, return_df=return_df)
+    print(f'Statistics "{stat}" by label for "{esrs_1.name}" and {periods} is: \n{stat_by_label}')
+    print('-------------------------------------------------------------------------------')
+    ratio = q.get_ratio_of_two_esrs(esrs_numerator=esrs_1, esrs_denominator=esrs_2,
+                                  company=company, periods=None, return_df=return_df)
+    print(f'Ratio of "{esrs_1.name}" to "{esrs_2.name}" for company "{company.name}" is: \n{ratio}')
 
 
 if __name__ == '__main__':
@@ -135,7 +157,11 @@ if __name__ == '__main__':
     #                       node_primary_prop_name="LEI", prop_to_embed="abstract")
 
     """ 6. GraphBot: RAG (Retrieval Augmented Generation) with NEO4J Graph """
-    question = "How much of TotalUseOfLandArea did BASF have in the year 2023?"
+    # question = "How much of TotalUseOfLandArea did BASF have in the year 2023?"
     # question = "How much did EmissionsToSoilByPolllutant for Adidas change from the year 2022 to the year 2023?"
     # question = "Which industry had the most GrossScope1GHGEmissions in 2023?"
-    ask_graph_bot(question=question)
+    # ask_graph_bot(question=question)
+
+    """ 7. GraphQueries: Query NEO4J Graph with Python functions """
+    execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, company=Company.Adidas, periods=['2022', '2023'],
+                          return_df=True, stat=Stats.SUM, esrs_2=ESRS.NetRevenue)

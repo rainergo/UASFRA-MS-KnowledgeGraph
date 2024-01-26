@@ -2,23 +2,23 @@ import os
 import pathlib
 from dotenv import load_dotenv
 
-from neo4j import GraphDatabase
+from neo4j import GraphDatabase, Record
 
 from settings import path_base, path_data
 from src.B_rdf_graph import RDFGraph
 from src.E_embeddings import Embedder
 
 
-class KnowledgeGraph:
+class GraphConstruction:
 
-    def __init__(self, path_to_onto: str, neo4j_db_name: str ='neo4j'):
+    def __init__(self, path_to_onto: str, neo4j_db_name: str = 'neo4j'):
         path_to_secrets: pathlib.Path = pathlib.Path(path_base, 'secrets.env')
         try:
             load_dotenv(dotenv_path=path_to_secrets)  # Load secrets/env variables
         except:
             print('secrets could not be loaded!')
         uri = "neo4j://localhost:7687"
-        self.neo4j_db_name: str =neo4j_db_name
+        self.neo4j_db_name: str = neo4j_db_name
         auth = (os.getenv('NEO4J_USER'), os.getenv('NEO4J_PW'))
         self.driver = GraphDatabase.driver(uri, auth=auth)
         if not pathlib.Path(path_to_onto).is_file():
@@ -52,10 +52,10 @@ class KnowledgeGraph:
         query_drop_constr = f"""DROP CONSTRAINT n10s_unique_uri IF EXISTS"""
         self.driver.execute_query(query_=query_delete, database_=self.neo4j_db_name)
         self.driver.execute_query(query_=query_drop_constr, database_=self.neo4j_db_name)
-        constraints = self.driver.execute_query("SHOW CONSTRAINT", database_=self.neo4j_db_name).records
+        constraints: list[Record] = self.driver.execute_query("SHOW CONSTRAINT", database_=self.neo4j_db_name).records
         for constraint in constraints:
             self.driver.execute_query(query_="DROP CONSTRAINT " + constraint['name'], database_=self.neo4j_db_name)
-        indexes = self.driver.execute_query("SHOW INDEXES", database_=self.neo4j_db_name).records
+        indexes: list[Record] = self.driver.execute_query("SHOW INDEXES", database_=self.neo4j_db_name).records
         for index in indexes:
             self.driver.execute_query("DROP INDEX " + index['name'], database_=self.neo4j_db_name)
 
@@ -220,6 +220,7 @@ class KnowledgeGraph:
 
 
 if __name__ == '__main__':
+    pass
     ########################### Load ontology and show schema of knowledge graph  ####################################
     # # path_to_onto: str = "https://raw.githubusercontent.com/jbarrasa/goingmeta/main/session4/ontos/movies-onto.ttl"
     # # path_to_onto: str = path_base.as_posix() + "/models/Ontologies/rail.ttl"
@@ -242,11 +243,11 @@ if __name__ == '__main__':
     # kg.load_data_into_knowledge_graph(unique_node_keys=unique_node_keys, node_value_props=node_value_props, nodes_data=n_data, rels_data=r_data)
     # print("Done!")
     #################################### Load additional data from wikidata ###########################################
-    """IMPORTANT: This must be run ONLY AFTER a knowledge graph has been created and filled with data !!! """
-    path_to_onto: str = path_base.as_posix() + "/src/models/Ontologies/onto4/Ontology4.ttl"
-    print(path_to_onto)
-    kg = KnowledgeGraph(path_to_onto=path_to_onto)
-    kg.delete_graph()
+    # """IMPORTANT: This must be run ONLY AFTER a knowledge graph has been created and filled with data !!! """
+    # path_to_onto: str = path_base.as_posix() + "/src/models/Ontologies/onto4/Ontology4.ttl"
+    # print(path_to_onto)
+    # kg = GraphConstruction(path_to_onto=path_to_onto)
+    # kg.delete_graph()
 
     ## Get data from wikidata:
     # kg.import_wikidata_id()

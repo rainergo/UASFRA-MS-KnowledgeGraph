@@ -6,15 +6,12 @@ name = "pypi"
 [packages]
 neo4j = "*"
 pandas = "*"
-spacy = "3.5.4"
-scikit-learn = "*"
 python-dotenv = "*"
 pypdf2 = "*"
 pycryptodome = "*"
 tabulate = "*"
 pyarrow = "*"
 jupyter = "*"
-coreferee = "*"
 requests-html = "*"
 py-xbrl = "*"
 graphdatascience = "*"
@@ -29,6 +26,9 @@ transformers = "*"
 torch = "*"
 
 [dev-packages]
+spacy = "3.5.4"
+scikit-learn = "*"
+coreferee = "*"
 
 [requires]
 python_version = "3.11"
