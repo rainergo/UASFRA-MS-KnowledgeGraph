@@ -7,7 +7,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.prompts.prompt import PromptTemplate
 from langchain.graphs import Neo4jGraph
 
-from settings import path_base, path_data
+from settings import path_base
 
 
 class GraphBot:

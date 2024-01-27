@@ -3,7 +3,7 @@ from src.A_read_xbrl import XBRL, XHTMLName
 from src.C_read_data import get_data_dicts
 from src.D_graph_construction import GraphConstruction
 from src.F_graph_bot import GraphBot
-from src.G_graph_queries import GraphQueries, ESRS, Stats, Company
+from src.G_graph_queries import GraphQueries, ESRS, Stats, Company, CompProp
 
 from src.models.Ontologies.onto4.params import unique_node_keys, node_value_props
 from settings import path_base, path_ontos, path_data
@@ -106,24 +106,69 @@ def ask_graph_bot(question: str):
 
 
 def execute_graph_queries(esrs_1: ESRS, company: Company, periods: list, return_df: bool,
-                          stat: Stats = None, by_period: bool = True, esrs_2: ESRS = ESRS.NetRevenue):
-    q = GraphQueries()
-    esrs_data = q.get_esrs_data(esrs=ESRS.EmissionsToAirByPollutant, company=Company.Adidas,
-                          periods=['2022', '2023'], return_df=return_df)
-    print(f'ESRS data for "{esrs_1.name}", company "{company.name}" and {periods} is: \n{esrs_data}')
-
+                          stat: Stats = None, by_period: bool = True, esrs_2: ESRS = ESRS.NetRevenue,
+                          comp_prop: CompProp = None, print_queries: bool = False):
+    q = GraphQueries(print_queries=print_queries)
+    print(f'Question: Which company had the most "{esrs_1.name}" in {periods} ?')
+    esrs_data_1 = q.get_esrs_data(esrs=esrs_1, company=None, periods=periods, return_df=return_df)
+    print(esrs_data_1)
     print('-------------------------------------------------------------------------------')
+    print(f'Question: In which year did {company.name} have the highest {esrs_1.name} and how much was it?')
+    esrs_data_2 = q.get_esrs_data(esrs=esrs_1, company=company,  periods=None, return_df=return_df)
+    print(esrs_data_2)
+    print('-------------------------------------------------------------------------------')
+    print(f'Question: What was the {stat.name} of "{esrs_1.name}" over the periods {periods} by company?')
     stat_by_comp = q.get_statistics_by_company(esrs=esrs_1, stat=stat,
                                         periods=periods, return_df=return_df)
-    print(f'Statistics "{stat}" by company for "{esrs_1.name}" and {periods} is: \n{stat_by_comp}')
+    print(stat_by_comp)
     print('-------------------------------------------------------------------------------')
+    print(f'Question: What was the (total) {stat.name} of "{esrs_1.name}" over the periods {periods} ?')
     stat_by_label = q.get_statistics_by_esrs_data(esrs=esrs_1, stat=stat,
                                         periods=periods, by_period=by_period, return_df=return_df)
-    print(f'Statistics "{stat}" by label for "{esrs_1.name}" and {periods} is: \n{stat_by_label}')
+    print(stat_by_label)
     print('-------------------------------------------------------------------------------')
-    ratio = q.get_ratio_of_two_esrs(esrs_numerator=esrs_1, esrs_denominator=esrs_2,
-                                  company=company, periods=None, return_df=return_df)
-    print(f'Ratio of "{esrs_1.name}" to "{esrs_2.name}" for company "{company.name}" is: \n{ratio}')
+    print(f'Question: What was the ratio between {esrs_1.name} to {esrs_2.name} for company "{company.name}" in {periods} ?')
+    ratio_1 = q.get_ratio_of_two_esrs(esrs_numerator=esrs_1, esrs_denominator=esrs_2,
+                                  company=company, periods=periods, return_df=return_df)
+    print(ratio_1)
+    print('-------------------------------------------------------------------------------')
+    print(f'Question: What was the ratio between the {stat.name} of {esrs_1.name} to {stat.name} of {esrs_2.name} for all companies in {periods} ?')
+    ratio_2 = q.get_ratio_of_two_esrs(esrs_numerator=esrs_1, esrs_denominator=esrs_2,
+                                    company=None, periods=periods, return_df=return_df, stat=stat)
+    print(ratio_2)
+    print('-------------------------------------------------------------------------------')
+    ###########################################
+    print(f'Question: What company had the highest ratio of {esrs_1.name} to {esrs_2.name} in the {periods} ?')
+    ratio_3 = q.get_ratio_of_two_esrs(esrs_numerator=esrs_1, esrs_denominator=esrs_2,
+                                    company=None, periods=periods, return_df=return_df, stat=None)
+    print(ratio_3)
+    #############################################
+    print('-------------------------------------------------------------------------------')
+    print(f'Question: How much did "{esrs_1.name}" change over the periods {periods} for company {company.name} ?')
+    diff_1 = q.get_difference_of_two_periods(esrs=esrs_1, periods=periods, company=company, return_df=return_df)
+    print(diff_1)
+    print('-------------------------------------------------------------------------------')
+    print(f'Question: How much did "{esrs_1.name}" change over the periods {periods} by company ?')
+    diff_2 = q.get_difference_of_two_periods(esrs=esrs_1, periods=periods, company=None, return_df=return_df)
+    print(diff_2)
+    print('-------------------------------------------------------------------------------')
+    print(f'Question: How much did the "{stat.name}" for "{esrs_1.name}" change over the periods {periods} ?')
+    diff_3 = q.get_difference_of_two_periods(esrs=esrs_1, periods=periods, company=None, return_df=return_df, stat=stat)
+    print(diff_3)
+    print('-------------------------------------------------------------------------------')
+    print(f'Question: The company in which "{comp_prop.name}" had the highest "{esrs_1.name}" in the periods {periods} ?')
+    comp_prop_1 = q.get_esrs_by_company_property(esrs=esrs_1, comp_prop=comp_prop, periods=periods, stat=None, return_df=True)
+    print(comp_prop_1)
+    print('-------------------------------------------------------------------------------')
+    print(f'Question: Which "{comp_prop.name}" had the highest "{stat.name}" of "{esrs_1.name}" in the periods {periods} ?')
+    comp_prop_2 = q.get_esrs_by_company_property(esrs=esrs_1, comp_prop=comp_prop, periods=periods, stat=stat,
+                                                 return_df=True)
+    print(comp_prop_2)
+    print('-------------------------------------------------------------------------------')
+    print(f'Question: Which "{CompProp.Country.name}" had the highest "{stat.name}" of "{esrs_1.name}" in the periods {periods} ?')
+    comp_prop_3 = q.get_esrs_by_company_property(esrs=esrs_1, comp_prop=CompProp.Country, periods=periods, stat=stat,
+                                                 return_df=True)
+    print(comp_prop_3)
 
 
 if __name__ == '__main__':
@@ -163,5 +208,6 @@ if __name__ == '__main__':
     # ask_graph_bot(question=question)
 
     """ 7. GraphQueries: Query NEO4J Graph with Python functions """
-    execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, company=Company.Adidas, periods=['2022', '2023'],
-                          return_df=True, stat=Stats.SUM, esrs_2=ESRS.NetRevenue)
+    execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, company=Company.Adidas, periods=['2023', '2022'],
+                          return_df=True, stat=Stats.SUM, esrs_2=ESRS.NetRevenue, comp_prop=CompProp.Industries,
+                          print_queries=False)
