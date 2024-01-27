@@ -3,7 +3,7 @@ import pathlib
 from dotenv import load_dotenv
 
 from langchain.chains import GraphCypherQAChain
-from langchain.chat_models import ChatOpenAI
+from langchain_openai.chat_models import ChatOpenAI
 from langchain.prompts.prompt import PromptTemplate
 from langchain.graphs import Neo4jGraph
 
@@ -199,7 +199,7 @@ class GraphBot:
     def ask_question(self, question: str):
         prompt = self.create_prompt()
         chain = self.create_chain(prompt=prompt)
-        answer = chain.run(question)
+        answer = chain.invoke(question)
         return answer
 
 
@@ -210,4 +210,6 @@ if __name__ == '__main__':
     question = "Which industry had the most NetRevenue in 2023?"
     print('Question:\n', question)
     ans = qa.ask_question(question=question)
-    print('Answer:\n', ans)
+    from pprint import pprint
+    print('Answer:\n')
+    pprint(ans)

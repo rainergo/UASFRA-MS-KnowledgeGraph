@@ -99,6 +99,9 @@ def create_text_embedding(onto_file_path_or_url: str, node_label: str,
 
 
 def ask_graph_bot(question: str):
+    """ Retrieval Augmented Generation (RAG) of NEO4J Cypher queries with the help of the langchain library.
+    Function will make use of OpenAI-API and Large Language Models (LLMs) to convert human-readable questions to
+    Cypher queries and return answers in human-readable text format. """
     bot = GraphBot()
     print('QUESTION:\n', question)
     ans = bot.ask_question(question=question)
@@ -108,41 +111,45 @@ def ask_graph_bot(question: str):
 def execute_graph_queries(esrs_1: ESRS, company: Company, periods: list, return_df: bool,
                           stat: Stats = None, by_period: bool = True, esrs_2: ESRS = ESRS.NetRevenue,
                           comp_prop: CompProp = None, print_queries: bool = False):
+    """ Sample questions answered by executing Python functions which themselves execute Cypher queries via the
+    NEO4J Python driver. See: https://neo4j.com/docs/api/python-driver/current/api.html """
+
     q = GraphQueries(print_queries=print_queries)
+
     print(f'Question: Which company had the most "{esrs_1.name}" in {periods} ?')
     esrs_data_1 = q.get_esrs_data(esrs=esrs_1, company=None, periods=periods, return_df=return_df)
     print(esrs_data_1)
     print('-------------------------------------------------------------------------------')
     print(f'Question: In which year did {company.name} have the highest {esrs_1.name} and how much was it?')
-    esrs_data_2 = q.get_esrs_data(esrs=esrs_1, company=company,  periods=None, return_df=return_df)
+    esrs_data_2 = q.get_esrs_data(esrs=esrs_1, company=company, periods=None, return_df=return_df)
     print(esrs_data_2)
     print('-------------------------------------------------------------------------------')
     print(f'Question: What was the {stat.name} of "{esrs_1.name}" over the periods {periods} by company?')
     stat_by_comp = q.get_statistics_by_company(esrs=esrs_1, stat=stat,
-                                        periods=periods, return_df=return_df)
+                                               periods=periods, return_df=return_df)
     print(stat_by_comp)
     print('-------------------------------------------------------------------------------')
     print(f'Question: What was the (total) {stat.name} of "{esrs_1.name}" over the periods {periods} ?')
     stat_by_label = q.get_statistics_by_esrs_data(esrs=esrs_1, stat=stat,
-                                        periods=periods, by_period=by_period, return_df=return_df)
+                                                  periods=periods, by_period=by_period, return_df=return_df)
     print(stat_by_label)
     print('-------------------------------------------------------------------------------')
-    print(f'Question: What was the ratio between {esrs_1.name} to {esrs_2.name} for company "{company.name}" in {periods} ?')
+    print(
+        f'Question: What was the ratio between {esrs_1.name} to {esrs_2.name} for company "{company.name}" in {periods} ?')
     ratio_1 = q.get_ratio_of_two_esrs(esrs_numerator=esrs_1, esrs_denominator=esrs_2,
-                                  company=company, periods=periods, return_df=return_df)
+                                      company=company, periods=periods, return_df=return_df)
     print(ratio_1)
     print('-------------------------------------------------------------------------------')
-    print(f'Question: What was the ratio between the {stat.name} of {esrs_1.name} to {stat.name} of {esrs_2.name} for all companies in {periods} ?')
+    print(
+        f'Question: What was the ratio between the {stat.name} of {esrs_1.name} to {stat.name} of {esrs_2.name} for all companies in {periods} ?')
     ratio_2 = q.get_ratio_of_two_esrs(esrs_numerator=esrs_1, esrs_denominator=esrs_2,
-                                    company=None, periods=periods, return_df=return_df, stat=stat)
+                                      company=None, periods=periods, return_df=return_df, stat=stat)
     print(ratio_2)
     print('-------------------------------------------------------------------------------')
-    ###########################################
     print(f'Question: What company had the highest ratio of {esrs_1.name} to {esrs_2.name} in the {periods} ?')
     ratio_3 = q.get_ratio_of_two_esrs(esrs_numerator=esrs_1, esrs_denominator=esrs_2,
-                                    company=None, periods=periods, return_df=return_df, stat=None)
+                                      company=None, periods=periods, return_df=return_df, stat=None)
     print(ratio_3)
-    #############################################
     print('-------------------------------------------------------------------------------')
     print(f'Question: How much did "{esrs_1.name}" change over the periods {periods} for company {company.name} ?')
     diff_1 = q.get_difference_of_two_periods(esrs=esrs_1, periods=periods, company=company, return_df=return_df)
@@ -156,16 +163,20 @@ def execute_graph_queries(esrs_1: ESRS, company: Company, periods: list, return_
     diff_3 = q.get_difference_of_two_periods(esrs=esrs_1, periods=periods, company=None, return_df=return_df, stat=stat)
     print(diff_3)
     print('-------------------------------------------------------------------------------')
-    print(f'Question: The company in which "{comp_prop.name}" had the highest "{esrs_1.name}" in the periods {periods} ?')
-    comp_prop_1 = q.get_esrs_by_company_property(esrs=esrs_1, comp_prop=comp_prop, periods=periods, stat=None, return_df=True)
+    print(
+        f'Question: The company in which "{comp_prop.name}" had the highest "{esrs_1.name}" in the periods {periods} ?')
+    comp_prop_1 = q.get_esrs_by_company_property(esrs=esrs_1, comp_prop=comp_prop, periods=periods, stat=None,
+                                                 return_df=True)
     print(comp_prop_1)
     print('-------------------------------------------------------------------------------')
-    print(f'Question: Which "{comp_prop.name}" had the highest "{stat.name}" of "{esrs_1.name}" in the periods {periods} ?')
+    print(
+        f'Question: Which "{comp_prop.name}" had the highest "{stat.name}" of "{esrs_1.name}" in the periods {periods} ?')
     comp_prop_2 = q.get_esrs_by_company_property(esrs=esrs_1, comp_prop=comp_prop, periods=periods, stat=stat,
                                                  return_df=True)
     print(comp_prop_2)
     print('-------------------------------------------------------------------------------')
-    print(f'Question: Which "{CompProp.Country.name}" had the highest "{stat.name}" of "{esrs_1.name}" in the periods {periods} ?')
+    print(
+        f'Question: Which "{CompProp.Country.name}" had the highest "{stat.name}" of "{esrs_1.name}" in the periods {periods} ?')
     comp_prop_3 = q.get_esrs_by_company_property(esrs=esrs_1, comp_prop=CompProp.Country, periods=periods, stat=stat,
                                                  return_df=True)
     print(comp_prop_3)
@@ -177,7 +188,7 @@ if __name__ == '__main__':
     # read_xbrl_into_json(xhtml_name=XHTMLName.Adidas)
 
     """ -----------------------------------  NEO4J ----------------------------------------------- """
-    # onto_file_path_or_url: str = path_ontos.as_posix() + "/onto4/Ontology4.ttl"
+    onto_file_path_or_url: str = path_ontos.as_posix() + "/onto4/Ontology4.ttl"
 
     """ 1. Load ontology and show schema of knowledge graph in browser. Please see: README-models.md-file. """
     # load_onto_and_show_schema(onto_file_path_or_url=onto_file_path_or_url, path_is_url=False)
@@ -202,12 +213,13 @@ if __name__ == '__main__':
     #                       node_primary_prop_name="LEI", prop_to_embed="abstract")
 
     """ 6. GraphBot: RAG (Retrieval Augmented Generation) with NEO4J Graph """
+    # ## Uncomment just ONE question:
     # question = "How much of TotalUseOfLandArea did BASF have in the year 2023?"
     # question = "How much did EmissionsToSoilByPolllutant for Adidas change from the year 2022 to the year 2023?"
     # question = "Which industry had the most GrossScope1GHGEmissions in 2023?"
     # ask_graph_bot(question=question)
 
     """ 7. GraphQueries: Query NEO4J Graph with Python functions """
-    execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, company=Company.Adidas, periods=['2023', '2022'],
-                          return_df=True, stat=Stats.SUM, esrs_2=ESRS.NetRevenue, comp_prop=CompProp.Industries,
-                          print_queries=False)
+    # execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, company=Company.Adidas, periods=['2023', '2022'],
+    #                       return_df=True, stat=Stats.SUM, esrs_2=ESRS.NetRevenue, comp_prop=CompProp.Industries,
+    #                       print_queries=False)
