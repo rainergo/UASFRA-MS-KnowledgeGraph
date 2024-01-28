@@ -11,13 +11,13 @@ All programs can be executed from the "main.py"-script in the root folder of thi
 
 main.py
 > src
->> - A_read_xbrl.py: <em><span style="color: yellow;">Convert company's XBRL-files into JSON-files to later import the data into the KG</span></em>
->> - B_rdf_graph.py 
->> - C_read_data.py
->> - D_graph_construction
->> - E_embeddings.py
->> - F_graph_bot.py
->> - G_graph_queries.py
+>> - A_read_xbrl.py: <em><span style="color: yellow; font-size: 9px">Convert company's XBRL-files into JSON-files to later import the data into the KG</span></em>
+>> - B_rdf_graph.py: <em><span style="color: yellow; font-size: 9px">Create cypher queries based on the provided ontology.ttl-file and construct the KG schema</span></em> 
+>> - C_read_data.py: <em><span style="color: yellow; font-size: 9px">Create templates for importing the data from the JSON-files created earlier</span></em>
+>> - D_graph_construction: <em><span style="color: yellow; font-size: 9px">Import data from the JSON-files into the KG and load addional data from wikidata and dbpedia</span></em>
+>> - E_embeddings.py: <em><span style="color: yellow; font-size: 9px">Convert text of some Node's text properties into LLM embeddings to later do similarity search</span></em>
+>> - F_graph_bot.py: <em><span style="color: yellow; font-size: 9px">Formulate questions in relation to data in the KG in human-readable form for a KB bot to answer them</span></em>
+>> - G_graph_queries.py: <em><span style="color: yellow; font-size: 9px">Formulate questions in relation to data in the KG and get results from Python functions </span></em>
  
 
 ***
