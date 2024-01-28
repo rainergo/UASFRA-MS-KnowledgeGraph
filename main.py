@@ -102,6 +102,7 @@ def ask_graph_bot(question: str):
     """ Retrieval Augmented Generation (RAG) of NEO4J Cypher queries with the help of the langchain library.
     Function will make use of OpenAI-API and Large Language Models (LLMs) to convert human-readable questions to
     Cypher queries and return answers in human-readable text format. """
+    print(f'Starting the graph bot ... . This might take a few seconds, please be patient!')
     bot = GraphBot()
     print('QUESTION:\n', question)
     ans = bot.ask_question(question=question)
@@ -113,7 +114,7 @@ def execute_graph_queries(esrs_1: ESRS, company: Company, periods: list, return_
                           comp_prop: CompProp = None, print_queries: bool = False):
     """ Sample questions answered by executing Python functions which themselves execute Cypher queries via the
     NEO4J Python driver. See: https://neo4j.com/docs/api/python-driver/current/api.html """
-
+    print(f'Executing graph queries ... . This might take a few seconds, please be patient!')
     q = GraphQueries(print_queries=print_queries)
 
     print(f'Question: Which company had the most "{esrs_1.name}" in {periods} ?')
@@ -220,6 +221,6 @@ if __name__ == '__main__':
     # ask_graph_bot(question=question)
 
     """ 7. GraphQueries: Query NEO4J Graph with Python functions """
-    # execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, company=Company.Adidas, periods=['2023', '2022'],
-    #                       return_df=True, stat=Stats.SUM, esrs_2=ESRS.NetRevenue, comp_prop=CompProp.Industries,
-    #                       print_queries=False)
+    execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, company=Company.Adidas, periods=['2023', '2022'],
+                          return_df=True, stat=Stats.SUM, esrs_2=ESRS.NetRevenue, comp_prop=CompProp.Industries,
+                          print_queries=False)
