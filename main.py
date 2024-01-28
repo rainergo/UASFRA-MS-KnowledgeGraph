@@ -189,7 +189,8 @@ if __name__ == '__main__':
     # read_xbrl_into_json(xhtml_name=XHTMLName.Adidas)
 
     """ -----------------------------------  NEO4J ----------------------------------------------- """
-    onto_file_path_or_url: str = path_ontos.as_posix() + "/onto4/Ontology4.ttl"
+    # ## This ttl-file is needed for 1. to 5.:
+    # onto_file_path_or_url: str = path_ontos.as_posix() + "/onto4/Ontology4.ttl"
 
     """ 1. Load ontology and show schema of knowledge graph in browser. Please see: README-models.md-file. """
     # load_onto_and_show_schema(onto_file_path_or_url=onto_file_path_or_url, path_is_url=False)
