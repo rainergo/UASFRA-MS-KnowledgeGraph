@@ -1,13 +1,13 @@
 # UASFRA-MS-PROJDIGI
 ### I. Overview
-UASFRA-MS-PROJDIGI is a software project and part of the requirements for the Master program (M.Sc.) in Computer Science at the [Frankfurt University of Applied Sciences](https://www.frankfurt-university.de/en/studies/master-programs/general-computer-science-msc/for-prospective-students/).
+UASFRA-MS-PROJDIGI is a data science project and part of the requirements for the Master program (M.Sc.) in Computer Science at the [Frankfurt University of Applied Sciences](https://www.frankfurt-university.de/en/studies/master-programs/general-computer-science-msc/for-prospective-students/).
 
 The project's goal is to create a [NEO4J Knowledge Graph](https://neo4j.com/) ("KG") populated with [ESG](https://de.wikipedia.org/wiki/Environmental,_Social_and_Governance) data required to be reported by companies due to the [European Sustainability Reporting Standards (ESRS)](https://www.efrag.org/lab6?AspxAutoDetectCookieSupport=1) legislation. 
 
 The programs presented in here are able to create and query such a NEO4J Knowledge Graph using Python.
 ***
 ### II. Project structure
-###### All programs can be executed from the "main.py"-script in the root folder of this project. The "main.py"-script uses the following modules in the "src"-folder:
+###### All programs can be executed from the "main.py"-script in the root folder of this project. The "main.py"-script makes use of the following modules in the "src"-folder:
 
 main.py
 > src
@@ -31,7 +31,7 @@ main.py
     path_models = pathlib.Path(path_base, "src/models/")
     path_ontos = pathlib.Path(path_models, "Ontologies")
 
-Only adjust the "<u>path_base</u>"-value to the path where this project (root folder) is located on your system. Leave all other paths untouched unless you want to change the location of these folders. 
+###### Only adjust the "<u>path_base</u>"-value to the path where this project (root folder) is located on your system. Leave all other paths untouched unless you want to change the location of these folders. 
 
 ##### B. NEO4J database
 ###### There are different options to install the NEO4J database on your system. We recommend to choose the 
@@ -45,7 +45,7 @@ Only adjust the "<u>path_base</u>"-value to the path where this project (root fo
 ###### Please make sure to also install the following NEO4J plugins:
 - [NEO4J neosemantics (or "n10s")](https://github.com/neo4j-labs/neosemantics/releases)
 - [NEO4J apoc](https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/4.1.0.11)
-- [NEO4J graph-data-science](https://neo4j.com/deployment-center/#gds-tab)
+- [NEO4J graph-data-science (or "gds")](https://neo4j.com/deployment-center/#gds-tab)
 
 ###### Under Windows, the respective jar-files need to be downloaded and put into the "$NEO4J_HOME/plugins" sub-folder of the "$NEO4J_HOME"-folder on your system. Some "$NEO4J_HOME/conf"-files need to be adjusted. Please refer to the installation instructions here:
 - [NEO4J neosemantics installation instructions](https://neo4j.com/labs/neosemantics/installation/#_standalone_instance)
@@ -57,10 +57,10 @@ Only adjust the "<u>path_base</u>"-value to the path where this project (root fo
 
 Pipfile:
 >[packages]
->> - neo4j
->> - pandas
->> - python-dotenv
->> - etc.
+> - neo4j
+> - pandas
+> - python-dotenv
+> - etc.
 
 ##### E. NEO4J settings
 ###### In order to check if the NEO4J installation succeeded and if Python NEO4J scripts can be executed:
@@ -95,7 +95,7 @@ if __name__ == '__main__':
       - apoc.* (for apoc functions)
       - gds.* (for graph-data-science functions)
 
-   7. If any of these three prefixes is missing ("False" in the printout), please go back and check/redo the installation.
+   7. If you get an error or any of these three prefixes is missing ("False" in the printout), please go back and check/redo the installation.
 
 
 
@@ -103,9 +103,10 @@ if __name__ == '__main__':
 ***
 
 ### IV. Usage
-###### Make sure to have installed all requirements and adjusted all the settings as laid out above. 
+###### Make sure to have satisfied all requirements and adjusted all the settings as laid out above. 
 
-###### From the "main.py"-file in the root folder, you can run the following functions by <u>uncommenting</u> the <u><b># CODE BLOCK</b></u> below the desired description:
+##### A. Functions
+###### From the "main.py"-file in the root folder, you can now run the following functions by <u>uncommenting</u> the <u><b># CODE BLOCK</b></u> below the desired function description:
 main.py
 
     0. Read XBRL-file into JSON-file. Please see: README-data.md-file.
@@ -128,7 +129,8 @@ main.py
 ###### Please note, that for functions 1. - 5. above, you also need to uncomment the following line:
      onto_file_path_or_url: str = path_ontos.as_posix() + "/onto4/Ontology4.ttl"
 
-###### Most of the parameters to be passed to these functions are Python "Enums". For instance, for the function 
+##### B. Parameters
+###### Most of the parameters to be passed to these functions are Python "Enums". For instance, for the function ...
 *execute_graph_queries()*
 
     execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, 
@@ -142,12 +144,12 @@ main.py
 
 ###### ... the parameters are the Enums "ESRS", "Company", "Stats" and "CompProp". 
 
-###### These Enums allow you to easily select the value from the possible values such as "Adidas" after typing "Company."
+###### These Enums allow you to easily select a value from the possible values such as "Adidas" after typing "Company." as your IDE should now show you all the possible values.
 These Enum values are:
 
 ESRS:
 
-###### The ESRS-values refer to the 21 exemplary ESRS data points that we populated the KG with. Please refer to the README-data.md-file in "/src/data/" for further details:
+###### The ESRS-values refer to the 21 exemplary ESRS data points that you populated the KG with if you have (at least) run the functions 1. through 5. from "main.py". Please refer to the README-data.md-file in "/src/data/" for further details:
     
         AbsoluteValueOfTotalGHGEmissionsReduction 
         AssetsAtMaterialPhysicalRiskBeforeClimateChangeAdaptationActions
@@ -173,7 +175,7 @@ ESRS:
 
 Company:
 
-###### The Company-values refer to the 3 exemplary companies "Adidas", "BASF" and "Puma" that we populated the KG with. Please refer to the README-data.md-file in "/src/data/" for further details:
+###### The Company-values refer to the 3 exemplary companies "Adidas", "BASF" and "Puma" that you populated the KG with. Please refer to the README-data.md-file in "/src/data/" for further details:
     
         Adidas
         BASF
@@ -194,3 +196,5 @@ CompProp:
     
         Country
         Industries
+
+###### Please note that the sample JSON-files loaded into the KG only contains data for the periods 2022 and 2023.

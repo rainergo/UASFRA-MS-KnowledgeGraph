@@ -9,6 +9,6 @@ gds = df.name.str.startswith('gds').any()
 
 if __name__ == '__main__':
     print(f"""INSTALLATIONS:
-    apoc: {apoc}
-    n10s: {n10s}
-    graph-data-science: {gds}""")
+                    apoc: {apoc}
+                    n10s: {n10s}
+                    graph-data-science: {gds}""")

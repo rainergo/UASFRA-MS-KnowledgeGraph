@@ -10,6 +10,9 @@ from src.E_embeddings import Embedder
 
 
 class GraphConstruction:
+    """ Constructs a NEO4J Knowledge Graph ("KG"). Methods populate the KG with data from JSON-files (please see:
+    README-data.md), with external data from wikidata/dbpedia and with text embeddings of a Node's text property. The
+    methods thereby use parameterized cypher queries. """
 
     def __init__(self, path_to_onto: str, neo4j_db_name: str = 'neo4j'):
         path_to_secrets: pathlib.Path = pathlib.Path(path_base, 'secrets.env')

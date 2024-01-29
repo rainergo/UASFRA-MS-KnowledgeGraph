@@ -49,7 +49,7 @@
                         "Expenditure": ["period", "label"]
                         "Revenue": ["period", "label"]
                         }
-###### The "period" Node property usually refers to the business year of the respective company which mostly corresponds with the calendar year. The "label" property of a Node refers to its concrete data point name such as "Gross Scope 1 Greenhouse Gas Emissions" for the Node "Scope1".
+###### The "period" Node property usually refers to the business year of the respective company which mostly corresponds with the calendar year. The "label" property of a Node refers to its concrete data point name such as "GrossScope1GHGEmissions" for the Node "Scope1".
 
 #### - node_value_props
 ###### Node value properties ("node_value_props") are quantitative properties that are usually of datatype "decimal" as defined in the w3-consortium's XMLSchema ("http://www.w3.org/2001/XMLSchema#") and express the units a Node label (such as "Gross Scope 1 Greenhouse Gas Emissions") is measured in. 
@@ -93,9 +93,10 @@
                         - CONSTRAINTS
                         - NAMESPACES
 ###### These Query templates are later used to load the data into the Knowledge-Graph.
-###### <u>Apply *create_json_files_for_data_needed()-method*:</u>
+##### Apply the *create_json_files_for_data_needed()-method*:
 ###### The RDFGraph-method "create_json_files_for_data_needed()" generates JSON-files with patterns for all Nodes and Relationships. These patterns are used to build the "node_template"-list and "relationship_template"-list in the "get_data_dicts()"-method in "C_read_data.py". They are stored in the "data_needed"-folder. All JSON-files in this folder must be represented in the "node_template"- and "relationship_template" in the "get_data_dicts()"-method.
-##### Example: 
+##### Example:
+##### Nodes
 ###### In the "data_needed" folder, there is, among others, an "Asset.json"-file with the following data:
     {"Asset": {"label": "<HERE_label_VALUE>", "period": "<HERE_period_VALUE>"}}
 ###### This Node information must also appear in the "node_template"-list of the "get_data_dicts()"-method in "C_read_data.py", because "Asset" is a Node.
@@ -105,6 +106,7 @@
 ###### These two "Asset"-Nodes correspond to two of the 21 data points. 
 ###### The "<HERE_label_VALUE>" placeholder has been replaced by the Node names/labels "AssetsAtMaterialPhysicalRiskBeforeClimateChangeAdaptationActions" and "AssetsAtMaterialTransitionRiskBeforeClimateMitigationActions".
 ###### The "<HERE_period_VALUE>" placeholder was replaced by a "company"-dictionary (in the "get_data_dicts()"-method) that refers to the deserialized JSON-files such as "Adidas_2022.json", "Adidas_2023.json", etc. depending on which data is loaded.
+##### Relationships
 ###### In the "data_needed" folder, there is also, among others, a "Company_emits_Scope1.json"-file with the following data:
     {"Company_emits_Scope1": 
         {"source": {"Company": {"LEI": "<HERE_LEI_VALUE>"}}, 
@@ -125,8 +127,11 @@
 
     1. Extract the XBRL-data into JSON-files as described in the README-data.md file.
     2. Check if all data points can be subordinated under the currently existing Nodes (see "Ontology4.ttl"-structure above):
-        A. If you need to add further Nodes, you need to remodel the ontolgy and create a new Ontolgy.ttl-file.
-        B. If you need to add further Nodes, you also have to adjust the "unique_node_keys" and "node_value_props" in "params.py"
+        IF YOU NEED TO ADD FURTHER NODES, THEN:
+        A. Remodel the ontolgy and create a new Ontolgy.ttl-file.
+        B. Adjust the "unique_node_keys" and "node_value_props" in "params.py"
+        C. Execute the create_json_files_for_data_needed()-method to get new "data_needed"-json-files as explained above
+        -> Continue with 3.A.
     3. If the new data can be subordinated under the currently existing Nodes, then:
         A. Check if the desired data is in the extracted JSON-file ("Adidas_2022.json", for instance)
         B. Make sure this JSON-file is stored in the folder "/src/data/JSONs/".
@@ -134,6 +139,5 @@
             -> Make sure to replace the placeholder "<HERE_label_VALUE>" with the Node name/label of the new data, such as "MyNewScope1GHGEmissionsDataPointName"
         D. Add the RELATIONSHIP data to the "relationship_template"-list of the "get_data_dicts()"-method as described above
             -> Make sure to replace the placeholder "<HERE_label_VALUE>" with the Node name/label of the new data, such as "MyNewScope1GHGEmissionsDataPointName"
-    4. That's it! The new data can now be loaded into the Knowledge-Graph. Check ...
-    
-# ToDo: Put in reference to "How to load the data into the KG"
+
+###### That's it! The new data can now be loaded into the Knowledge-Graph. Please see the README.md-file in the root folder of this project.
