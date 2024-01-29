@@ -73,6 +73,8 @@ Pipfile:
 
 test_installation.py:
 ```python
+""" This script's purpose is to check if the installation of NEO4J and the import of Python libraries succeeded.""" 
+
 from src.G_graph_queries import GraphQueries
 
 gq = GraphQueries()
@@ -96,9 +98,6 @@ if __name__ == '__main__':
       - gds.* (for graph-data-science functions)
 
    7. If you get an error or any of these three prefixes is missing ("False" in the printout), please go back and check/redo the installation.
-
-
-
 
 ***
 
@@ -132,6 +131,8 @@ main.py
 ##### B. Parameters
 ###### Most of the parameters to be passed to these functions are Python "Enums". For instance, for the function ...
 *execute_graph_queries()*
+
+    """ 7. GraphQueries: Query NEO4J Graph with Python functions. """
 
     execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, 
                           company=Company.Adidas, 

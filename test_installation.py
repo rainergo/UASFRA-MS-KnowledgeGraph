@@ -1,3 +1,5 @@
+""" This script's purpose is to check if the installation of NEO4J and the import of Python libraries succeeded."""
+
 from src.G_graph_queries import GraphQueries
 
 gq = GraphQueries()
