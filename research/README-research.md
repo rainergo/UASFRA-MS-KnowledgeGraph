@@ -77,12 +77,13 @@ This README explains some files in the "research"-folder.
 > - Classes: <em><span style="color: yellow; font-size: 9px">Defines NODES such as the Node "Company"</span></em>
 > - Object Properties: <em><span style="color: yellow; font-size: 9px">Defines graph RELATIONS between a DOMAIN (Source Node) and a RANGE (Target Node) such as "EMITS" between Source Node "Company" and Target Node "GHGEmission"</span></em> 
 > - Data Properties: <em><span style="color: yellow; font-size: 9px">Defines graph NODE PROPERTIES such as "Legal Entity Identfier" of a Node "Company"</span></em>
-> - Individuals: <em><span style="color: yellow; font-size: 9px">Individuals are instances of Classes or Object Properties and contain real data. For instance, a Node "Company" with concrete Node properties of "LEI:"549300JSX0Z4CW0V5023"" and "label:Adidas" </span></em>
+> - Individuals: <em><span style="color: yellow; font-size: 9px">Individuals are instances of Classes and contain real data. For instance, a Node "Company" with concrete Node properties of "LEI:"549300JSX0Z4CW0V5023"" and "label:Adidas" </span></em>
 
 ###### The "Ontology4.ttl"-file contains "Classes", "Object Properties" and "Data Properties" but does not contain "Individuals" as the data later is imported separately. The "Ontology4.ttl"-file nevertheless contains the triples necessary to construct the Knowledge Graph <b><u>schema</u></b>:
 
 <img src="Ontology4.ttl.png" width="700" alt="">
 
+"Emits" triples
 ###### For instance, the "Ontology4.ttl"-file contains the four triples to construct the "EMITS"-relationship:
 
 <img src="emits.png" width="800" alt="">
@@ -93,12 +94,13 @@ This README explains some files in the "research"-folder.
     TRIPLE_3: subject: "emits"       predicate: "range"      object: "GHGEmission"
     TRIPLE_4: subject: "emits"       predicate: "range"      object: "Scope1"
 
-###### The namespaces ["rdf"](http://www.w3.org/1999/02/22-rdf-syntax-ns#), ["owl"](http://www.w3.org/2002/07/owl#) and ["rdfs"](http://www.w3.org/2000/01/rdf-schema#) are publicly defined and accessible namespaces that are also shown in the first lines of a Turtle-file. The namespace "rainergo" is not publicly defined and accessible, but the inherent namespace of this custom ontology.
+###### The namespaces [rdf](http://www.w3.org/1999/02/22-rdf-syntax-ns#), [owl](http://www.w3.org/2002/07/owl#) and [rdfs](http://www.w3.org/2000/01/rdf-schema#) are publicly defined and accessible namespaces that are listed and defined in the first lines of a Turtle-file. The namespace "rainergo" is not publicly defined and accessible, but refers to the inherent namespace of this custom ontology.
 
 #### Python libraries for RDFs
-###### There are multiple Python libraries to construct and read such triple stores but the one that stands out in number of downloads and citations is [rdflib](https://rdflib.readthedocs.io/en/stable/). We used this library to read the triples from the "Ontology4.ttl"-file into a rdf graph and to construct cypher queries for the data import. Please see "B_read_graph.py".
+###### There are multiple Python libraries to construct and read such triple stores but the one that stands out in number of downloads and citations is [rdflib](https://rdflib.readthedocs.io/en/stable/). We used this library to read the triples from the "Ontology4.ttl"-file into a rdf graph and to construct cypher queries for the data import based on this ontology. Please see "B_read_graph.py".
 
 #### SPARQL
-###### SPARQL is a query language that can read from and write to triple stores such as wikidata and dbpedia. SPARQL queries in this project were used in "D_graph_construction.py" to populate the Knowledge Graph with external data from wikidata and dbpedia.
+###### SPARQL ([*S*PARQL *P*rotocol *A*nd *R*DF *Q*uery *L*anguage](https://www.w3.org/TR/sparql11-query/)) is a query language that can read from and write to triple stores such as wikidata and dbpedia. It is comparable to SQL in relational databases. SPARQL queries in this project were used in "D_graph_construction.py" to populate the Knowledge Graph with external data from wikidata and dbpedia.
 
-
+### Knowledge Graphs
+###### We collected some sources to learn about knowledge graphs, which are listed in the "LINKS"-file. A good resource for the most widely used knowledge graph software "NEO4J" and its proprietary query language [Cypher](https://en.wikipedia.org/wiki/Cypher_(query_language)) can be found in the freely downloadable O'Reilly book [Graph Databases](https://neo4j.com/graph-databases-book/).

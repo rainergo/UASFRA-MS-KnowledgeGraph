@@ -6,7 +6,7 @@ class Embedder:
 
     def __init__(self, model_name: str = "bert-base-uncased", return_tensor: bool = False):
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path=model_name)
-        self.model = AutoModel.from_pretrained(pretrained_model_name_or_path="bert-base-uncased",
+        self.model = AutoModel.from_pretrained(pretrained_model_name_or_path=model_name,
                                                output_hidden_states=True)
         self.return_tensor: bool = return_tensor
 

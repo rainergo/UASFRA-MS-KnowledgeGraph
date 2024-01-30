@@ -1,10 +1,10 @@
+""" Please also read the README-models.md-file. """
+
 """
 Parameters for Ontology4.ttl:
-
 :param: unique_node_keys: unique_node_keys are comparable to primary keys in relational databases and are the
         node properties that must be unique. They must be provided for each node as a dictionary in the form:
-        {"node_label":["node_property_name"]}. Example: {"Person":["name"]}
-
+        {"node_label":["node_property_name"]}. Example: {"Company":["LEI"]}
 :param: node_value_props: Of the datatype properties of target nodes (i.e. Nodes that have an incoming relationship
         from a source node), one such property is used for the property of the relationship. Example in cypher:
         MATCH (s:SourceNode)-[r:Relationship]->[t:TargetNode]. If the TargetNode 't' has a quantity property 'EUR' to

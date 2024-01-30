@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 from neo4j import GraphDatabase, Record
 
-from settings import path_base, path_data
+from settings import path_base, path_ontos
 from src.B_rdf_graph import RDFGraph
 from src.E_embeddings import Embedder
 
@@ -27,6 +27,7 @@ class GraphConstruction:
         if not pathlib.Path(path_to_onto).is_file():
             raise ValueError(f"Provided path to Ontology '{path_to_onto}' does not exist!")
         self.path_to_onto: str = path_to_onto
+        self.label_wikidata_id = "wikidataID"
 
     def init_graph(self, handle_vocab_uris: str = "MAP", handle_mult_vals: str = "ARRAY",
                    multi_val_prop_list: list = None, handle_rdf_types: str = "LABELS",
@@ -70,17 +71,14 @@ class GraphConstruction:
         """
         self.driver.execute_query(query_=query_load, database_=self.neo4j_db_name)
 
-    def import_wikidata_id(self, label_wikidata_id: str = "wikidataID"):
-
-        # """BIND(STRAFTER(STR(?company), STR(wd:)) AS ?{label_wikidata_id}) ."""
-
+    def import_wikidata_id(self):
         query = rf"""
                 MATCH (node:Company)
                 WITH 
-                    "SELECT ?LEI ?{label_wikidata_id}
+                    "SELECT ?LEI ?{self.label_wikidata_id}
                         WHERE {{
                             FILTER contains(?LEI, \"" + node.LEI + "\")
-                            ?{label_wikidata_id}   wdt:P1278   ?LEI .
+                            ?{self.label_wikidata_id}   wdt:P1278   ?LEI .
                       }}"     
                 AS sparql
                 CALL apoc.load.jsonParams(
@@ -90,15 +88,16 @@ class GraphConstruction:
                 YIELD value
                 UNWIND value['results']['bindings'] as row
                 WITH row['LEI']['value'] as prop_val, 
-                     row['{label_wikidata_id}']['value'] as new_prop_val
+                     row['{self.label_wikidata_id}']['value'] as new_prop_val
                 MERGE (n:Company {{ LEI: prop_val }})
-                SET n.{label_wikidata_id} = new_prop_val;
+                SET n.{self.label_wikidata_id} = new_prop_val;
                 """
         self.driver.execute_query(query_=query, database_=self.neo4j_db_name)
 
     def import_data_from_wikidata(self, node_label: str, prop_name: str, prop_wiki_id: str,
                                   new_prop_name: str, new_prop_wiki_id: str,
                                   use_new_prop_label: bool, new_prop_is_list: bool):
+        """ Please note: In order to import the data, the method "import_wikidata_id()" must be run before."""
         query = rf"""
         MATCH (node:{node_label})
         WITH 
@@ -132,8 +131,8 @@ class GraphConstruction:
             "PREFIX wd: <http://www.wikidata.org/entity/>
              SELECT ?{prop_name} ?{new_prop_name}
                     WHERE {{
-                        BIND(<"+node.{prop_name}+"> AS ?wikidataID)
-                        ?dbpcomp   {prop_dbp_id}   ?wikidataID ;
+                        BIND(<"+node.{prop_name}+"> AS ?{self.label_wikidata_id})
+                        ?dbpcomp   {prop_dbp_id}   ?{self.label_wikidata_id} ;
                                    {new_prop_dbp_id} ?{new_prop_name} .
                     FILTER langMatches( lang(?{new_prop_name}), \"en\" )
                   }}"   
@@ -165,7 +164,7 @@ class GraphConstruction:
         try:
             res = self.driver.execute_query(query_=query_index, database_=self.neo4j_db_name)
         except Exception as e:
-            print(f'INFO: Index already exists: {e}')
+            print(f'INFO: Index not created again as index already exists: {e}.')
         embed_nodes_and_props: list[dict] = session.run(query=query_prop_to_embed).data()
 
         embedder = Embedder()
@@ -227,22 +226,17 @@ if __name__ == '__main__':
     ########################### Load ontology and show schema of knowledge graph  ####################################
     # # path_to_onto: str = "https://raw.githubusercontent.com/jbarrasa/goingmeta/main/session4/ontos/movies-onto.ttl"
     # # path_to_onto: str = path_base.as_posix() + "/models/Ontologies/rail.ttl"
-    # path_to_onto: str = path_base.as_posix() + "/models/Ontologies/Ontology4.ttl"
-    # kg = KnowledgeGraph(path_to_onto=path_to_onto)
+    path_to_onto: str = path_ontos.as_posix() + "/onto4/Ontology4.ttl"
+    kg = GraphConstruction(path_to_onto=path_to_onto)
     # kg.delete_graph()
     # kg.init_graph(handle_vocab_uris="IGNORE", handle_mult_vals="OVERWRITE")
     # kg.load_onto_or_rdf(path=path_to_onto, path_is_url=False, load_onto_only=True)
     # print('Done!')
     #################################### Load data into Konwledge Graph ###############################################
-    # from data.read_data import get_data_dicts
-    # all_jsons = ['data/Adidas_2022.json', "data/BASF_2022.json", 'data/Adidas_2023.json', "data/BASF_2023.json"]
-    # # all_jsons = ["data/BASF_2022.json", 'data/Adidas_2022.json']
-    # all_jsons = ["data/Puma_2022.json", 'data/Puma_2023.json']
+    from src.C_read_data import get_data_dicts
+    from src.models.Ontologies.onto4.params import unique_node_keys, node_value_props
+    # all_jsons = ["data/JSONs/Puma_2022.json", 'data/JSONs/Puma_2023.json']
     # n_data, r_data = get_data_dicts(all_json_paths=all_jsons)
-    # path_to_onto: str = path_base.as_posix() + "/models/Ontologies/Ontology4.ttl"
-    # kg = KnowledgeGraph(path_to_onto=path_to_onto)
-    # kg.delete_graph()
-    # kg.init_graph(handle_vocab_uris="MAP", handle_mult_vals="ARRAY", multi_val_prop_list=["industries"])
     # kg.load_data_into_knowledge_graph(unique_node_keys=unique_node_keys, node_value_props=node_value_props, nodes_data=n_data, rels_data=r_data)
     # print("Done!")
     #################################### Load additional data from wikidata ###########################################
@@ -253,48 +247,48 @@ if __name__ == '__main__':
     # kg.delete_graph()
 
     ## Get data from wikidata:
-    # kg.import_wikidata_id()
+    kg.import_wikidata_id()
     ################ SET industries #######################
-    # industry = {"node_label": "Company",
-    #             "prop_name": "LEI",
-    #             "prop_wiki_id": "P1278",
-    #             "new_prop_name": "industries",
-    #             "new_prop_wiki_id": "P452",
-    #             "use_new_prop_label": True,
-    #             # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
-    #             "new_prop_is_list": True}
-    # ################ SET country ############################
-    # country = {"node_label": "Company",
-    #            "prop_name": "LEI",
-    #            "prop_wiki_id": "P1278",
-    #            "new_prop_name": "country",
-    #            "new_prop_wiki_id": "P17",
-    #            "use_new_prop_label": True,
-    #            # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
-    #            "new_prop_is_list": False}
-    # ################ Set ISIN  #################################
-    # isin = {"node_label": "Company",
-    #         "prop_name": "LEI",
-    #         "prop_wiki_id": "P1278",
-    #         "new_prop_name": "ISIN",
-    #         "new_prop_wiki_id": "P946",
-    #         "use_new_prop_label": True,  # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
-    #         "new_prop_is_list": False}
+    industry = {"node_label": "Company",
+                "prop_name": "LEI",
+                "prop_wiki_id": "P1278",
+                "new_prop_name": "industries",
+                "new_prop_wiki_id": "P452",
+                "use_new_prop_label": True,
+                # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
+                "new_prop_is_list": True}
+    ################ SET country ############################
+    country = {"node_label": "Company",
+               "prop_name": "LEI",
+               "prop_wiki_id": "P1278",
+               "new_prop_name": "country",
+               "new_prop_wiki_id": "P17",
+               "use_new_prop_label": True,
+               # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
+               "new_prop_is_list": False}
+    ################ Set ISIN  #################################
+    isin = {"node_label": "Company",
+            "prop_name": "LEI",
+            "prop_wiki_id": "P1278",
+            "new_prop_name": "ISIN",
+            "new_prop_wiki_id": "P946",
+            "use_new_prop_label": True,  # new_prop usually is an id such as Q12345 -> True: prop label ("Name") is used
+            "new_prop_is_list": False}
     ##############################################################
-    # wiki_data = [industry, country, isin]
-    # for d in wiki_data:
-    #     kg.import_data_from_wikidata(**d)
+    wiki_data = [industry, country, isin]
+    for d in wiki_data:
+        kg.import_data_from_wikidata(**d)
     #################  Load DBPedia data #########################
-    # node_label = "Company"
-    # prop_name = "wikidataID"
-    # prop_dbp_id = "owl:sameAs"
-    # new_prop_name = "abstract"
-    # new_prop_dbp_id = "dbo:abstract"
-    # new_prop_is_list: bool = False
-    # kg.import_data_from_dbpedia(node_label=node_label, prop_name=prop_name, prop_dbp_id=prop_dbp_id,
-    #                             new_prop_name=new_prop_name, new_prop_dbp_id=new_prop_dbp_id,
-    #                             new_prop_is_list=new_prop_is_list)
-    # print("Done!")
+    node_label = "Company"
+    prop_name = "wikidataID"
+    prop_dbp_id = "owl:sameAs"
+    new_prop_name = "abstract"
+    new_prop_dbp_id = "dbo:abstract"
+    new_prop_is_list: bool = False
+    kg.import_data_from_dbpedia(node_label=node_label, prop_name=prop_name, prop_dbp_id=prop_dbp_id,
+                                new_prop_name=new_prop_name, new_prop_dbp_id=new_prop_dbp_id,
+                                new_prop_is_list=new_prop_is_list)
+    print("Done!")
     ################# Create text embedding  ####################
     # kg.create_text_embedding(node_label="Company", node_primary_prop_name="LEI", prop_to_embed="abstract")
     # print("Done!")

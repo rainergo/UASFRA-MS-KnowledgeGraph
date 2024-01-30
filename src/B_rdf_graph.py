@@ -3,7 +3,7 @@ import json
 from rdflib import Graph
 from rdflib.namespace import RDFS, RDF, OWL
 
-from settings import path_base
+from settings import path_ontos
 
 
 class RDFGraph:
@@ -262,31 +262,33 @@ class RDFGraph:
 
 if __name__ == '__main__':
     from src.models.Ontologies.onto4.params import unique_node_keys, node_value_props
-    path_to_onto: str = path_base.as_posix() + "/src/models/Ontologies/onto4/Ontology4.ttl"
+    path_to_onto: str = path_ontos.as_posix() + "/onto4/Ontology4.ttl"
     g = RDFGraph(path_to_onto=path_to_onto)
+    # Create query templates:
     constr_queries, node_queries, rel_queries, ns_queries, = g.create_query_templates(unique_node_keys=unique_node_keys,
                                                                                       node_value_props=node_value_props)
-    #  Show all the queries:
+    #  Show all the query templates:
     print('CONSTRAINT_QUERIES:')
-    for item000 in constr_queries:
-        print(item000)
+    for constr in constr_queries:
+        print(constr)
     print('-----')
     print('NAMESPACE_QUERIES:')
-    for item00 in ns_queries:
-        print(item00)
+    for ns in ns_queries:
+        print(ns)
     print('-----')
     print('NODE_QUERIES:')
-    for key, val in node_queries.items():
-        print(key, val)
+    for node_key, node_val in node_queries.items():
+        print(node_key, node_val)
         print('-----')
     print('RELATIONSHIP_QUERIES:')
-    for key, val in rel_queries.items():
-        print(key)
-        print(val)
+    for rel_key, rel_val in rel_queries.items():
+        print(rel_key)
+        print(rel_val)
     print('-----')
     print('NODES_DATA_NEEDED:')
     print(g.nodes_data_needed)
     print('------')
     print('RELS_DATA_NEEDED:')
     print(g.rels_data_needed)
+    # Create the "data_needed" JSON-files and store them in "data_needed"-folder
     g.create_json_files_for_data_needed()

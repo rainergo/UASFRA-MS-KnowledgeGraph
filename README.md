@@ -97,7 +97,7 @@ if __name__ == '__main__':
       - apoc.* (for apoc functions)
       - gds.* (for graph-data-science functions)
 
-   7. If you get an error or any of these three prefixes is missing ("False" in the printout), please go back and check/redo the installation.
+   7. If you get an error or any of these three prefixes is missing ("False" in the printout), please go back and check/redo the settings and the installation.
 
 ***
 
