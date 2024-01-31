@@ -5,6 +5,14 @@ UASFRA-MS-PROJDIGI is a data science project and part of the requirements for th
 The project's goal is to create a [NEO4J Knowledge Graph](https://neo4j.com/) ("KG") populated with [ESG](https://de.wikipedia.org/wiki/Environmental,_Social_and_Governance) data required to be reported by companies due to the [European Sustainability Reporting Standards (ESRS)](https://www.efrag.org/lab6?AspxAutoDetectCookieSupport=1) legislation. 
 
 The programs presented in here are able to create and query such a NEO4J Knowledge Graph using Python.
+
+The entire documentation to this project as PDF can be found [here](https://github.com/rainergo/UASFRA-MS-PROJDIGI/blob/rainer/project/documentation/Documentation.pdf?raw=true).
+
+There are additional READ.md-files concerning the respective sections:
+> - [Research](./research/README-research.md)
+> - [Data](./src/data/README-data.md)
+> - [Model](./src/models/README-models.md)
+
 ***
 ### II. Project structure
 ###### All programs can be executed from the "main.py"-script in the root folder of this project. The "main.py"-script makes use of the following modules in the "src"-folder:
