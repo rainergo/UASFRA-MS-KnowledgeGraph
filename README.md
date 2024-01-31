@@ -62,7 +62,7 @@ Pipfile:
 > - python-dotenv
 > - etc.
 
-##### E. NEO4J settings
+##### E. Check installation and settings
 ###### In order to check if the NEO4J installation succeeded and if Python NEO4J scripts can be executed:
 
    1. Make sure you have adjusted the "$NEO4J_HOME/conf"-files as described in the NEO4J plugins installation instructions.

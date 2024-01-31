@@ -1,12 +1,12 @@
 ## README.md for models
-### A. FOLDER-STRUCTURE:
-### This models-folder contains Ontology-files and accompanying data. There is one ontology used in the project and thus only one ontology folder ("onto4"):
+### I. Files:
+###### The models-folder contains Ontology-files and accompanying data. There is one ontology used in the project and thus only one ontology folder ("onto4"):
     - onto4
         - Ontology4.ttl
         - params
         - data_needed
 
-### Ontology4.ttl
+### A) Ontology4.ttl
 ###### The name of the ontology ("Ontology4") has no special meaning and only reflects the latest version number. The ontology and file was created with the help of the free [Protégé](https://protege.stanford.edu/) tool provided by Stanford University. The file format is Turtle (".ttl"). The ontology can be visually represented:
 
 <img src="./Ontologies/onto4/Ontology4.png" width="200" alt="">
@@ -20,7 +20,7 @@
 
  ---
 
-### params
+### B) params
 ###### For all Nodes in the ontology, the following parameter data needs to be provided:
     - unique_node_keys
     - node_value_props
@@ -83,7 +83,7 @@
                         "Expenditure": "EUR"
                         }
 
-### data_needed
+### C) data_needed
 ###### After extracting ESG data from xbrl-files, the data therein is stored in standardized JSON-files as explained before in the README-data.md-file. Exemplary JSON-files are located in "/src/data/JSONs/" for "Adidas", "BASF" and "Puma". 
 ###### To load this data into the NEO4J Knowledge-Graph, Cypher queries first need to be generated. These Cypher queries must match the ontology represented by the "Ontology4.ttl"-file and must take the Node's peculiarities such as the <u>unique_node_keys</u> and the <u>node_value_props</u> (as described above) into account.
 ###### The Python script "B_rdf_graph.py" does exactly that. When initializing an instance of class "RDFGraph" passing a path to an ontology-file, it parses this ontology file, resolves all (subject-predicate-object) triples in there and builds a graph out of it. Passing the <u>unique_node_keys</u> and the <u>node_value_props</u> to the RDFGraph-method "create_query_templates()" will create four types of Cypher query templates:
@@ -121,7 +121,7 @@
 ###### The "company"-dictionary that replaced the "<HERE_LEI_VALUE>"-, "<HERE_period_VALUE>"- and "<HERE_tonsCO2Eq_VALUE>"-placeholders refer to the deserialized JSON-files such as "Adidas_2022.json", "Adidas_2023.json", etc. depending on which data is loaded.
 ###### To repeat: All JSON-files in the "data_needed" folder must be represented in the "node_template"-list and "relationship_template"-list in the "get_data_dicts()"-method.
 
-### B. LOAD ADDITIONAL DATA:
+### II. LOAD ADDITIONAL DATA:
 ###### Let's assume that not only 21 data points shall be loaded into the Knowledge-Graph, but far more than that. Here is the procedure of how to do that:
 <img src="./Ontologies/onto4/Ontology4.png" width="200" alt="">
 

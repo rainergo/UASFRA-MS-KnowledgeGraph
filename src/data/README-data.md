@@ -4,7 +4,7 @@
     2) "JSONs": JSON-files of company's sample ESG-data that later will be used to populate a NEO4J-Knowledge-Graph
     
 
-### 1) XBRLs:
+### I. XBRLs:
 ##### A) Where to get the files from?
 ###### Companies today already publish their annual or quarterly reports in XBRL-format, but these XBRL-files do not yet contain ESG-data. From 2024 on, this will change as ESRS requires companies whose size exceeds certain thresholds to publish ESG-data in the form of XBRL-files. 
 
@@ -49,7 +49,7 @@
 
  ---
 
-### 2) JSONs:
+### II. JSONs:
 ###### As we wanted to inject some sample ESG data into the Knowledge-Graph, we created some exemplary JSON-files assuming that such files in the course of the year 2024 will be extractable from the to-be-reported XBRL-files (see above). The required ESG data to be reported was outlined by ESMA and published in an Excel table:  [ESRS_Draft_10_2023.xlsx](../../research/ESRS/ESRS_Draft_10_2023.xlsx)
 
 ###### For readability reasons and clarity, we did not want to inject sample data for all to-be-reported data points into the Knowledge-Graph, but only for some of them. We used the following 21 data points:
