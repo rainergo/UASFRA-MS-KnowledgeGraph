@@ -6,7 +6,9 @@ The project's goal is to create a [NEO4J Knowledge Graph](https://neo4j.com/) ("
 
 The programs presented in here are able to create and query such a NEO4J Knowledge Graph using Python.
 
-The entire documentation to this project as PDF can be found [here](https://github.com/rainergo/UASFRA-MS-PROJDIGI/blob/rainer/project/documentation/Documentation.pdf?raw=true).
+The entire documentation to this project in PDF format can be found [here](https://github.com/rainergo/UASFRA-MS-PROJDIGI/blob/rainer/project/documentation/Documentation.pdf?raw=true).
+
+A presentation of the project is available [here](https://github.com/rainergo/UASFRA-MS-PROJDIGI/blob/rainer/project/ProjectPresentation.pdf?raw=true).
 
 There are additional READ.md-files concerning the respective sections:
 > - [Research](./research/README-research.md)
