@@ -222,6 +222,6 @@ if __name__ == '__main__':
     # ask_graph_bot(question=question)
 
     """ 7. GraphQueries: Query NEO4J Graph with Python functions """
-    execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, company=Company.Adidas, periods=['2023', '2022'],
-                          return_df=True, stat=Stats.SUM, esrs_2=ESRS.NetRevenue, comp_prop=CompProp.Industries,
-                          print_queries=True)
+    # execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, company=Company.Adidas, periods=['2023', '2022'],
+    #                       return_df=True, stat=Stats.SUM, esrs_2=ESRS.NetRevenue, comp_prop=CompProp.Industries,
+    #                       print_queries=True)
