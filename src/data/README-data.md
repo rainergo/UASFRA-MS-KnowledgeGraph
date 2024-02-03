@@ -65,3 +65,5 @@
     - Puma_2023.json
 ###### To create such exemplary json-files to be later read into the Knowledge-Graph, the template "templates/template.json" can be used.
 
+The next section is: [Models](../../src/models/README-models.md)
+

@@ -106,7 +106,7 @@ def ask_graph_bot(question: str):
     bot = GraphBot()
     print('QUESTION:\n', question)
     ans = bot.ask_question(question=question)
-    print('ANSWER:\n', ans['result'])
+    print('ANSWER:\n', ans)
 
 
 def execute_graph_queries(esrs_1: ESRS, company: Company, periods: list, return_df: bool,
@@ -190,7 +190,7 @@ if __name__ == '__main__':
 
     """ -----------------------------------  NEO4J ----------------------------------------------- """
     # ## This ttl-file is needed for 1. to 5.:
-    onto_file_path_or_url: str = path_ontos.as_posix() + "/onto4/Ontology4.ttl"
+    # onto_file_path_or_url: str = path_ontos.as_posix() + "/onto4/Ontology4.ttl"
 
     """ 1. Load ontology and show schema of knowledge graph in browser. Please see: README-models.md-file. """
     # load_onto_and_show_schema(onto_file_path_or_url=onto_file_path_or_url, path_is_url=False)
@@ -224,4 +224,4 @@ if __name__ == '__main__':
     """ 7. GraphQueries: Query NEO4J Graph with Python functions """
     execute_graph_queries(esrs_1=ESRS.EmissionsToAirByPollutant, company=Company.Adidas, periods=['2023', '2022'],
                           return_df=True, stat=Stats.SUM, esrs_2=ESRS.NetRevenue, comp_prop=CompProp.Industries,
-                          print_queries=False)
+                          print_queries=True)
