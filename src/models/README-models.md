@@ -141,3 +141,5 @@
             -> Make sure to replace the placeholder "<HERE_label_VALUE>" with the Node name/label of the new data, such as "MyNewScope1GHGEmissionsDataPointName"
 
 ###### That's it! The new data can now be loaded into the Knowledge-Graph. Please see the README.md-file in the root folder of this project.
+
+The next section is: [Modules](../../src/README-modules.md)

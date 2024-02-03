@@ -97,7 +97,7 @@ class GraphQueries:
         return df
 
     def get_esrs_data(self, esrs: ESRS, company: Company or None = None, periods: list or None = None,
-                      return_df: bool = False) -> list[Record] or pd.DataFrame:
+                      return_df: bool = False, limit: int = 10) -> list[Record] or pd.DataFrame:
         check_periods_type(periods=periods)
         where_clause: str = '' if periods is None else f'WHERE target.period IN {periods}'
         company_str: str = '' if company is None else f'{{label: "{company.name}"}}'
@@ -106,54 +106,55 @@ class GraphQueries:
             {where_clause}
             RETURN source.label AS company, target.period AS year, rel.{esrs.value['UNIT']} AS {esrs.value['UNIT']}_{esrs.name}
             ORDER by {esrs.value['UNIT']}_{esrs.name} DESC
+            LIMIT {limit}
             """
         if self.print_queries:
             print(query)
         return self._query_df(query=query) if return_df else self._query(query=query)[0]
 
     def get_statistics_by_company(self, esrs: ESRS, stat: Stats, periods: list or None = None,
-                                  return_df: bool = False) -> list[Record] or pd.DataFrame:
+                                  return_df: bool = False, limit: int = 10) -> list[Record] or pd.DataFrame:
         check_periods_type(periods=periods)
         where_clause: str = '' if periods is None else f'WHERE target.period IN {periods}'
         with_period: str = ', target' if stat in [Stats.MAX, Stats.MIN] else ''
         return_period: str = 'target.period AS year, ' if stat in [Stats.MAX, Stats.MIN] else ''
         sort_order: str = "ASC" if stat == Stats.MIN else "DESC"
-        limit = '' if return_df else 'LIMIT 1'
+        limit_str = f'LIMIT {limit}' if return_df else 'LIMIT 1'
         query = f"""
             MATCH (source:Company)-[rel:{esrs.value['REL']}]->(target:{esrs.value['NODE']} {{label: "{esrs.name}"}})
             {where_clause}
             WITH source, {stat.name}(rel.{esrs.value['UNIT']}) AS {stat.name}_{esrs.name}{with_period}
             RETURN source.label AS company, {return_period} {stat.name}_{esrs.name} 
             ORDER by {stat.name}_{esrs.name} {sort_order}
-            {limit}
+            {limit_str}
             """
         if self.print_queries:
             print(query)
         return self._query_df(query=query) if return_df else self._query(query=query)[0]
 
     def get_statistics_by_esrs_data(self, esrs: ESRS, stat: Stats, periods: list or None = None,
-                                    by_period: bool = False,
-                                    return_df: bool = False) -> list[Record] or pd.DataFrame:
+                                    by_period: bool = False, return_df: bool = False,
+                                    limit: int = 10) -> list[Record] or pd.DataFrame:
         check_periods_type(periods=periods)
         where_clause: str = '' if periods is None else f'WHERE target.period IN {periods}'
         with_period: str = '' if periods is None or not by_period else ', target.period as year'
         return_period: str = '' if periods is None or not by_period else 'year,'
         sort_order: str = "ASC" if stat == Stats.MIN else "DESC"
-        limit = '' if return_df else 'LIMIT 1'
+        limit_str = f'LIMIT {limit}' if return_df else 'LIMIT 1'
         query = f"""
             MATCH (source:Company)-[rel:{esrs.value['REL']}]->(target:{esrs.value['NODE']} {{label: "{esrs.name}"}})
             {where_clause}
             WITH {stat.name}(rel.{esrs.value['UNIT']}) AS {stat.name}_{esrs.name}, target.label AS label{with_period}
             RETURN label, {return_period} {stat.name}_{esrs.name} 
             ORDER by {stat.name}_{esrs.name} {sort_order}
-            {limit}
+            {limit_str}
             """
         if self.print_queries:
             print(query)
         return self._query_df(query=query) if return_df else self._query(query=query)[0]
 
     def get_ratio_of_two_esrs(self, esrs_numerator: ESRS, esrs_denominator: ESRS, company: Company or None = None,
-                              periods: list or None = None, return_df: bool = False, stat: Stats = None):
+                              periods: list or None = None, return_df: bool = False, stat: Stats = None, limit: int = 10):
         check_periods_type(periods=periods)
         if stat is not None:
             periods = check_periods_length_and_order(periods=periods)
@@ -167,6 +168,7 @@ class GraphQueries:
         WHERE target_1.period = target_2.period{period_str}
         RETURN {return_label}target_1.period AS year, toFloat( {stat_str}(rel_numerator.{esrs_numerator.value['UNIT']}) / {stat_str}(rel_denominator.{esrs_denominator.value['UNIT']}) ) AS ratio{'_' + stat_str if stat_str != '' else ''}_{esrs_numerator.name}_to{'_' + stat_str if stat_str != '' else ''}_{esrs_denominator.name}
         ORDER BY ratio{'_' + stat_str if stat_str != '' else ''}_{esrs_numerator.name}_to{'_' + stat_str if stat_str != '' else ''}_{esrs_denominator.name} DESC
+        LIMIT {limit}
         """
         if self.print_queries:
             print(query)
@@ -174,7 +176,7 @@ class GraphQueries:
 
     def get_difference_of_two_periods(self, esrs: ESRS, periods: list,
                                       company: Company or None = None, stat: Stats = None,
-                                      return_df: bool = False):
+                                      return_df: bool = False, limit: int = 10):
         check_periods_type(periods=periods)
         periods = check_periods_length_and_order(periods=periods, required_len=2)
         company_str: str = '' if company is None else f'{{label: "{company.name}"}}'
@@ -187,18 +189,20 @@ class GraphQueries:
         RETURN {return_label}( {stat_str}(rel_2.{esrs.value['UNIT']}) - {stat_str}(rel_1.{esrs.value['UNIT']}) ) AS diff{'_' + stat_str if stat_str != '' else ''}_{esrs.value['UNIT']}_{periods[1]}_to_{periods[0]},
         round( toFloat( toFloat( {stat_str}(rel_2.{esrs.value['UNIT']}) - {stat_str}(rel_1.{esrs.value['UNIT']}) ) / {stat_str}(rel_1.{esrs.value['UNIT']}) ), 5) AS change{'_' + stat_str if stat_str != '' else ''}_pct_{periods[1]}_to_{periods[0]}
         ORDER BY diff{'_' + stat_str if stat_str != '' else ''}_{esrs.value['UNIT']}_{periods[1]}_to_{periods[0]} DESC
+        LIMIT {limit}
         """
         if self.print_queries:
             print(query)
         return self._query_df(query=query) if return_df else self._query(query=query)[0]
 
     def get_esrs_by_company_property(self, esrs: ESRS, comp_prop: CompProp, periods: list, stat: Stats = None,
-                                     return_df: bool = False):
+                                     return_df: bool = False, limit: int = 10):
         check_periods_type(periods=periods)
         stat_str: str = stat.name if stat is not None else ''
         var_name: str = f'{(stat_str + "_") if stat else ""}{esrs.name}{ "_" + "_".join(sorted(periods))} '
         return_str_1: str = f', source.label AS company' if stat is None else ''
-        return_str_2: str = f', {stat_str}(rel.{esrs.value["UNIT"]}) {"AS " + var_name}'
+        return_str_2: str = f', target.period AS year' if stat is None else ''
+        return_str_3: str = f', {stat_str}(rel.{esrs.value["UNIT"]}) {"AS " + var_name}'
         query = f"""
         MATCH (source:Company) 
         UNWIND source.{comp_prop.value} AS colls 
@@ -206,8 +210,9 @@ class GraphQueries:
         UNWIND colls AS coll
         MATCH (source:Company)-[rel:{esrs.value['REL']}]->(target:{esrs.value['NODE']} {{label: "{esrs.name}"}}) 
         WHERE coll in source.{comp_prop.value} AND target.period in {periods}
-        RETURN coll{return_str_1}{return_str_2}
+        RETURN coll{return_str_1}{return_str_2}{return_str_3}
         ORDER by {var_name} DESC
+        LIMIT {limit}
         """
         if self.print_queries:
             print(query)

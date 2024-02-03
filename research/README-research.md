@@ -104,3 +104,5 @@ This README explains some files in the "research"-folder.
 
 ### Knowledge Graphs
 ###### We collected some sources to learn about knowledge graphs, which are listed in the "LINKS"-file. A good resource for the most widely used knowledge graph software "NEO4J" and its proprietary query language [Cypher](https://en.wikipedia.org/wiki/Cypher_(query_language)) can be found in the freely downloadable O'Reilly book [Graph Databases](https://neo4j.com/graph-databases-book/).
+
+The next section is: [Data](../src/data/README-data.md)
