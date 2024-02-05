@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 
 from langchain.chains import GraphCypherQAChain
 from langchain_openai.chat_models import ChatOpenAI
-from langchain.prompts.prompt import PromptTemplate
-from langchain.graphs import Neo4jGraph
+from langchain_core.prompts.prompt import PromptTemplate
+from langchain_community.graphs import Neo4jGraph
 
 from settings import path_base
 
@@ -199,7 +199,7 @@ class GraphBot:
     def ask_question(self, question: str):
         prompt = self.create_prompt()
         chain = self.create_chain(prompt=prompt)
-        answer = chain.invoke(question)
+        answer = chain.invoke(question)['result']
         return answer
 
 
