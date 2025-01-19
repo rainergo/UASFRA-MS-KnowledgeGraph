@@ -4,9 +4,11 @@ UASFRA-MS-KnowledgeGraph is a data science project and part of the requirements 
 
 The project's goal is to create a [NEO4J Knowledge Graph](https://neo4j.com/) ("KG") populated with [ESG](https://de.wikipedia.org/wiki/Environmental,_Social_and_Governance) data required to be reported by companies due to the [European Sustainability Reporting Standards (ESRS)](https://www.efrag.org/lab6?AspxAutoDetectCookieSupport=1) legislation. 
 
+The reported ESG data is extracted from XBRL-files as part of this project.
+
 The programs presented in here are able to create and query such a NEO4J Knowledge Graph using Python.
 
-The documentation and presentation to this project are avaialable [here](https://github.com/rainergo/Fileserver/blob/master/Documentation.pdf?raw=true) and [here](https://github.com/rainergo/Fileserver/blob/master/ProjectPresentation.pdf?raw=true).
+The documentation and presentation to this project are avaialable [here](./project/documentation/UASFRA-MS-KnowledgeGraph-Documentation.pdf) and [here](./project/UASFRA-MS-KnowledgeGraph-ProjectPresentation.pdf).
 
 There are additional READ.md-files concerning the respective sections:
 > - [Research](./research/README-research.md)
