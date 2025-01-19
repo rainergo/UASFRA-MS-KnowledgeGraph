@@ -8,6 +8,8 @@ The reported ESG data is extracted from XBRL-files as part of this project.
 
 The programs presented in here are able to create and query such a NEO4J Knowledge Graph using Python.
 
+The Knowledge Graph can be queried with Python functions or a OpenAI-attached chat bot.
+
 The documentation and presentation to this project are avaialable [here](./project/documentation/UASFRA-MS-KnowledgeGraph-Documentation.pdf) and [here](./project/UASFRA-MS-KnowledgeGraph-ProjectPresentation.pdf).
 
 There are additional READ.md-files concerning the respective sections:
